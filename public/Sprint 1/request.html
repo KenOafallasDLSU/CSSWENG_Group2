@@ -30,7 +30,7 @@
         background-color: #45a049;
       }
 
-      .container {
+      .container-form {
         border-radius: 5px;
         background-color: #f2f2f2;
         padding: 20px;
@@ -45,30 +45,50 @@
         </div>
     </nav>
     
-    <div class="container">
-    <form action="action_page.php">
+    <div class="container-fluid">
+      <div class="row p-2 border-bottom">
+        <div class="col-10 col-sm-10">
+            <small>
+                Logged in as Student Representative
+            </small>
+        </div>
+        <div class="col-2 col-sm-2">
+            <button type="submit" id="###" class="btn btn-outline-success btn-sm">Time-in</button>
+        </div>
+      </div>
+      
+      <div class="row p-2">
+        <div class="col-2 col-sm-2">
+            <nav class="nav flex-column justify-content-center">
+                <a class="nav-link active" href="#">Profile</a>
+                <a class="nav-link" href="#">Records</a>
+                <a class="nav-link" href="#">Request</a>
+                <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
+                <a class="nav-link" href="#">Logout</a>
+            </nav>
+        </div>
 
-        <label for="fname"> Name</label>
-        <input type="text" id="fname" name="firstname" placeholder="Your name..">
-
-
-        <label for="country"> Type of Request</label>
-        <select id="type" name="type">
-          <option value="retroactive">Retroactive Time-in Request</option>
-
-          <!--        in case of other type of request-->
-          <option value="second">###</option>  
-          <option value="third">###</option>
-        </select>
-
-        <label for="request">Request</label>
-        <textarea id="request" name="request" placeholder=" " style="height:200px"></textarea>
-
-        <input type="submit" value="Submit">
-
-    </form>
-</div>
-  
+        <div class="col-9 col-sm-9 container-form">      
+          <!-- Request Form -->
+          <form action="action_page.php">
+              <label for="fname">Name</label>
+              <input type="text" id="###" name="###" placeholder="Your name..">
+              
+              <label for="country">Type of Request</label>
+              <select id="type" name="type">
+                  <option value="retroactive">Retroactive Time-in Request</option>
+                  <!--        in case of other type of request-->
+                  <option value="second">###</option>  
+                  <option value="third">###</option>
+              </select>
+              
+              <label for="request">Request</label>
+              <textarea id="request" name="request" placeholder=" " style="height:200px"></textarea>
+              <input type="submit" id = "###" value="Submit">
+          </form>
+        </div>   
+      </div>
+    </div>
         
     <!-- Bs4 -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
