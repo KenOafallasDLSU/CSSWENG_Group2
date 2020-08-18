@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Analytics | Office of Counseling and Career Services</title>
+</head>
+<body>
+    <!-- header | navbar -->
+    <nav class="navbar navbar-light" style="background-color: rgb(88, 182, 116);">
+        <!-- Navbar content -->
+        <div class="row align-items-center justify-content-center" style="width: 75px; height: 75px;">
+            OCCS Logo
+        </div>
+    </nav>
+    
+    <div class="container-fluid">
+        <div class="row p-2 border-bottom">
+            <div class="col-10 col-sm-10">
+                <small>
+                    Logged in as Career Unit Head
+                </small>
+            </div>
+        </div>
+        
+        <div class="row p-2">
+            <div class="col-2 col-sm-2">
+                <nav class="nav flex-column justify-content-center">
+                    <a class="nav-link active" href="#">Profile</a>
+                    <a class="nav-link" href="#">Records</a>
+                    <a class="nav-link" href="#">Request</a>
+                    <a class="nav-link" href="#">View Analytics</a>
+                    <a class="nav-link" href="#">Logout</a>
+                </nav>
+            </div>
+
+            <div class="col-9 col-sm-9 container-form">      
+                <div class="row">
+                    <form name="register" id="register" method="POST">
+                        <!-- Type of Analytics -->
+                        <div class="form-row">
+                            <div class="form-group col-sm-12 input-group">
+                                <label for="country">Select Student Representative</label>
+                                <div class="p-1">
+                                    <select id="type" name="type">
+                                        <option value="retroactive">Bob Patrick</option>
+                                        <option value="retroactive">##############</option>
+                                        <option value="retroactive">##############</option>
+                                        <option value="retroactive">##############</option>
+                                        <option value="retroactive">##############</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Start Date -->
+                        <div class="form-row">
+                            <label for="startdate">Start Date</label>
+                            <input type="date" name="sStartdate" id="sStartdate" class="form-control" placeholder="sStartdate">
+                        </div>
+
+                        <!-- End Date -->
+                        <div class="form-row">
+                            <label for="enddate"> End Date</label>
+                            <input type="date" name="sEnddate" id="sEnddate" class="form-control" placeholder="sEnddate">           
+                        </div>
+
+                        <!-- Submit button -->
+                        <div class="form-row">
+                            <div class="form-group col-sm-12">
+                                <button type="submit" id="###" class="btn btn-md btn-success btn-sm">View Analytics</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="row">
+                    <!-- insert analytics table here -->
+                </div>
+            </div>   
+        </div>
+    </div>
+        
+    <!-- Bs4 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+</body>
+</html>
