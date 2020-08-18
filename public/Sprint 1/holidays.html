@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Holidays | Office of Counseling and Career Services</title>
+    
+    <style>
+        
+        table {
+            border-collapse: collapse;
+            width: 1000px;
+            border: 1px solid black;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
+             
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- header | navbar -->
+    <nav class="navbar navbar-light" style="background-color: rgb(88, 182, 116);">
+        <!-- Navbar content -->
+        <div class="row align-items-center justify-content-center" style="width: 75px; height: 75px;">
+            OCCS Logo
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row p-2 border-bottom">
+            <div class="col-10 col-sm-10">
+                <small>
+                    Logged in as Career Unit Head
+                </small>
+            </div>
+        </div>
+        <div class="row justify-content">
+            <div class="col-2 col-sm-2">
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="#">Profile</a>
+                    <a class="nav-link " href="#">Records</a>
+                    <a class="nav-link" href="#">Request</a>
+                    <a class="nav-link" href="#">View Analytics</a>
+                    <a class="nav-link" href="#">Manage Accounts</a>
+                    <a class="nav-link" href="#">Send Notification</a>
+                    <a class="nav-link Active" href="#">Holidays</a>
+                    <a class="nav-link" href="#">Logout</a>
+                </nav>
+            </div>   
+            <div class="container col-9 col-sm-9">
+                <div class="row p-1">
+                    <form name="###" id="###" method="POST">
+                        <!-- Type of Analytics -->
+                        <div class="form-row">
+                            <!-- Date -->
+                            <div class="form-row">
+                                <div class="form-group col-sm-12 input-group">
+                                    <label for="enddate">Enter New Holiday</label>
+                                    <div class="p-1">
+                                        <input type="date" name="sHolidayDate" id="sHolidayDate" class="form-control" placeholder="...">
+                                    </div>  
+                                </div>         
+                            </div>
+                            
+                            <!-- Name of Event -->
+                            <div class="form-row">
+                                <div class="form-group col-sm-12 input-group">
+                                    <label for="enddate">Enter Name of Event</label>
+                                    <div class="p-1">
+                                        <input type="text" name="sHoliday" id="sHoliday" class="form-control" placeholder="...">
+                                    </div> 
+                                </div>          
+                            </div>
+
+                            <!-- Submit button -->
+                            <div class="form-row">
+                                <div class="form-group col-sm-12">
+                                    <button type="submit" id="###" class="btn btn-md btn-success btn-sm">Add Holiday</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="row p-1">
+                    <table class="table table-striped">
+                        <thead class="thread-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Event</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>06-06-2020</td>
+                                <td>Buwan ng Wika Celebration</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>06-06-2020</td>
+                                <td>Buwan ng Wika Celebration</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>06-06-2020</td>
+                                <td>Buwan ng Wika Celebration</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>    
+        
+    <!-- Bs4 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+</body>
+</html>
