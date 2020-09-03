@@ -1,17 +1,42 @@
 const express = require("express");
 const hbs = require("hbs");
 
-/********* Routing *********/
-const indexRoutes = require('./router/indexRoutes');
+const index = express();
+
+const port = 3000;
+
+/**** Partials ****/
+hbs.registerPartials(__dirname+ "/views/partials");
+
+index.set("view engine", "hbs");
 
 /********* Routing *********/
-app.use('/', indexRoutes);
+const indexRoutes = require('./router/indexRoutes');
+const profileRoutes = require('./router/profileRoutes');
+const recordsRoutes = require('./router/recordsRoutes');
+const sendRequestRoutes = require('./router/sendRequestRoutes');
+const pendingRequestsRoutes = require('./router/pendingRequestsRoutes');
+const viewAnalyticsRoutes = require('./router/viewAnalyticsRoutes');
+const manageAccountsRoutes = require('./router/manageAccountsRoutes');
+const sendNotificationRoutes = require('./router/sendNotificationRoutes');
+const holidaysRoutes = require('./router/holidaysRoutes');
+
+/********* Routing *********/
+index.use('/', indexRoutes); //logout will also be directed here
+index.use('/profile', profileRoutes);
+index.use('/records', recordsRoutes);
+index.use('/send-request', sendRequestRoutes);
+index.use('/pending-request', pendingRequestsRoutes);
+index.use('/view-analytics', viewAnalyticsRoutes);
+index.use('/manage-accounts', manageAccountsRoutes);
+index.use('/send-notification', sendNotificationRoutes);
+index.use('/holidays', holidaysRoutes);
 
 /** Helper Functions **/
 hbs.registerHelper("navBuilder", (sPage, sUserType)=>{
     let element = '';
     let navs = ['Dashboard', 'Profile', 'Records', 'Send Request', 'Pending Requests', 'View Analytics', 'Manage Accounts', 'Send Notification','Holidays', 'Logout'];
-    let url = ['/dashboard', '/profile', '/records', '/send-request', '/pending-requests', '/view-analytics', '/manage-accounts', '/send-notification','/holidays', '/logout'];
+    let url = ['/', '/profile', '/records', '/send-request', '/pending-requests', '/view-analytics', '/manage-accounts', '/send-notification','/holidays', '/logout'];
     let visible = [];
 
     if (sUserType === 'Student Representative'){
@@ -40,6 +65,10 @@ hbs.registerHelper("navBuilder", (sPage, sUserType)=>{
 });
 
 /** Server online **/
-app.listen(process.env.PORT, process.env.LOCAL_ADDRESS, ()=>{
+index.listen(port, function()
+{
     console.log("Server ready.");
 });
+// app.listen(process.env.PORT, process.env.LOCAL_ADDRESS, ()=>{
+//     console.log("Server ready.");
+// });
