@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile | Office of Counseling and Career Services</title>
-</head>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    </head>
 <body>
     <!-- header | navbar -->
     <nav class="navbar navbar-light" style="background-color: rgb(88, 182, 116);">
@@ -31,106 +34,81 @@
                     <a class="nav-link active" href="#">Profile</a>
                     <a class="nav-link" href="#">Records</a>
                     <a class="nav-link" href="#">Request</a>
-                    <a class="nav-link" href="#">View Analytics</a>
+                    <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
                     <a class="nav-link" href="#">Logout</a>
                 </nav>
             </div>   
             <div class="col-8 col-sm-8">
                 <form name="login" id="login" method="POST">
-                    <!-- First Name -->
+                    <!-- Name -->
                     <div class="form-row">
-                        <div class="form-group col-md-6 input-group">
+                        <div class="form-group col-sm-6 input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    ###
+                                   <i class="fa fa-user icon"></i>
                                 </span>
                             </div>
                             <label for="sFirstName" class="sr-only">First Namer</label>
-                            <div class="p-1">
-                                <input type="text" name="sFirstName" id="sFirstName" readonly class="form-control-plaintext" placeholder="First Name">
-                            </div>
+                            <input type="text" name="sFirstName" id="sFirstName" class="form-control" placeholder="First Name">
                         </div>
-                    </div>
-
-                    <!-- Last Name -->
-                    <div class="form-row">
-                        <div class="form-group col-md-6 input-group">
+                        <div class="form-group col-sm-6 input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    ###
+                                     <i class="fa fa-user icon"></i>
                                 </span>
                             </div>
                             <label for="sLastName" class="sr-only">Last Name</label>
-                            <div class="p-1">
-                                <input type="text" name="sLastName" id="sLastName" readonly class="form-control-plaintext" placeholder="Last Name">
-                            </div>
+                            <input type="text" name="sLastName" id="sLastName" class="form-control" placeholder="Last Name">
                         </div>
                     </div>
     
-                    <!-- Email -->
                     <div class="form-row">
-                        <div class="form-group col-md-7 input-group">
+                        <div class="form-group col-sm-7 input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     @
                                 </span>
                             </div>
                             <label for="sEmail" class="sr-only">Email</label>
-                            <div class="p-1">
-                                <input type="email" name="sEmail" id="sEmail" readonly class="form-control-plaintext" placeholder="Email Address">
-                            </div>
+                            <input type="email" name="sEmail" id="sEmail" class="form-control" placeholder="Email Address">
                         </div>
-                    </div>
-
-                    <!-- Degree Program -->
-                    <div class="form-row">
-                        <div class ="form-group col-md-5 input-group">
+                        <div class ="form-group col-sm-5 input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    ###
+                                    <i class="far fa-address-card"></i> 
                                 </span>
                             </div>
                             <label for="sEmail" class="sr-only">Degree Program</label>
-                            <div class="p-1">
-                                <input type="email" name="sEmail" id="sEmail" readonly class="form-control-plaintext" placeholder="Degree Program">
-                            </div>
+                            <input type="email" name="sEmail" id="sEmail" class="form-control" placeholder="Degree Program">
                         </div>
                     </div>
     
-                    <!-- ID Number-->
+                    <!-- ID Number & Degree Program -->
                     <div class="form-row">
-                        <div class="form-group col-md-5 input-group">
+                        <div class="form-group col-sm-5 input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    @
+                                      <i class="far fa-address-card"></i> 
                                 </span>
                             </div>
                             <label for="nIDNumber" class="sr-only">ID Number</label>
-                            <div class="p-1">
-                                <input type="number" name="nIDNumber" id="nIDNumber" readonly class="form-control-plaintext" placeholder="ID Number">
-                            </div>
+                            <input type="number" name="nIDNumber" id="nIDNumber" class="form-control" placeholder="ID Number">
                         </div>
-                    </div>
-
-                    <!-- Birthday -->
-                    <!-- ID Number-->
-                    <div class="form-row">
-                        <div class="form-group col-md-7 input-group">
+                        
+                        <div class="form-group col-sm-7 input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    ###
+                                     <i class="fas fa-birthday-cake icon"></i>
                                 </span>
                             </div>
                             <label for="sBirthdate" class="sr-only">Birthday</label>
-                            <div class="p-1">
-                                <input type="date" name="sBirthdate" id="sBirthdate" readonly class="form-control-plaintext" placeholder="Birthday">
-                            </div>
+                            <input type="date" name="sBirthdate" id="sBirthdate" class="form-control" placeholder="Birthday">
                         </div>
                     </div>
                     
                     <!-- Submit button -->
                     <div class="form-row">
-                        <div class="form-group col-md-8">
+                        <div class="form-group col-sm-10">
                             <button type="submit" id="btnUpdateProfile" class="btn btn-md btn-success btn-block">Update Profile</button>
                         </div>
                     </div>
@@ -143,7 +121,8 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
+    </script>
 
 </body>
 </html>
