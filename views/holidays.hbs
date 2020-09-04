@@ -35,11 +35,11 @@
         {{>subHeader}}
 
         <div class="row justify-content">
-            {{>navvfvvvvvvvvvvvvvvvvvvvvvv}}  
+            {{>navBar}}  
             <div class="container col-9 col-sm-9">
                 <div class="row p-1">
                     <form name="###" id="###" method="POST">
-                        <!-- Type of Analytics -->
+                        <!-- Add Holiday Form -->
                         <div class="form-row">
                             <!-- Date -->
                             <div class="form-row">
@@ -61,7 +61,7 @@
                                 </div>          
                             </div>
 
-                            <!-- Submit button -->
+                            <!-- Add Holiday button -->
                             <div class="form-row">
                                 <div class="form-group col-sm-12">
                                     <button type="submit" id="btnAddHoliday" class="btn btn-md btn-success btn-sm">Add Holiday</button>
@@ -80,13 +80,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{each ###}}
+                            {{#each ###}}
                                 <tr>
                                     <th scope="row">1</th>
                                     <td>{{sHolidayDate}}</td>
-                                    <td>{{sHoliday}}}</td>
+                                    <td>{{sHoliday}}</td>
                                 </tr>
-                            {{"closier"}}
+                            {{/each}}
                         </tbody>
                     </table>
                 </div>
