@@ -9,14 +9,14 @@ mongoose.connect(databaseURL, options);
 
 const TimeRequestSchema = new mongoose.Schema(
     {
-        SRep: {type: mongoose.Schema.Types.ObjectId, ref: "SRep", required: true},
+        objSRep: {type: mongoose.Schema.Types.ObjectId, ref: "SRep", required: true},
 
-        timeIn: {type: Date, required: true},
-        timeOut: {type: Date, required: true},
-        task: {type: String, required: true},
+        objTimeIn: {type: Date, required: true},
+        objTimeOut: {type: Date, required: true},
+        sTask: {type: String, required: true},
 
-        reason: {type: String, required: true},
-        status: {type: String, required: true, enum: ["A", "P", "R"], default: "P"}
+        sReason: {type: String, required: true},
+        cStatus: {type: String, required: true, enum: ["A", "P", "R"], default: "P"}
     },
     {
         toObject: { virtuals: true },

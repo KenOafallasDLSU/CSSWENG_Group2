@@ -9,8 +9,8 @@ mongoose.connect(databaseURL, options);
 
 const SuspensionSchema = new mongoose.Schema(
     {
-        date: {type: Date, required: true},
-        reason: {type: String, required: true}
+        objDate: {type: Date, required: true},
+        sReason: {type: String, required: true}
     },
     {
         toObject: { virtuals: true },

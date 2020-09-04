@@ -9,11 +9,11 @@ mongoose.connect(databaseURL, options);
 
 const TimeLogSchema = new mongoose.Schema(
     {
-        SRep: {type: mongoose.Schema.Types.ObjectId, ref: "SRep", required: true},
+        objSRep: {type: mongoose.Schema.Types.ObjectId, ref: "SRep", required: true},
 
-        timeIn: {type: Date, required: true, default: new Date()},
-        timeOut: {type: Date, required: false},
-        task: {type: String, required: false}
+        objTimeIn: {type: Date, required: true, default: new Date()},
+        objTimeOut: {type: Date, required: false},
+        sTask: {type: String, required: false}
     },
     {
         toObject: { virtuals: true },

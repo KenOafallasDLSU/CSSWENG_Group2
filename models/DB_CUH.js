@@ -9,12 +9,12 @@ mongoose.connect(databaseURL, options);
 
 const CUHSchema = new mongoose.Schema(
     {
-        username: {type: String, required: true},
-        password: {type: String, required: true},
-        firstName: {type: String, required: true},
-        lastName: {type: String, required: true},
+        sUsername: {type: String, required: true},
+        sPassword: {type: String, required: true},
+        sFirstName: {type: String, required: true},
+        sLastName: {type: String, required: true},
 
-        email: {type: String, required: true}
+        sEmail: {type: String, required: true}
     },
     {
         toObject: { virtuals: true },
