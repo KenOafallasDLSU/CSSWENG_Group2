@@ -1,5 +1,10 @@
 const indexController = {
     getDashboard: function (req, res) {
-        // insert stuff
+        res.render("dashboard", {
+            sPage: "Dashboard",
+            sUserType: "Student Representative",
+        })
     }
 }
+
+module.exports = indexController;

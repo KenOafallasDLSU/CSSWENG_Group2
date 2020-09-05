@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Manage Accounts | Office of Counseling and Career Services</title>
+</head>
+<body>
+      <!-- header | navbar -->
+    {{>header}}
+    <div class="container-fluid">
+        {{>subHeader}}
+
+        <div class="row justify-content">
+            {{>navBar}}  
+
+            <div class="col-10 col-sm-10 container-form">
+                
+                <!-- CREATE CUH ACCESS MODAL -->
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createCUHModal">
+                    Create CUH Account
+                </button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="createCUHModal" tabindex="-1" aria-labelledby="createCUHModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel" style=" color: rgb(88, 182, 116)">
+                            Create CUH Account
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- create CUH account -->
+                            <div>
+                                <div class="row">
+                                    
+                                </div>
+                                <div class="row">
+                                    <form name="manageAccount" id="frmManangeAccount" method="POST">
+                                        <!-- Name -->
+                                        <div class="form-row">
+                                            <div class="form-group col-sm-12 input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-user icon"></i>
+                                                    </span>
+                                                </div>
+                                                <label for="sFirstName" class="sr-only">First Namer</label>
+                                                
+                                                <input type="text" name="sFirstName" id="sFirstName" class="form-control" placeholder="First Name">
+                                            </div>
+                                            <div class="form-group col-sm-12 input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-user icon"></i>
+                                                    </span>
+                                                </div>
+                                                <label for="sLastName" class="sr-only">Last Name</label>
+                                                <input type="text" name="sLastName" id="sLastName" class="form-control" placeholder="Last Name">
+                                            </div>
+                                        </div>
+                        
+                                        <div class="form-row">
+                                            <div class="form-group col-sm-12 input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                    @
+                                                    </span>
+                                                </div>
+                                                <label for="sEmail" class="sr-only">Email</label>
+                                                <input type="email" name="sEmail" id="sEmail" class="form-control" placeholder="Email Address">
+                                            </div>
+                                        </div>
+                        
+                                    
+                                        
+                                        <div class="form-row">
+                                            <div class ="form-group col-sm-12 input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="far fa-address-card"></i> 
+                                                    </span>
+                                                </div>
+                                                <label for="nIDNumber" class="sr-only">ID Number</label>
+                                                <input type="number" name="nIDNumber" id="nIDNumber" class="form-control" placeholder="ID Number">
+                        
+                                        
+                                            </div>
+                                        </div>
+                        
+                        
+                                        <!-- Password -->
+                                        <div class="form-row">
+                                            <div class="form-group col-sm-12 input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-key icon"></i>
+                                                    </span>
+                                                </div>
+                                                <label for="password" class="sr-only">Password</label>
+                                                <input type="password" name="sPassword" id="sPassword" class="form-control" placeholder="Password">
+                                            </div>
+                                            <div class="form-group col-sm-12 input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-key icon"></i>
+                                                    </span>
+                                                </div>
+                                                <label for="password" class="sr-only">Confirm Password</label>
+                                                <input type="password" name="sConfirmPassword" id="sConfirmPassword" class="form-control" placeholder="Confirm Password">
+                                            </div>
+                                        </div>
+                        
+                                        <!-- Submit button -->
+                                        <div class="form-row">
+                                            <div class="form-group col-sm-12">
+                                                <button type="submit" id="btnSubmit" class="btn btn-md btn-success " data-dismiss="modal"> Create</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div> -->
+                    </div>
+                    </div>
+                </div>
+                
+                <!-- GRANT HR ACCESS MODAL -->
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#grantHRAccessModal">
+                    Grant HR Access
+                </button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="grantHRAccessModal" tabindex="-1" aria-labelledby="grantHRAccessModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel" style=" color: rgb(88, 182, 116)">
+                            Grant HR Access to Student Representative
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- create CUH account -->
+                            <div>
+                                <div class="row">
+                                    
+                                </div>
+                                <div class="row justify-content-center">
+                                    <form name="###" id="###" method="POST">
+                                        <!-- Select Student Representative -->
+                                        <div class="form-row">
+                                            <div class="form-group col-sm-12 input-group">
+                                                <label for="country">Select Student Representative</label>
+                                                <div class="p-1">
+                                                    <select id="type" name="type">
+                                                        <option value="retroactive">Bob Patrick</option>
+                                                        <option value="retroactive">##############</option>
+                                                        <option value="retroactive">##############</option>
+                                                        <option value="retroactive">##############</option>
+                                                        <option value="retroactive">##############</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                        
+                                        <!-- Submit button -->
+                                        <div class="form-row">
+                                            <div class="form-group col-sm-12">
+                                                <button type="submit" id="btnSubmit" class="btn btn-md btn-success " data-dismiss="modal">Update</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            
+                <!-- REVOKE HR ACCESS MODAL -->
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#revokeHRAccessModal">
+                    Revoke HR Access
+                </button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="revokeHRAccessModal" tabindex="-1" aria-labelledby="revokeHRAccessModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel" style=" color: rgb(88, 182, 116)">
+                            Revoke HR Access to Student Representative
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- create CUH account -->
+                            <div>
+                                <div class="row">
+                                    
+                                </div>
+                                <div class="row justify-content-center">
+                                    <form name="selectStudentRepresentative" id="frmSelectStudentRepresentative" method="POST">
+                                        <!-- Select Student Representative -->
+                                        <div class="form-row">
+                                            <div class="form-group col-sm-12 input-group">
+                                                <label for="country">Select Student Representative</label>
+                                                <div class="p-1">
+                                                    <select id="type" name="type">
+                                                        <option value="retroactive">Maria Leonora Teresa</option>
+                                                        <option value="retroactive">##############</option>
+                                                        <option value="retroactive">##############</option>
+                                                        <option value="retroactive">##############</option>
+                                                        <option value="retroactive">##############</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                        
+                                        <!-- Submit button -->
+                                        <div class="form-row">
+                                            <div class="form-group col-sm-12">
+                                                <button type="submit" id="###" class="btn btn-md btn-success" data-dismiss="modal">Update</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>   
+            
+        </div>
+    </div>
+        
+    <!-- Bs4 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <!-- additions -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>
