@@ -20,6 +20,8 @@ const viewAnalyticsRoutes = require('./router/viewAnalyticsRoutes');
 const manageAccountsRoutes = require('./router/manageAccountsRoutes');
 const sendNotificationRoutes = require('./router/sendNotificationRoutes');
 const holidaysRoutes = require('./router/holidaysRoutes');
+const registerRoutes = require('./router/registerRoutes');
+const recordsCUHRoutes = require('./router/recordsCUHRoutes');
 
 /********* Routing *********/
 index.use('/', indexRoutes); //logout will also be directed here
@@ -31,6 +33,8 @@ index.use('/view-analytics', viewAnalyticsRoutes);
 index.use('/manage-accounts', manageAccountsRoutes);
 index.use('/send-notification', sendNotificationRoutes);
 index.use('/holidays', holidaysRoutes);
+index.use('/register', registerRoutes);
+index.use('/recordsCUH', recordsCUHRoutes);
 
 /** Helper Functions **/
 hbs.registerHelper("navBuilder", (sPage, sUserType)=>{
