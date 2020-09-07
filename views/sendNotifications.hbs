@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Send Notification | Office of Counseling and Career Services</title>
+    <title> Send Notifications | Office of Counseling and Career Services</title>
 </head>
 <body>
     {{>header}}
@@ -16,11 +16,20 @@
 
             <div class="col-10 col-sm-10 container-form d-flex justify-content-center">
                 
-                <!-- SEND TOTALRESIDENCY HOURS MODAL -->
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createCUHModal">
-                    Send Total Residency Hours
-                </button>
+                <div class="p-2 row d-flex justify-content-center">
+                    <!-- SEND TOTALRESIDENCY HOURS MODAL -->
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createCUHModal">
+                        Send Total Residency Hours
+                    </button>
+                </div>
+                <div class="p-2 row d-flex justify-content-center">
+                    <!-- CUSTOM ANNOUNCEMENT MODAL -->
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#customAnnouncementModal">
+                        Custom Announcement
+                    </button>
+                </div>
                 
                 <!-- Modal -->
                 <div class="modal fade" id="createCUHModal" tabindex="-1" aria-labelledby="createCUHModalLabel" aria-hidden="true">
@@ -38,18 +47,17 @@
                             <!-- Send Total Residency Hours -->
                             <div>
                                 <div class="row">
-                                    <form name="###" id="###" method="POST">
+                                    <form name="frmSendTotalResidencyHours" id="###" method="POST">
                                         <!-- Select Student Representative -->
                                         <div class="form-row">
                                             <div class="form-group col-sm-12 input-group">
                                                 <label for="country">Select Student Representative</label>
                                                 <div class="p-1">
                                                     <select id="type" name="type">
-                                                        <option value="retroactive">All</option>
-                                                        <option value="retroactive">Bob Patrick</option>
-                                                        <option value="retroactive">Maria Leonora Teresa</option>
-                                                        <option value="retroactive">Juan Dela Cruz</option>
-                                                        <option value="retroactive">##############</option>
+                                                        <option value="sStudentRepresentative">All</option>
+                                                        {{#each arrStudentRepresentative}}
+                                                            <option value="sStudentRepresentative">{{sFirstName}} {{sLastName}}</option>
+                                                        {{/each}}
                                                     </select>
                                                 </div>
                                             </div>
@@ -61,9 +69,9 @@
                                                 <label for="country">Select Latest Report</label>
                                                 <div class="p-1">
                                                     <select id="type" name="type">
-                                                        <option value="retroactive">Week</option>
-                                                        <option value="retroactive">Month</option>
-                                                        <option value="retroactive">Term</option>
+                                                        <option value="sLatestReport">Week</option>
+                                                        <option value="sLatestReport">Month</option>
+                                                        <option value="sLatestReport">Term</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -72,7 +80,7 @@
                                         <!-- Submit button -->
                                         <div class="form-row justify-content-center">
                                             <div class="form-group col-sm-12">
-                                                <button type="submit" id="###" class="btn btn-md btn-success btn-block" data-dismiss="modal">Send</button>
+                                                <button type="submit" id="btnSend" class="btn btn-md btn-success btn-block" data-dismiss="modal">Send</button>
                                             </div>
                                         </div>
                                     </form>
@@ -82,12 +90,6 @@
                     </div>
                     </div>
                 </div>
-                
-                <!-- CUSTOM ANNOUNCEMENT MODAL -->
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#customAnnouncementModal">
-                    Custom Announcement
-                </button>
                 
                 <!--  Custom Announcemnt Modal -->
                 <div class="modal fade" id="customAnnouncementModal" tabindex="-1" aria-labelledby="customAnnouncementModalLabel" aria-hidden="true">
@@ -105,18 +107,17 @@
                             <!-- create custom announcement -->
                             <div>
                                 <div class="row justify-content-center">
-                                    <form name="###" id="###" method="POST">
+                                    <form name="frmCustomAnnouncement" id="###" method="POST">
                                         <!-- Select Student Representative -->
                                         <div class="form-row">
                                             <div class="form-group col-sm-12 input-group">
                                                 <label for="country">Select Student Representative</label>
                                                 <div class="p-1">
                                                     <select id="type" name="type">
-                                                        <option value="retroactive">All</option>
-                                                        <option value="retroactive">Bob Patrick</option>
-                                                        <option value="retroactive">Maria Leonora Teresa</option>
-                                                        <option value="retroactive">Juan Dela Cruz</option>
-                                                        <option value="retroactive">##############</option>
+                                                        <option value="sStudentRepresentative">All</option>
+                                                        {{#each arrStudentRepresentative}}
+                                                            <option value="sStudentRepresentative">{{sFirstName}} {{sLastName}}</option>
+                                                        {{/each}}
                                                     </select>
                                                 </div>
                                             </div>
@@ -130,23 +131,21 @@
                                                     </span>
                                                 </div>
                                                 <label for="sConcern" class="sr-only">Subject</label>
-                                                <input type="text" name="sConcern" id="sConcern" class="form-control" placeholder="Subject">
+                                                <input type="text" name="sSubject" id="sSubject" class="form-control" placeholder="Subject">
                                             </div>
                                         </div>
                         
-                                        <!-- Password -->
                                         <div class="form-row">
                                             <div class="form-group col-sm-12 input-group">
-                                               
                                                 <label for="text" class="sr-only">...</label>
-                                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="15"placeholder="..."></textarea>
+                                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="15" placeholder="..."></textarea>
                                             </div>
                                         </div>
 
                                         <!-- Submit button -->
                                         <div class="form-row">
                                             <div class="form-group col-sm-12">
-                                                <button type="submit" id="###" class="btn btn-md btn-success btn-block" data-dismiss="modal">Send</button>
+                                                <button type="submit" id="btnSend" class="btn btn-md btn-success btn-block" data-dismiss="modal">Send</button>
                                             </div>
                                         </div>
                                     </form>
