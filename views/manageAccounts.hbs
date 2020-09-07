@@ -11,16 +11,22 @@
     <div class="container-fluid">
         {{>subHeader}}
 
-        <div class="row justify-content">
+        <div class="row d-flex justify-content-center">
             {{>navBar}}  
 
-            <div class="col-10 col-sm-10 container-form">
+            <div class="col-10 col-sm-10 container-form d-flex justify-content-center">
                 
-                <!-- CREATE CUH ACCESS MODAL -->
+                <div class="row p-2">
+ 
+ 
+                   <!-- CREATE CUH ACCESS MODAL -->
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createCUHModal">
                     Create CUH Account
                 </button>
+
+                </div>
+               
                 
                 <!-- Modal -->
                 <div class="modal fade" id="createCUHModal" tabindex="-1" aria-labelledby="createCUHModalLabel" aria-hidden="true">
@@ -37,10 +43,10 @@
                         <div class="modal-body">
                             <!-- create CUH account -->
                             <div>
-                                <div class="row">
+                                <div class="row  justify-content-center">
                                     
                                 </div>
-                                <div class="row">
+                                <div class="row ">
                                     <form name="manageAccount" id="frmManangeAccount" method="POST">
                                         <!-- Name -->
                                         <div class="form-row">
@@ -133,11 +139,14 @@
                     </div>
                 </div>
                 
-                <!-- GRANT HR ACCESS MODAL -->
+                <div class=" row p-2">
+                   <!-- GRANT HR ACCESS MODAL -->
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#grantHRAccessModal">
                     Grant HR Access
-                </button>
+                </button>  
+                </div>
+               
                 
                 <!-- Modal -->
                 <div class="modal fade" id="grantHRAccessModal" tabindex="-1" aria-labelledby="grantHRAccessModalLabel" aria-hidden="true">
@@ -158,19 +167,21 @@
                                     
                                 </div>
                                 <div class="row justify-content-center">
-                                    <form name="###" id="###" method="POST">
+                                    <form name="grantHRAccess" id="frmHRAccess" method="POST">
                                         <!-- Select Student Representative -->
                                         <div class="form-row">
                                             <div class="form-group col-sm-12 input-group">
-                                                <label for="country">Select Student Representative</label>
+                                                <label for="studentReps">Select Student Representative</label>
                                                 <div class="p-1">
-                                                    <select id="type" name="type">
+                                                    <select id="type" name="type" class="studentRep form-control">
+                                                        <option value="retroactive"> </option>
                                                         <option value="retroactive">Bob Patrick</option>
-                                                        <option value="retroactive">##############</option>
-                                                        <option value="retroactive">##############</option>
-                                                        <option value="retroactive">##############</option>
-                                                        <option value="retroactive">##############</option>
+                                                        <option value="retroactive">Gabriel Lain</option>
+                                                        <option value="retroactive">Clark Kent</option>
+                                                        <option value="retroactive">Human Being</option>
+                                                        <option value="retroactive">12345</option>
                                                     </select>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -189,11 +200,15 @@
                     </div>
                 </div>
             
-                <!-- REVOKE HR ACCESS MODAL -->
+                <div class="row p-2">
+
+                 <!-- REVOKE HR ACCESS MODAL -->
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#revokeHRAccessModal">
                     Revoke HR Access
-                </button>
+                </button>   
+                </div>
+                
                 
                 <!-- Modal -->
                 <div class="modal fade" id="revokeHRAccessModal" tabindex="-1" aria-labelledby="revokeHRAccessModalLabel" aria-hidden="true">
@@ -218,14 +233,15 @@
                                         <!-- Select Student Representative -->
                                         <div class="form-row">
                                             <div class="form-group col-sm-12 input-group">
-                                                <label for="country">Select Student Representative</label>
+                                                <label for="studentReps">Select Student Representative</label>
                                                 <div class="p-1">
-                                                    <select id="type" name="type">
+                                                    <select id="type" name="type" class="studentRep2 form-control">
+                                                        <option value="retroactive"> </option>
                                                         <option value="retroactive">Maria Leonora Teresa</option>
-                                                        <option value="retroactive">##############</option>
-                                                        <option value="retroactive">##############</option>
-                                                        <option value="retroactive">##############</option>
-                                                        <option value="retroactive">##############</option>
+                                                        <option value="retroactive">mario Lopez</option>
+                                                        <option value="retroactive">Shacka Khan</option>
+                                                        <option value="retroactive">Joseph Joestar</option>
+                                                        <option value="retroactive">Jotaro Kujo</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -234,7 +250,7 @@
                                         <!-- Submit button -->
                                         <div class="form-row">
                                             <div class="form-group col-sm-12">
-                                                <button type="submit" id="###" class="btn btn-md btn-success" data-dismiss="modal">Update</button>
+                                                <button type="submit" id="btnSubmit" class="btn btn-md btn-success" data-dismiss="modal">Update</button>
                                             </div>
                                         </div>
                                     </form>
@@ -244,7 +260,7 @@
                     </div>
                     </div>
                 </div>
-            </div>   
+            </div>
             
         </div>
     </div>
@@ -254,6 +270,19 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+
+    <!-- <script>
+        $(document).ready(function() {
+             $('.studentRep').select2(); 
+            });
+    </script>
+
+      <script>
+        $(document).ready(function() {
+             $('.studentRep2').select2(); 
+            });
+    </script> -->
 
     <!-- additions -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
