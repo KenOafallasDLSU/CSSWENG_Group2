@@ -48,11 +48,28 @@ mongoClient.connect(databaseURL, options, function(err, client) {
     });
 });
 
+/**Express app creation */
+const app = express();
+const port = 3000;
+
+/**Engine creation */
+app.engine('hbs', exphbs({
+  extname: 'hbs',
+  defaultView: 'main',
+  layoutsDir: path.join(__dirname, '/views/layouts'),
+  partialsDir: path.join(__dirname, '/views/partials')
+}));
+app.set('view engine', 'hbs');
+
+/**Configuration for handling API endpoint data */
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 /********* Routing *********/
 const indexRoutes = require('./router/indexRoutes');
 
 /********* Routing *********/
-app.use('/', indexRoutes);
+//app.use('/', indexRoutes);
 
 /** Helper Functions **/
 
