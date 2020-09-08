@@ -61,6 +61,9 @@ app.engine('hbs', exphbs({
 }));
 app.set('view engine', 'hbs');
 
+/**Static hosting */
+app.use(express.static('public'));
+
 /**Configuration for handling API endpoint data */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
