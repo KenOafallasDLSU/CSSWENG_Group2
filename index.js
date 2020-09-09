@@ -50,7 +50,7 @@ mongoClient.connect(databaseURL, options, function(err, client) {
 
 /**Express app creation */
 const app = express();
-const port = 3000;
+const port = 4000;
 
 /**Engine creation */
 app.engine('hbs', exphbs({
@@ -69,7 +69,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 /********* Routing *********/
-const indexRoutes = require('./router/indexRoutes');
+//const indexRoutes = require('./router/indexRoutes');
 
 /********* Routing *********/
 //app.use('/', indexRoutes);
@@ -77,7 +77,7 @@ const indexRoutes = require('./router/indexRoutes');
 /** Helper Functions **/
 
 
-/** Server online **/
-app.listen(process.env.PORT, process.env.LOCAL_ADDRESS, ()=>{
-    console.log("Server ready.");
-})
+/** Server online on port**/
+app.listen(port, function() {
+  console.log('App listening at port ' + port);
+});
