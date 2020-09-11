@@ -64,29 +64,14 @@ index.use(bodyParser.urlencoded({ extended: true }));
 
 /********* Routing *********/
 const indexRoutes = require('./router/indexRoutes');
-const profileRoutes = require('./router/profileRoutes');
-const recordsRoutes = require('./router/recordsRoutes');
-const sendRequestRoutes = require('./router/sendRequestRoutes');
-const pendingRequestsRoutes = require('./router/pendingRequestsRoutes');
-const viewAnalyticsRoutes = require('./router/viewAnalyticsRoutes');
-const manageAccountsRoutes = require('./router/manageAccountsRoutes');
-const sendNotificationRoutes = require('./router/sendNotificationRoutes');
-const holidaysRoutes = require('./router/holidaysRoutes');
-const registerRoutes = require('./router/registerRoutes');
-const recordsCUHRoutes = require('./router/recordsCUHRoutes');
+const cuhRoutes = require('./router/cuhRoutes');
+const sRepRoutes = require('./router/sRepRoutes');
+
 
 /********* Routing *********/
-index.use('/', indexRoutes); //logout will also be directed here
-index.use('/profile', profileRoutes);
-index.use('/records', recordsRoutes);
-index.use('/send-request', sendRequestRoutes);
-index.use('/pending-request', pendingRequestsRoutes);
-index.use('/view-analytics', viewAnalyticsRoutes);
-index.use('/manage-accounts', manageAccountsRoutes);
-index.use('/send-notification', sendNotificationRoutes);
-index.use('/holidays', holidaysRoutes);
-index.use('/register', registerRoutes);
-index.use('/recordsCUH', recordsCUHRoutes);
+index.use('/', indexRoutes); //login, logout,
+index.use('/cuh', cuhRoutes);
+index.use('/srep', sRepRoutes);
 
 /** Helper Functions **/
 hbs.registerHelper("navBuilder", (sPage, sUserType)=>{
