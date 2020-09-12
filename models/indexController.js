@@ -1,23 +1,24 @@
-const db = require('../models/db.js');
-const SRep = require('../models/DB_SRep.js');
-const {validationResult} = require('express-validator');
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
-
 const indexController = {
-	
     getDashboard: function (req, res) {
         res.render("dashboard", {
             sPage: "Dashboard",
             sUserType: "Student Representative",
         })
-    }
-	
-	  getregister: function (req, res) {
-        res.render('register',{success:"hidden"});
     },
 
-    postregister: function (req, res) {
+    getLogin: function (req, res, next){
+        res.render("login", {
+            sPage: "Login"
+        })
+    },
+
+    getRegister: function (req, res){
+        res.render("register", {
+            sPage: "Register"
+        })
+    },
+
+    postRegister: function (req, res) {
 		
 		var errors = validationResult(req);
 		
@@ -55,15 +56,13 @@ const indexController = {
 					
 					sEmail: sEmail,
 					
-					sCollege : sCollege;
-					sCourse : sCourse,
+                    sCollege: sCollege,
+                    
+					sCourse: sCourse,
 					bActiveStatus: true,
 					bHRStatus: false,
 					cAccStatus:'P'
-					
-					
-				
-					
+
 				}, function(flag){});
 			
 			});
@@ -78,8 +77,7 @@ const indexController = {
         db.findOne(SRep, {Username: Username}, "Username", function (result) {
             res.send(result);
         });
-    }
-	
+    },
 }
 
 module.exports = indexController;
