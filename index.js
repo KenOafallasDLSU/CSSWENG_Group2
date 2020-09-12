@@ -4,10 +4,14 @@ const hbs = require("hbs");
 const bodyParser = require('body-parser');
 const mongodb = require('mongodb');
 const ObjectId = require('mongodb').ObjectId;
+const session = require('express-session');
+
+/** import module `mongoose` & `connect=mongo`*/
+const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo')(session);
 
 /**Engine creation */
 const index = express();
-
 const port = 3000;
 
 /**Database constants */
@@ -22,6 +26,9 @@ const modelSRep = require('./models/DB_SRep');
 const modelSuspension = require('./models/DB_Suspension');
 const modelTimeLog = require('./models/DB_TimeLog');
 const modelTimeRequest = require('./models/DB_TimeRequest');
+
+/**Database Functions */
+const db = require('./models/db.js');
 
 /**Create DB Collections if they do not exist */
 const options = { useUnifiedTopology: true };
@@ -51,6 +58,25 @@ mongoClient.connect(databaseURL, options, function(err, client) {
       });
     });
   });
+});
+
+/**** Cookie Session ****/
+index.use(session({
+  'secret': 'OCCSResidency',
+  'resave': false,
+  'saveUninitialized': false,
+  store: new MongoStore({mongooseConnection: mongoose.connection})
+}));
+
+index.use((req, res, next)=>{
+    const {userId} = req.session;
+    if(userId){
+        //do nothing or add necessary stuff here
+    }
+    else {
+        res.clearCookie(process.env.SESS_NAME);
+    }
+    next();
 });
 
 /**** Partials ****/
