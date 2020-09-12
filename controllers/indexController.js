@@ -11,13 +11,13 @@ const indexController = {
             sPage: "Dashboard",
             sUserType: "Student Representative",
         })
-    }
+    },
 	
-	  getregister: function (req, res) {
+	  getRegister: function (req, res) {
         res.render('register',{success:"hidden"});
     },
 
-    postregister: function (req, res) {
+    postRegister: function (req, res) {
 		
 		var errors = validationResult(req);
 		
@@ -55,7 +55,7 @@ const indexController = {
 					
 					sEmail: sEmail,
 					
-					sCollege : sCollege;
+					sCollege : sCollege,
 					sCourse : sCourse,
 					bActiveStatus: true,
 					bHRStatus: false,

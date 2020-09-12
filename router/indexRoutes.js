@@ -9,7 +9,7 @@ const validation = require('../middlewares/validation');
 router.get("/" , controller.getDashboard);
 
 /* login */
-router.get('/login', controller.getLogin);
+//router.get('/login', controller.getLogin);
 
 /* register */
 router.get('/register', controller.getRegister);

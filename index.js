@@ -72,7 +72,7 @@ const viewAnalyticsRoutes = require('./router/viewAnalyticsRoutes');
 const manageAccountsRoutes = require('./router/manageAccountsRoutes');
 const sendNotificationRoutes = require('./router/sendNotificationRoutes');
 const holidaysRoutes = require('./router/holidaysRoutes');
-const registerRoutes = require('./router/registerRoutes');
+const registerRoutes = require('./router/indexRoutes');
 const recordsCUHRoutes = require('./router/recordsCUHRoutes');
 
 /********* Routing *********/
