@@ -9,6 +9,7 @@ const session = require('express-session');
 /** import module `mongoose` & `connect=mongo`*/
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
+const db = require('./models/db.js');
 
 /**Engine creation */
 const index = express();
