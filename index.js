@@ -4,6 +4,7 @@ const hbs = require("hbs");
 const bodyParser = require('body-parser');
 const mongodb = require('mongodb');
 const ObjectId = require('mongodb').ObjectId;
+const db = require('./models/db.js');
 
 /**Engine creation */
 const index = express();
@@ -85,7 +86,7 @@ index.use('/view-analytics', viewAnalyticsRoutes);
 index.use('/manage-accounts', manageAccountsRoutes);
 index.use('/send-notification', sendNotificationRoutes);
 index.use('/holidays', holidaysRoutes);
-index.use('/register', registerRoutes);
+index.use('/register', indexRoutes);
 index.use('/recordsCUH', recordsCUHRoutes);
 
 /** Helper Functions **/

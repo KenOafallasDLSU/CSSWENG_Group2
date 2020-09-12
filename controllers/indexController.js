@@ -31,12 +31,13 @@ const indexController = {
 
             res.render('register', details);
         }
+		
 		else{
-			
+		
 			var sUsername = req.body.sUsername;
 			var sPassword = req.body.sPassword;
-			var sFirstname = req.body.sFirstname;
-			var sLastname = req.body.sLastname;
+			var sFirstName = req.body.sFirstName;
+			var sLastName = req.body.sLastName;
 			
 			
 			var sEmail = req.body.sEmail;
@@ -49,9 +50,9 @@ const indexController = {
 			
 				db.insertOne(SRep, {
 					sUsername: sUsername,
-					password: hash,
-					sFirstname: sFirstname,
-					sLastname : sLastname,
+					sPassword: sPassword,
+					sFirstName: sFirstName,
+					sLastName : sLastName,
 					
 					sEmail: sEmail,
 					
@@ -61,21 +62,18 @@ const indexController = {
 					bHRStatus: false,
 					cAccStatus:'P'
 					
-					
-				
-					
 				}, function(flag){});
 			
 			});
 
-			console.log('Created account of ' + sLastname + "," + sFirstname );
+			console.log('Created account of ' + sLastName + "," + sFirstName );
 			res.render('register');
 		}
     },
 
 	checkID: function (req, res) {
-        var Username = req.query.Username;
-        db.findOne(SRep, {Username: Username}, "Username", function (result) {
+        var sUsername = req.query.sUsername;
+        db.findOne(SRep, {sUsername: sUsername}, {sUsername:1}, function (result) {
             res.send(result);
         });
     }

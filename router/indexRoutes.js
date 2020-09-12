@@ -13,7 +13,7 @@ router.get("/" , controller.getDashboard);
 
 /* register */
 router.get('/register', controller.getRegister);
-router.post('/register', validation.registerValidation(), controller.postRegister);
+router.post('/register', validation.registerValidation(),controller.postRegister);
 router.get('/checkID', controller.checkID);
 
 module.exports = router;
