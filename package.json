@@ -17,7 +17,18 @@
   },
   "homepage": "https://github.com/KenOafallasDLSU/CSSWENG_Group2#readme",
   "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "connect-mongo": "^3.2.0",
+    "domino": "^2.1.5",
+    "ejs": "^3.0.2",
     "express": "^4.17.1",
-    "hbs": "^4.1.1"
+<<<<<<< HEAD
+    "express-session": "^1.17.1",
+=======
+>>>>>>> JedwigTan
+    "express-validator": "^6.6.1",
+    "hbs": "^4.1.1",
+    "mongoose": "^5.10.3"
   }
 }

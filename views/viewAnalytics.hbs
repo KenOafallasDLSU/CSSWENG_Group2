@@ -1,13 +1,3 @@
-<!--
-dun sa insert here part, gawa ka ng form tas insert start date tsaka insert end date lang muna
-
-for analytics to
-
-
-copy mo ung kung pano ko ginagawa ung form
-
--->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,34 +41,29 @@ copy mo ung kung pano ko ginagawa ung form
     <!-- header | navbar -->
     {{>header}}
     <div class="container-fluid">
-        {{>subHeader}}
-            <div class="col-2 col-sm-2">
-                <button type="submit" id="btnSubmit" class="btn btn-outline-success btn-sm">Time-in</button>
-            </div>
-        </div>
-        
+        {{>subHeader}}        
         <div class="row p-2">
             {{>navBar}}
 
             <div class="col-9 col-sm-9 container-form d-flex justify-content-center">
                 <div class="row">
-                    <form name="register" id="register" method="POST">
+                    <form name="frmViewAnalytics" id="frmViewAnalytics" method="POST">
                         <!-- Start Date -->
                         <div class="form-row">
                             <label for="startdate">Start Date</label>
-                            <input type="date" name="sStartdate" id="sStartdate" class="form-control" placeholder="sStartdate">
+                            <input type="date" name="sStartDate" id="sStartDate" class="form-control" placeholder="sStartDate">
                         </div>
 
                         <!-- End Date -->
                         <div class="form-row">
                             <label for="enddate"> End Date</label>
-                            <input type="date" name="sEnddate" id="sEnddate" class="form-control" placeholder="sEnddate">           
+                            <input type="date" name="sEndDate" id="sEndDate" class="form-control" placeholder="sEndDate">           
                         </div>
 
-                        <!-- Submit button -->
+                        <!-- View Analytics button -->
                         <div class="form-row">
                             <div class="form-group col-sm-12">
-                                <button type="submit" id="btnSubmit" class="btn btn-md btn-success btn-sm">View Analytics</button>
+                                <button type="submit" id="btnViewAnalytics" class="btn btn-md btn-success btn-sm">View Analytics</button>
                             </div>
                         </div>
                     </form>

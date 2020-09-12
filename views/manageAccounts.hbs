@@ -16,15 +16,26 @@
 
              <div class="col-10 col-sm-10 container-form d-flex justify-content-center">
                 
-                <div class="p-2 row d-flex justify-content-center">
- 
- 
-                   <!-- CREATE CUH ACCESS MODAL -->
-                     <!-- Button trigger modal -->
-                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createCUHModal">
-                    Create CUH Account
-                </button>
-
+                <div class="row p-2">
+                    <!-- CREATE CUH ACCESS MODAL -->
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createCUHModal">
+                        Create CUH Account
+                    </button>
+                </div>
+                <div class=" row p-2">
+                    <!-- GRANT HR ACCESS MODAL -->
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#grantHRAccessModal">
+                        Grant HR Access
+                    </button>  
+                </div>
+                <div class="row p-2">
+                    <!-- REVOKE HR ACCESS MODAL -->
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#revokeHRAccessModal">
+                        Revoke HR Access
+                    </button>   
                 </div>
                
                 
@@ -138,14 +149,6 @@
                     </div>
                     </div>
                 </div>
-                
-                <div class="p-2 row d-flex justify-content-center">
-                   <!-- GRANT HR ACCESS MODAL -->
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#grantHRAccessModal">
-                    Grant HR Access
-                </button>  
-                </div>
                
                 
                 <!-- Modal -->
@@ -161,7 +164,7 @@
                         </button>
                         </div>
                         <div class="modal-body">
-                            <!-- create CUH account -->
+                            <!-- Grant HR Access -->
                             <div>
                                 <div class="row">
                                     
@@ -174,19 +177,15 @@
                                                 <label for="studentReps">Select Student Representative</label>
                                                 <div class="p-1">
                                                     <select id="type" name="type" class="studentRep form-control">
-                                                        <option value="retroactive"> </option>
-                                                        <option value="retroactive">Bob Patrick</option>
-                                                        <option value="retroactive">Gabriel Lain</option>
-                                                        <option value="retroactive">Clark Kent</option>
-                                                        <option value="retroactive">Human Being</option>
-                                                        <option value="retroactive">12345</option>
+                                                        {{#each arrStudentRepresentative}}
+                                                            <option value="sStudentRepresenatative">{{sFirstName}} {{sLastName}}</option>
+                                                        {{/each}}
                                                     </select>
-                                                    
                                                 </div>
                                             </div>
                                         </div>
                         
-                                        <!-- Submit button -->
+                                        <!-- Update button -->
                                         <div class="form-row">
                                             <div class="form-group col-sm-12">
                                                 <button type="submit" id="btnSubmit" class="btn btn-md btn-success " data-dismiss="modal">Update</button>
@@ -198,17 +197,7 @@
                         </div>
                     </div>
                     </div>
-                </div>
-            
-                <div class="p-2 row d-flex justify-content-center">
-
-                    <!-- REVOKE HR ACCESS MODAL -->
-                 <!-- Button trigger modal -->
-                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#revokeHRAccessModal">
-                    Revoke HR Access
-                 </button>   
-                </div>
-                
+                </div>                
                 
                 <!-- Modal -->
                 <div class="modal fade" id="revokeHRAccessModal" tabindex="-1" aria-labelledby="revokeHRAccessModalLabel" aria-hidden="true">
@@ -223,7 +212,7 @@
                         </button>
                         </div>
                         <div class="modal-body">
-                            <!-- create CUH account -->
+                            <!-- Revoke HR Access -->
                             <div>
                                 <div class="row">
                                     
@@ -236,18 +225,15 @@
                                                 <label for="studentReps">Select Student Representative</label>
                                                 <div class="p-1">
                                                     <select id="type" name="type" class="studentRep2 form-control">
-                                                        <option value="retroactive"> </option>
-                                                        <option value="retroactive">Maria Leonora Teresa</option>
-                                                        <option value="retroactive">mario Lopez</option>
-                                                        <option value="retroactive">Shacka Khan</option>
-                                                        <option value="retroactive">Joseph Joestar</option>
-                                                        <option value="retroactive">Jotaro Kujo</option>
+                                                        {{#each arrStudentRepresentative}}
+                                                            <option value="sStudentRepresenatative">{{sFirstName}} {{sLastName}}</option>
+                                                        {{/each}}
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
                         
-                                        <!-- Submit button -->
+                                        <!-- Update button -->
                                         <div class="form-row">
                                             <div class="form-group col-sm-12">
                                                 <button type="submit" id="btnSubmit" class="btn btn-md btn-success" data-dismiss="modal">Update</button>

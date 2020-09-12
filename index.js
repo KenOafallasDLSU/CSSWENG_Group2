@@ -1,40 +1,104 @@
+/**Dependencies */
 const express = require("express");
 const hbs = require("hbs");
+const bodyParser = require('body-parser');
+const mongodb = require('mongodb');
+const ObjectId = require('mongodb').ObjectId;
+const session = require('express-session');
 
+/** import module `mongoose` & `connect=mongo`*/
+const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo')(session);
+const db = require('./models/db.js');
+
+/**Engine creation */
 const index = express();
-
 const port = 3000;
+
+/**Database constants */
+const mongoClient = mongodb.MongoClient;
+const databaseURL = "mongodb://localhost:27017/residencydb"; //local URL
+//const databaseURL = "mongodb+srv://Admin:a1b2c3d4%21@occs-residency-system.jflhq.gcp.mongodb.net/residencydb?retryWrites=true&w=majority"; //Atlas URL
+const dbname = "residencydb";
+
+/**Database models */
+const modelCUH = require('./models/DB_CUH');
+const modelSRep = require('./models/DB_SRep');
+const modelSuspension = require('./models/DB_Suspension');
+const modelTimeLog = require('./models/DB_TimeLog');
+const modelTimeRequest = require('./models/DB_TimeRequest');
+
+/**Database Functions */
+const db = require('./models/db.js');
+
+/**Create DB Collections if they do not exist */
+const options = { useUnifiedTopology: true };
+mongoClient.connect(databaseURL, options, function(err, client) {
+  console.log("Connected to DB at " + databaseURL);
+  if (err) throw err;
+  const dbo = client.db(dbname);
+
+  dbo.createCollection("colCUHs", function(err, res) {
+    //if (err) throw err;
+
+    dbo.createCollection("colSReps", function(err, res) {
+      //if (err) throw err;
+
+      dbo.createCollection("colSuspensions", function(err, res) {
+        //if (err) throw err;
+
+        dbo.createCollection("colTimeLogs", function(err, res) {
+          //if (err) throw err;
+
+          dbo.createCollection("colTimeRequests", function(err, res) {
+            //if (err) throw err;
+            console.log("All collections created!");
+            client.close();
+          });
+        });
+      });
+    });
+  });
+});
+
+/**** Cookie Session ****/
+index.use(session({
+  'secret': 'OCCSResidency',
+  'resave': false,
+  'saveUninitialized': false,
+  store: new MongoStore({mongooseConnection: mongoose.connection})
+}));
+
+index.use((req, res, next)=>{
+    const {userId} = req.session;
+    if(userId){
+        //do nothing or add necessary stuff here
+    }
+    else {
+        res.clearCookie(process.env.SESS_NAME);
+    }
+    next();
+});
 
 /**** Partials ****/
 hbs.registerPartials(__dirname+ "/views/partials");
 
 index.set("view engine", "hbs");
 
-/********* Routing *********/
-const indexRoutes = require('./router/indexRoutes');
-const profileRoutes = require('./router/profileRoutes');
-const recordsRoutes = require('./router/recordsRoutes');
-const sendRequestRoutes = require('./router/sendRequestRoutes');
-const pendingRequestsRoutes = require('./router/pendingRequestsRoutes');
-const viewAnalyticsRoutes = require('./router/viewAnalyticsRoutes');
-const manageAccountsRoutes = require('./router/manageAccountsRoutes');
-const sendNotificationRoutes = require('./router/sendNotificationRoutes');
-const holidaysRoutes = require('./router/holidaysRoutes');
-const registerRoutes = require('./router/registerRoutes');
-const recordsCUHRoutes = require('./router/recordsCUHRoutes');
+/**Configuration for handling API endpoint data */
+index.use(bodyParser.json());
+index.use(bodyParser.urlencoded({ extended: true }));
 
 /********* Routing *********/
-index.use('/', indexRoutes); //logout will also be directed here
-index.use('/profile', profileRoutes);
-index.use('/records', recordsRoutes);
-index.use('/send-request', sendRequestRoutes);
-index.use('/pending-request', pendingRequestsRoutes);
-index.use('/view-analytics', viewAnalyticsRoutes);
-index.use('/manage-accounts', manageAccountsRoutes);
-index.use('/send-notification', sendNotificationRoutes);
-index.use('/holidays', holidaysRoutes);
-index.use('/register', registerRoutes);
-index.use('/recordsCUH', recordsCUHRoutes);
+const indexRoutes = require('./router/indexRoutes');
+const cuhRoutes = require('./router/cuhRoutes');
+const sRepRoutes = require('./router/sRepRoutes');
+
+
+/********* Routing *********/
+index.use('/', indexRoutes); //login, logout,
+index.use('/cuh', cuhRoutes);
+index.use('/srep', sRepRoutes);
 
 /** Helper Functions **/
 hbs.registerHelper("navBuilder", (sPage, sUserType)=>{
@@ -67,6 +131,9 @@ hbs.registerHelper("navBuilder", (sPage, sUserType)=>{
     }
     return new hbs.SafeString(element);
 });
+
+/**Static hosting */
+index.use(express.static('public'));
 
 /** Server online **/
 index.listen(port, function()
