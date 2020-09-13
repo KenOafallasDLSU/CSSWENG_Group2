@@ -4,7 +4,7 @@ const authentication = {
     
     /***** Check if Session is Active *****/
     sessionActive: (req, res, next)=>{
-        if (req.session.userid){
+        if (req.session.userId){
             next();
         }
         else
@@ -13,7 +13,7 @@ const authentication = {
 
     /***** Check if Session is not Active *****/
     sessionNotActive: (req, res, next)=>{
-        if (req.session.userid){
+        if (req.session.userId){
             return res.redirect('/');
         }
         else
