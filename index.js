@@ -9,7 +9,6 @@ const session = require('express-session');
 /** import module `mongoose` & `connect=mongo`*/
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
-const db = require('./models/db.js');
 
 /**Engine creation */
 const index = express();
@@ -70,8 +69,8 @@ index.use(session({
 }));
 
 index.use((req, res, next)=>{
-    const {userId} = req.session;
-    if(userId){
+    const {userid} = req.session;
+    if(userid){
         //do nothing or add necessary stuff here
     }
     else {
@@ -93,7 +92,6 @@ index.use(bodyParser.urlencoded({ extended: true }));
 const indexRoutes = require('./router/indexRoutes');
 const cuhRoutes = require('./router/cuhRoutes');
 const sRepRoutes = require('./router/sRepRoutes');
-
 
 /********* Routing *********/
 index.use('/', indexRoutes); //login, logout,
