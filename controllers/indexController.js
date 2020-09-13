@@ -10,13 +10,6 @@ const saltRounds = 10;
 
 const indexController = {
 	
-    getDashboard: function (req, res) {
-        res.render("dashboard", {
-            sPage: "Dashboard",
-            sUserType: "Student Representative",
-        })
-    },
-
     getLogin: function (req, res) {
         res.render("login", {
             sPage: "Login",
