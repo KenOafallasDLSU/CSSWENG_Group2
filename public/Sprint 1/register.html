@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Office of Counseling and Career Services</title>
+
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+<body>
+    <div class="container-fluid mx-auto min-vh-100 row align-items-center" style=" background-color: rgb(88, 182, 116)">
+        <div class="container col-sm-4 border border-success p-3" style="background-color: whitesmoke;">
+            <div class="col-sm-12 text-center p-2">
+                <h3 style=" color: rgb(88, 182, 116)">Register</h3>
+            </div>
+            <form name="register" id="register" method="POST">
+                <!-- Name -->
+                <div class="form-row">
+                    <div class="form-group col-sm-12 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                  <i class="fa fa-user icon"></i>
+                            </span>
+                        </div>
+                        <label for="sFirstName" class="sr-only">First Namer</label>
+                        
+                        <input type="text" name="sFirstName" id="sFirstName" class="form-control" placeholder="First Name">
+                    </div>
+                    <div class="form-group col-sm-12 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                  <i class="fa fa-user icon"></i>
+                            </span>
+                        </div>
+                        <label for="sLastName" class="sr-only">Last Name</label>
+                        <input type="text" name="sLastName" id="sLastName" class="form-control" placeholder="Last Name">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-sm-12 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                               @
+<!--                                far fa-address-card-->
+                            </span>
+                        </div>
+                        <label for="sEmail" class="sr-only">Email</label>
+                        <input type="email" name="sEmail" id="sEmail" class="form-control" placeholder="Email Address">
+                    </div>
+                </div>
+
+                <!-- ID Number -->
+                <div class="form-row">
+                    <div class="form-group col-sm-12 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="far fa-address-card"></i> 
+                            </span>
+                        </div>
+                        <label for="nIDNumber" class="sr-only">ID Number</label>
+                        <input type="number" name="nIDNumber" id="nIDNumber" class="form-control" placeholder="ID Number">
+                    </div>
+                </div>
+
+                <!-- Birthday -->
+                <div class="form-row">                   
+                    <div class="form-group col-sm-12 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                               <i class="fas fa-birthday-cake icon"></i>
+                            </span>
+                        </div>
+                        <label for="sBirthdate" class="sr-only">Birthday</label>
+                        <input type="date" name="sBirthdate" id="sBirthdate" class="form-control" placeholder="Birthday">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class ="form-group col-sm-12 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                 <i class="fas fa-book-open icon"></i>
+                            </span>
+                        </div>
+                        <label for="sEmail" class="sr-only">Degree Program</label>
+                        <input type="email" name="sEmail" id="sEmail" class="form-control" placeholder="Degree Program">
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="form-row">
+                    <div class="form-group col-sm-12 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                 <i class="fa fa-key icon"></i>
+                            </span>
+                        </div>
+                        <label for="password" class="sr-only">Password</label>
+                        <input type="password" name="sPassword" id="sPassword" class="form-control" placeholder="Password">
+                    </div>
+                    <div class="form-group col-sm-12 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                 <i class="fa fa-key icon"></i>
+                            </span>
+                        </div>
+                        <label for="password" class="sr-only">Confirm Password</label>
+                        <input type="password" name="sConfirmPassword" id="sConfirmPassword" class="form-control" placeholder="Confirm Password">
+                    </div>
+                </div>
+
+                <!-- Submit button -->
+                <div class="form-row">
+                    <div class="form-group col-sm-12">
+                        <button type="submit" id="###" class="btn btn-md btn-success btn-block">Register</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="text-center">
+                <p class="text-center">Already have an account? <a href="###">Login</a></p>
+                <p class="text-center"><a href="###">Forgot your password?</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bs4 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+</body>
+</html>
