@@ -21,6 +21,13 @@ const validation = {
         return validation;
 		
     },
+
+    loginValidation: function (){
+        return [
+            check('sUsername').not().isEmpty().withMessage("Invalid credentials").isAlphanumeric().withMessage("Invalid credentials"),
+            check('sPassword').escape()
+        ]
+    },
 	
 }
 
