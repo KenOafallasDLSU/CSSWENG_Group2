@@ -4,7 +4,7 @@ const router = express();
 /* controllers that provide functions depending on post or get */
 const controller = require('../controllers/indexController');
 const validation = require('../middlewares/validation');
-const authentication = require('../middlewares/authentication.js');
+const authentication = require('../middlewares/indexAuthentication.js');
 
 /********* routes *********/
 
