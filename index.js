@@ -69,8 +69,8 @@ index.use(session({
 }));
 
 index.use((req, res, next)=>{
-    const {userid} = req.session;
-    if(userid){
+    const {userId} = req.session;
+    if(userId){
         //do nothing or add necessary stuff here
     }
     else {
