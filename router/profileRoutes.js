@@ -5,5 +5,6 @@ const router = express();
 const controller = require('../controllers/profileController');
 
 /* routes */
+router.get("/" , controller.getProfile);
 
 module.exports = router;
