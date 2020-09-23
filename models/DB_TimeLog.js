@@ -22,4 +22,49 @@ const TimeLogSchema = new mongoose.Schema(
     }
 );
 
+TimeLogSchema.virtual("sDate").get(function() {
+    var sYear = this.objTimeIn.getFullYear().toString();
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    var sMonth = months[this.objTimeIn.getMonth()];
+    var sDay = this.objTimeIn.getDate().toString();
+
+    return sMonth + " " + sDay + ", " + sYear; 
+});
+
+TimeLogSchema.virtual("sTimeIn").get(function() {
+    var sHour = this.objTimeIn.getHours().toString();
+    if(this.objTimeIn.getHours() <= 9){
+        sHour = "0" + sHour;
+    }
+
+    var sMin = this.objTimeIn.getMinutes().toString();
+    if(this.objTimeIn.getMinutes() <= 9){
+        sMin = "0" + sMin;
+    }
+    
+    return sHour + ":" + sMin;
+});
+
+TimeLogSchema.virtual("sTimeOut").get(function() {
+    var sHour = this.objTimeOut.getHours().toString();
+    if(this.objTimeOut.getHours() <= 9){
+        sHour = "0" + sHour;
+    }
+
+    var sMin = this.objTimeOut.getMinutes().toString();
+    if(this.objTimeOut.getMinutes() <= 9){
+        sMin = "0" + sMin;
+    }
+
+    return sHour + ":" + sMin;
+});
+
+TimeLogSchema.virtual("fHours").get(function() {
+    var fTimeIn = this.objTimeIn.getTime();
+    var fTimeOut = this.objTimeOut.getTime();
+    var fHours = (fTimeOut - fTimeIn)/3600000;
+
+    return fHours.toFixed(2);
+});
+
 module.exports = mongoose.model("TimeLog", TimeLogSchema);
