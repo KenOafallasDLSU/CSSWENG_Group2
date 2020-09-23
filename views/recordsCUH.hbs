@@ -44,8 +44,9 @@
                                 <label for="country">Select Student Representative</label>
                                 <div class="p-1">
                                     <select id="type" name="type">
-                                        <option value="retroactive">{{sName}}</option>
-                                        <option value="retroactive">{{sName}}</option>
+                                        {{#each objSReps}}
+                                            <option value="retroactive">{{sFullName}}</option>
+                                        {{/each}}
                                     </select>
                                 </div>
                             </div>
@@ -60,16 +61,18 @@
                             <th scope="col">Time In</th>
                             <th scope="col">Time Out</th>
                             <th scope="col">Task</th>
+                            <th scope="col">Hours</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{#each ###}}
+                        {{#each objTimeLogs}}
                         <tr>
-                            <th scope="row">{{sName}}</th>
+                            <th scope="row">{{sFullName}}</th>
                             <td>{{sDate}}</td>
                             <td>{{sTimeIn}}</td>
                             <td>{{sTimeOut}}</td>
                             <td>{{sTask}}</td>
+                            <td>{{fHours}}</td>
                         </tr>
                         {{/each}}
                     </tbody>
