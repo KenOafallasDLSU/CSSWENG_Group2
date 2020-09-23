@@ -1,7 +1,7 @@
 {
-  "name": "occs_rts",
+  "name": "cssweng_group2",
   "version": "1.0.0",
-  "description": "Office of Counseling and Career Services (OCCS) Residency Tracking System",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,17 +18,14 @@
   "homepage": "https://github.com/KenOafallasDLSU/CSSWENG_Group2#readme",
   "dependencies": {
     "bcrypt": "^5.0.0",
-    "body-parser": "^1.19.0",
     "connect-mongo": "^3.2.0",
-    "domino": "^2.1.5",
-    "ejs": "^3.0.2",
     "express": "^4.17.1",
-<<<<<<< HEAD
     "express-session": "^1.17.1",
-=======
->>>>>>> JedwigTan
     "express-validator": "^6.6.1",
+    "handlebars": "^4.7.6",
     "hbs": "^4.1.1",
-    "mongoose": "^5.10.3"
+    "mongodb": "^3.6.2",
+    "mongoose": "^5.10.5",
+    "stack": "^0.1.0"
   }
 }
