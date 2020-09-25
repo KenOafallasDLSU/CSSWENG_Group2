@@ -5,5 +5,6 @@ const router = express();
 const controller = require('../controllers/recordsCUHController');
 
 /* routes */
+router.get("/" , controller.getRecordsCUH);
 
 module.exports = router;
