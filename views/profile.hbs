@@ -91,6 +91,46 @@
                         </div>
                     </div>
                 </form>
+
+                <p><hr></p>
+                <p><h>Check residency hours</h></p>
+                <div class="col-9 col-sm-9 container-form">
+                    <!-- Start Date -->
+                    <div class="form-row">
+                        <label for="startdate">Start Date</label>
+                        <input type="date" name="sStartdate" id="sStartdate" class="form-control" placeholder="sStartdate">
+                    </div></p>
+
+                    <!-- End Date -->
+                    <div class="form-row">
+                        <label for="enddate"> End Date</label>
+                        <input type="date" name="sEnddate" id="sEnddate" class="form-control" placeholder="sEnddate">           
+                    </div></p>
+                            
+                    <!-- Submit button -->
+                    <div class="form-row">
+                        <div class="form-group col-sm-12">
+                            <button type="submit" id="###" class="btn btn-md btn-success btn-sm">Confirm</button>
+                        </div>
+                    </div></p>
+                </div>
+
+                <table class="table table-striped">
+                    <thead class="thread-dark">
+                        <tr>
+                            <th scope="col">Starting date</th>
+                            <th scope="col">End Date</th>
+                            <th scope="col">Total Hours</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">{{sStartdate}}</th>
+                            <td>{{sEnddate}}</td>
+                            <td>Total hours</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
