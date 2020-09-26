@@ -29,7 +29,7 @@ const modelTimeLog = require('./models/DB_TimeLog');
 const modelTimeRequest = require('./models/DB_TimeRequest');
 
 /**Database Functions */
-const db = require('./models/db.js');
+const dbs = require('./models/db.js');
 
 /**Create DB Collections if they do not exist */
 const options = { useUnifiedTopology: true };

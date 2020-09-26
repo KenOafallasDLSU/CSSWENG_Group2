@@ -10,11 +10,6 @@ const timeLogControllers = require('../controllers/timeLogController');
 /* dashboard */
 router.get(['/:sUsername', '/dashboard/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, controller.getDashboard);
 
-<<<<<<< Updated upstream
-// router.get("/" , timeLogController.getDashboard);
-// router.post("/" , timeLogController.postDashboard);
-
-=======
 
 // time in time out
 // router.get(['/:sUsername', '/dashboard/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, timeLogControllers.getDashboard);
@@ -26,5 +21,4 @@ router.post(['/:sUsername', '/dashboard/:sUsername'] , authentication.sessionAct
 
 router.get(['/:sUsername', '/dashboard2/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, controller.getDashboard2);
 // router.get("/" , timeLogControllers.getDashboard);
->>>>>>> Stashed changes
 module.exports = router;

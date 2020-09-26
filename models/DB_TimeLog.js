@@ -10,18 +10,11 @@ mongoose.connect(databaseURL, options);
 
 const TimeLogSchema = new mongoose.Schema(
     {
-<<<<<<< Updated upstream
-         objSRep: {type: mongoose.Schema.Types.ObjectId, ref: "SRep", required: false},
-         objTimeIn: {type: Date, required: true, default: new Date()},
-         objTimeOut: {type: Date, required: false},
-         sTask: {type: String, required: false}
-=======
         // objSRep: {type: mongoose.Schema.Types.ObjectId, ref: "SRep", required: true},
         sUserName: {type: String, required: true},
         objTimeIn: {type: Date, required: true},
         objTimeOut: {type: Date, required: false},
         sTask: {type: String, required: false}
->>>>>>> Stashed changes
     },
     {
         toObject: { virtuals: true },
@@ -29,8 +22,6 @@ const TimeLogSchema = new mongoose.Schema(
     }
 );
 
-<<<<<<< Updated upstream
-=======
 TimeLogSchema.virtual("sDate").get(function() {
     var sYear = this.objTimeIn.getFullYear().toString();
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
@@ -84,5 +75,4 @@ TimeLogSchema.virtual("fHours").get(function() {
    return false;
 });
 
->>>>>>> Stashed changes
 module.exports = mongoose.model("TimeLog", TimeLogSchema);
