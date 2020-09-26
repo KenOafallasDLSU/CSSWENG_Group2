@@ -10,13 +10,6 @@ const saltRounds = 10;
 
 const indexController = {
 	
-    getDashboard: function (req, res) {
-        res.render("dashboard", {
-            sPage: "Dashboard",
-            sUserType: "Student Representative",
-        })
-    },
-
     getLogin: function (req, res) {
         res.render("login", {
             sPage: "Login",
@@ -96,14 +89,6 @@ const indexController = {
             }
         }
     },
-
-    logout: (req, res, next) =>{
-        req.session.destroy(err => {
-            if(err) throw err;
-            
-            return res.redirect('/');
-        })
-    },
     
     /***** REGISTER *****/
     
@@ -144,7 +129,7 @@ const indexController = {
 			
 				db.insertOne(modelSREP, {
 					sUsername: sUsername,
-					sPassword: sPassword,
+					sPassword: hash,
 					sFirstName: sFirstName,
 					sLastName : sLastName,
 					
@@ -161,7 +146,10 @@ const indexController = {
 			});
 
 			console.log('Created account of ' + sLastName + "," + sFirstName );
-			res.render('register');
+            
+            return res.render("login", {
+                sPage: "Login",
+            })
 		}
     },
 
@@ -170,7 +158,15 @@ const indexController = {
         db.findOne(modelSREP, {sUsername: sUsername}, {sUsername:1}, function (result) {
             res.send(result);
         });
-    }
+    },
+
+    /***** logout *****/
+    getLogout: function (req, res){
+        req.session.destroy(err => {
+            if(err) throw err;
+            return res.redirect('/');
+        })
+    },
 	
 }
 

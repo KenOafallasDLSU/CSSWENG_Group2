@@ -5,6 +5,7 @@ const router = express();
 const controller = require('../controllers/indexController');
 
 const validation = require('../middlewares/validation');
+const authentication = require('../middlewares/indexAuthentication.js');
 
 const timeLogControllers = require('../controllers/timeLogController');
 
@@ -19,13 +20,15 @@ router.post("/" , timeLogControllers.postTimeLog);
 router.post("/"), timeLogControllers.postDashboard;
 
 /* login */
-router.get("/login", /* insert session authentication,*/ controller.getLogin);
-router.post("/login", /* insert loginValidation(),*/ controller.postLogin);
+router.get(['/','/login'], authentication.sessionNotActive, controller.getLogin);
+router.post(['/', '/login'], validation.loginValidation(), controller.postLogin);
 
 /* register */
 router.get('/register', controller.getRegister);
-router.post('/register', validation.registerValidation(),controller.postRegister);
+router.post('/register', validation.registerValidation(), controller.postRegister);
 router.get('/checkID', controller.checkID);
 
+/* logout */
+router.get('/logout', controller.getLogout);
 
 module.exports = router;
