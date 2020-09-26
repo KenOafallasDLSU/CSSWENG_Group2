@@ -6,6 +6,7 @@ const controller = require('../controllers/indexController');
 
 const validation = require('../middlewares/validation');
 const authentication = require('../middlewares/indexAuthentication.js');
+const timeLogControllers = require('../controllers/timeLogController');
 
 const timeLogControllers = require('../controllers/timeLogController');
 
@@ -27,6 +28,12 @@ router.post(['/', '/login'], validation.loginValidation(), controller.postLogin)
 router.get('/register', controller.getRegister);
 router.post('/register', validation.registerValidation(), controller.postRegister);
 router.get('/checkID', controller.checkID);
+
+// // time in time out
+// router.get(['/:sUsername', '/dashboard/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, timeLogControllers.getDashboard);
+// // router.get("/" , timeLogControllers.getDashboard);
+// router.post("/" , timeLogControllers.postTimeLog);
+// // router.post("/", timeLogControllers.postDashboard);
 
 /* logout */
 router.get('/logout', controller.getLogout);
