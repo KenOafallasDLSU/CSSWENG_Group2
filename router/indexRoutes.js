@@ -3,8 +3,22 @@ const router = express();
 
 /* controllers that provide functions depending on post or get */
 const controller = require('../controllers/indexController');
+const validation = require('../middlewares/validation');
+const authentication = require('../middlewares/indexAuthentication.js');
+const timeLogControllers = require('../controllers/timeLogController');
 
-/* routes */
-router.get("/" , controller.getDashboard);
+/********* routes *********/
+/* login */
+router.get(['/','/login'], authentication.sessionNotActive, controller.getLogin);
+router.post(['/', '/login'], validation.loginValidation(), controller.postLogin);
+
+/* register */
+router.get('/register', controller.getRegister);
+router.post('/register', validation.registerValidation(), controller.postRegister);
+router.get('/checkID', controller.checkID);
+
+
+/* logout */
+router.get('/logout', controller.getLogout);
 
 module.exports = router;

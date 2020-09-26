@@ -53,22 +53,15 @@
                 </small>
             </div>
             <div class="col-2 col-sm-2">
-                <button type="submit" id="###" class="btn btn-outline-success btn-sm">Time-in</button>
+                <button type="submit" id="btnTimein" class="btn btn-outline-success btn-sm">Time-in</button>
             </div>
         </div>
         
-        <div class="row p-2">
+        <div class="row p-2row">
             <div class="col-2 col-sm-2">
-                <nav class="nav flex-column justify-content-center">
-                    <a class="nav-link active" href="#">Profile</a>
-                    <a class="nav-link" href="#">Records</a>
-                    <a class="nav-link" href="#">Request</a>
-                    <a class="nav-link" href="#">View Analytics</a>
-                    <a class="nav-link" href="#">Logout</a>
-                </nav>
+               {{>navbar}}
             </div>
-
-            <div class="col-9 col-sm-9 container-form">      
+            <div class="col-5 col-sm-5 container-form d-flex justify-content-center" padding-left: "300px">      
                 <!-- Request Form -->
                 <form name="register" id="register" method="POST">
                     
@@ -85,16 +78,16 @@
                             
                     <div class="form-row">
                         <div class="form-group col-sm-12 input-group">
-                            <label for="request">Request:</label>
+                            <label for="Request">Request:</label>
                         </div>
                     </div>
 
                     <!-- Date Select -->
                     <div class="form-row">
                         <div class="form-group col-sm-12 input-group">
-                            <label for="a###">Select date</label>
+                            <label for="sDate">Select date</label>
                             <div class="col-sm-4">
-                                <input type="date" id="###" name="a###">
+                                <input type="date" id="sDate" name="sDate">
                             </div>
                         </div>
                     </div>
@@ -102,24 +95,24 @@
                     <!-- Time  Select -->
                     <div class="form-row">
                         <div class="form-group col-sm-12 input-group">
-                            <label for="a###">Select time</label>
+                            <label for="sTime">Select time</label>
                             <div class="col-sm-4">
-                                <input type="time" id="###" name="a###">
+                                <input type="time" id="sTime" name="sTime">
                             </div>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-sm-12 input-group">
-                            <label for="request">Reason:</label>
-                            <input type="text" id="###" name="a###" placeholder="...">
+                            <label for="sReason">Reason:</label>
+                            <input type="text" id="sReason" name="sReason" placeholder="...">
                         </div>
                     </div>
                     
                     <!-- Submit button -->
                     <div class="form-row">
                         <div class="form-group col-sm-12">
-                            <button type="submit" id="###" class="btn btn-md btn-success btn-block">Submit</button>
+                            <button type="submit" id="btnRequest" class="btn btn-md btn-success btn-block">Submit</button>
                         </div>
                     </div>
                 </form>

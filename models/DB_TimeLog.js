@@ -10,9 +10,9 @@ mongoose.connect(databaseURL, options);
 
 const TimeLogSchema = new mongoose.Schema(
     {
-        objSRep: {type: mongoose.Schema.Types.ObjectId, ref: "SRep", required: true},
-
-        objTimeIn: {type: Date, required: true, default: new Date()},
+        // objSRep: {type: mongoose.Schema.Types.ObjectId, ref: "SRep", required: true},
+        sUserName: {type: String, required: true},
+        objTimeIn: {type: Date, required: true},
         objTimeOut: {type: Date, required: false},
         sTask: {type: String, required: false}
     },
@@ -45,26 +45,34 @@ TimeLogSchema.virtual("sTimeIn").get(function() {
     return sHour + ":" + sMin;
 });
 
+
 TimeLogSchema.virtual("sTimeOut").get(function() {
-    var sHour = this.objTimeOut.getHours().toString();
-    if(this.objTimeOut.getHours() <= 9){
-        sHour = "0" + sHour;
-    }
+    if(this.objTimeOut){
 
-    var sMin = this.objTimeOut.getMinutes().toString();
-    if(this.objTimeOut.getMinutes() <= 9){
-        sMin = "0" + sMin;
+        var sHour = this.objTimeOut.getHours().toString();
+        if(this.objTimeOut.getHours() <= 9){
+            sHour = "0" + sHour;
+        }
+    
+        var sMin = this.objTimeOut.getMinutes().toString();
+        if(this.objTimeOut.getMinutes() <= 9){
+            sMin = "0" + sMin;
+        }
+    
+        return sHour + ":" + sMin;
     }
-
-    return sHour + ":" + sMin;
+  return false;
 });
 
 TimeLogSchema.virtual("fHours").get(function() {
-    var fTimeIn = this.objTimeIn.getTime();
-    var fTimeOut = this.objTimeOut.getTime();
-    var fHours = (fTimeOut - fTimeIn)/3600000;
-
-    return fHours.toFixed(2);
+    if(this.objTimeOut){
+        var fTimeIn = this.objTimeIn.getTime();
+        var fTimeOut = this.objTimeOut.getTime();
+        var fHours = (fTimeOut - fTimeIn)/3600000;
+    
+        return fHours.toFixed(2);
+    }
+   return false;
 });
 
 module.exports = mongoose.model("TimeLog", TimeLogSchema);
