@@ -21,4 +21,7 @@ router.post(['/:sUsername', '/dashboard/:sUsername'] , authentication.sessionAct
 
 router.get(['/:sUsername', '/dashboard2/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, controller.getDashboard2);
 // router.get("/" , timeLogControllers.getDashboard);
+
+router.post(['/:sUsername', '/dashboard2/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, timeLogControllers.postTimeOut);
+
 module.exports = router;

@@ -23,7 +23,7 @@ const timeLogController = {
         var user = req.session.userId;
         var timein = new Date();
         
-        var timeout = new Date();
+      
         
         console.log(user);
         console.log(timein);
@@ -35,7 +35,7 @@ const timeLogController = {
                
                     sUserName : user,
                     objTimeIn : timein,
-                    objTimeOut: timeout,
+                    objTimeOut: null,
                     sTask: null
             }, function(flag){
                 
@@ -50,15 +50,40 @@ const timeLogController = {
                 
     },
     
-    
 
-}		
+	 postTimeOut: function (req, res) {
+        
+        var user = req.session.userId;
+        var timeout = new Date();
+		var conditions = {sUserName:user,objTimeout:null, sTask:null};
+        console.log(user);
+        console.log(timeout);
+		var sTask = req.body.sTask;
+
+        try {
+           
+		db.updateOne(modelTimeLog, conditions, {
+         
+         $set:{
+             objTimeOut:timeout,
+             sTask:sTask
+         }  
+        });
+               
+           
+        }catch(e) {
+            console.log(e);         
+    }
+    
+    res.redirect("/srep/dashboard/" + user);
+    
+   },
 		
     
     //  Time in Time Out
 
 
-    
+}
 	
 
 
