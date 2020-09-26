@@ -4,10 +4,14 @@ const hbs = require("hbs");
 const bodyParser = require('body-parser');
 const mongodb = require('mongodb');
 const ObjectId = require('mongodb').ObjectId;
+const session = require('express-session');
+
+/** import module `mongoose` & `connect=mongo`*/
+const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo')(session);
 
 /**Engine creation */
 const index = express();
-
 const port = 3000;
 
 /**Database constants */
@@ -22,6 +26,9 @@ const modelSRep = require('./models/DB_SRep');
 const modelSuspension = require('./models/DB_Suspension');
 const modelTimeLog = require('./models/DB_TimeLog');
 const modelTimeRequest = require('./models/DB_TimeRequest');
+
+/**Database Functions */
+const db = require('./models/db.js');
 
 /**Create DB Collections if they do not exist */
 const options = { useUnifiedTopology: true };
@@ -53,6 +60,28 @@ mongoClient.connect(databaseURL, options, function(err, client) {
   });
 });
 
+/**** Cookie Session ****/
+index.use(session({
+  'secret': 'OCCSResidency',
+  'resave': false,
+  'saveUninitialized': false,
+  store: new MongoStore({mongooseConnection: mongoose.connection}),
+}));
+
+// let logout = require('./controllers/indexController');
+// logout.getLogout();
+
+index.use((req, res, next)=>{
+    const {userId} = req.session;
+    if(userId){
+      //do nothing or add necessary stuff here
+    }
+    else {
+        res.clearCookie(process.env.SESS_NAME);
+    }
+    next();
+});
+
 /**** Partials ****/
 hbs.registerPartials(__dirname+ "/views/partials");
 
@@ -64,29 +93,13 @@ index.use(bodyParser.urlencoded({ extended: true }));
 
 /********* Routing *********/
 const indexRoutes = require('./router/indexRoutes');
-const profileRoutes = require('./router/profileRoutes');
-const recordsRoutes = require('./router/recordsRoutes');
-const sendRequestRoutes = require('./router/sendRequestRoutes');
-const pendingRequestsRoutes = require('./router/pendingRequestsRoutes');
-const viewAnalyticsRoutes = require('./router/viewAnalyticsRoutes');
-const manageAccountsRoutes = require('./router/manageAccountsRoutes');
-const sendNotificationRoutes = require('./router/sendNotificationRoutes');
-const holidaysRoutes = require('./router/holidaysRoutes');
-const registerRoutes = require('./router/registerRoutes');
-const recordsCUHRoutes = require('./router/recordsCUHRoutes');
+const cuhRoutes = require('./router/cuhRoutes');
+const sRepRoutes = require('./router/sRepRoutes');
 
 /********* Routing *********/
-index.use('/', indexRoutes); //logout will also be directed here
-index.use('/profile', profileRoutes);
-index.use('/records', recordsRoutes);
-index.use('/send-request', sendRequestRoutes);
-index.use('/pending-request', pendingRequestsRoutes);
-index.use('/view-analytics', viewAnalyticsRoutes);
-index.use('/manage-accounts', manageAccountsRoutes);
-index.use('/send-notification', sendNotificationRoutes);
-index.use('/holidays', holidaysRoutes);
-index.use('/register', registerRoutes);
-index.use('/recordsCUH', recordsCUHRoutes);
+index.use('/', indexRoutes); //login, logout,
+index.use('/cuh', cuhRoutes);
+index.use('/srep', sRepRoutes);
 
 /** Helper Functions **/
 hbs.registerHelper("navBuilder", (sPage, sUserType)=>{

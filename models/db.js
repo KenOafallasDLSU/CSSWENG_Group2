@@ -2,7 +2,11 @@ const mongoose = require("mongoose");
 const databaseURL = "mongodb://localhost:27017/residencydb";
 //const databaseURL = "mongodb+srv://Admin:a1b2c3d4%21@occs-residency-system.jflhq.gcp.mongodb.net/residencydb?retryWrites=true&w=majority";
 
-const SRep = require('../models/DB_SRep.js');
+const modelSRep = require('../models/DB_SRep.js');
+const modelCUH = require('../models/DB_CUH.js');
+const modelSuspension = require('../models/DB_Suspension.js');
+const modelTimeLog = require('../models/DB_TimeLog.js');
+const modelTimeRequest = require('../models/DB_TimeRequest.js');
 
 const options = {
     useUnifiedTopology: true,
