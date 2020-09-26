@@ -14,7 +14,10 @@ const TimeLogSchema = new mongoose.Schema(
         sUserName: {type: String, required: true},
         objTimeIn: {type: Date, required: true},
         objTimeOut: {type: Date, required: false},
-        sTask: {type: String, required: false}
+        sTask: {type: String, required: false},
+        cStatus:{type:String , required:true, enum:["A" , "P", "R"], default: "P"}
+     
+       
     },
     {
         toObject: { virtuals: true },

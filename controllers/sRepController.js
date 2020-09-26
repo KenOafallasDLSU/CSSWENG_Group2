@@ -20,6 +20,15 @@ const sRepController = {
             sUserType: "Student Representative",
         })
     },
+
+    getSendRequest: function (req, res) {
+
+        // insert db.findOne kung existing sa db ung nakalogin na user 
+        res.render("sendRequest", {
+            sPage: "SendRequest",
+            sUserType: "Student Representative",
+        })
+    },
     /*
     getSReps:
 
