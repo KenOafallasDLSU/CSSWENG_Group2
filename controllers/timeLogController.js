@@ -67,7 +67,9 @@ const timeLogController = {
          $set:{
              objTimeOut:timeout,
              sTask:sTask
-         }  
+         },function(flag){
+                
+        }
         });
                
            
