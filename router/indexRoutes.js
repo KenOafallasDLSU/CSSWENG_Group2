@@ -7,10 +7,9 @@ const validation = require('../middlewares/validation');
 const authentication = require('../middlewares/indexAuthentication.js');
 
 /********* routes *********/
-
 /* login */
-router.get('/login', authentication.sessionNotActive, controller.getLogin);
-router.post('/login', validation.loginValidation(), controller.postLogin);
+router.get(['/','/login'], authentication.sessionNotActive, controller.getLogin);
+router.post(['/', '/login'], validation.loginValidation(), controller.postLogin);
 
 /* register */
 router.get('/register', controller.getRegister);

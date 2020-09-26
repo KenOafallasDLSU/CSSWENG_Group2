@@ -166,48 +166,8 @@ const indexController = {
             if(err) throw err;
             return res.redirect('/');
         })
-    }
+    },
 	
-	
-	/****change password*****/
-	  postchangePassword: function (req, res, next){
-        const errors = validationResult(req).array({onlyFirstError: true});
-        
-        if (errors.length > 0){
-            return res.status(403).render("changePassword", {
-                sPage: "changePassword",
-                errors: errors,
-            })
-        }
-        else{
-			const objSRep = res.locals.user;
-            try {
-
-                        bcrypt.compare(req.body.sPassword, objSRep.sPassword, (err, result)=>{
-                            if(err){
-                                return res.status(401).render("changePassword", {
-                                    pageName: "changePassword",
-                                    errors: [{msg: "Invalid credentials"}],
-                                })
-                            } 
-                            if (result) {
-								var sNewPassword = req.body.sNewPassword;
-                                objSRep.sPassword = sNewPassword;
-								console.log('>>>>>>>>>>>>>>>>Password Changed!<<<<<<<<<<<<<<<<<<');
-                                return res.redirect("changePassword");
-                            }
-                            else{
-                                return res.status(401).render("changePassword", {
-                                    pageName: "changePassword",
-                                    errors: [{msg: "Invalid credentials"}],
-                                })
-                            }
-                        })
-                    }catch (e){
-                console.log(e);
-                }
-            }
-        },
 }
 
 module.exports = indexController;

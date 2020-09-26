@@ -65,13 +65,16 @@ index.use(session({
   'secret': 'OCCSResidency',
   'resave': false,
   'saveUninitialized': false,
-  store: new MongoStore({mongooseConnection: mongoose.connection})
+  store: new MongoStore({mongooseConnection: mongoose.connection}),
 }));
+
+// let logout = require('./controllers/indexController');
+// logout.getLogout();
 
 index.use((req, res, next)=>{
     const {userId} = req.session;
     if(userId){
-        //do nothing or add necessary stuff here
+      //do nothing or add necessary stuff here
     }
     else {
         res.clearCookie(process.env.SESS_NAME);

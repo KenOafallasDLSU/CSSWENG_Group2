@@ -28,16 +28,7 @@ const validation = {
             check('sPassword').escape()
         ]
     },
-	
-	changePasswordValidation: function () {
-		
-         return [
-			check('sPassword', 'your new Password should contain at least 8 characters.').isLength({min: 8})		
-        ]
-        
-		
-    },
-	
+    
 }
 
 module.exports = validation;
