@@ -43,15 +43,17 @@
                             <th scope="col">Time In</th>
                             <th scope="col">Time Out</th>
                             <th scope="col">Task</th>
+                            <th scope="col">Hours</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{#each ###}}
+                        {{#each records}}
                         <tr>
                             <td>{{sDate}}</td>
                             <td>{{sTimeIn}}</td>
                             <td>{{sTimeOut}}</td>
                             <td>{{sTask}}</td>
+                            <td>{{fHours}}</td>
                         </tr>
                         {{/each}}
                     </tbody>

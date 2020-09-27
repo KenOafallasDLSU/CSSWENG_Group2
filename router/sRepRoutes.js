@@ -9,5 +9,7 @@ const authentication = require('../middlewares/sRepAuthentication.js');
 
 /* dashboard */
 router.get(['/:sUsername', '/dashboard/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, controller.getDashboard);
+/* records */
+router.get(['/recordsSRep'], controller.getRecordsSRep);
 
 module.exports = router;
