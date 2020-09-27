@@ -10,4 +10,7 @@ const authentication = require('../middlewares/cuhAuthentication.js');
 /* dashboard */
 router.get(['/:sUsername', '/dashboard/:sUsername'], authentication.sessionActive, authentication.isValidCUH,controller.getDashboard);
 
+/* records */
+router.get(['/'], controller.getRecordsCUH);
+
 module.exports = router;

@@ -65,14 +65,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{#each objTimeLogs}}
+                        {{#each records}}
                         <tr>
-                            <th scope="row">{{sFullName}}</th>
-                            <td>{{sDate}}</td>
-                            <td>{{sTimeIn}}</td>
-                            <td>{{sTimeOut}}</td>
-                            <td>{{sTask}}</td>
-                            <td>{{fHours}}</td>
+                            <th scope="row">{{name.sFirstName}} {{name.sLastName}}</th>
+                            <td>{{timelog.sDate}}</td>
+                            <td>{{timelog.sTimeIn}}</td>
+                            <td>{{timelog.sTimeOut}}</td>
+                            <td>{{timelog.sTask}}</td>
+                            <td>{{timelog.fHours}}</td>
                         </tr>
                         {{/each}}
                     </tbody>
