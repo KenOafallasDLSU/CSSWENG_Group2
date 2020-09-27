@@ -14,6 +14,13 @@ const cuhController = {
     },
 
     /*  Records*/
+
+    /**
+     * Initial Records, displays all records
+     * 
+     * @param {*} req unused 
+     * @param {*} res 
+     */
     getRecordsCUH: function (req, res) {
         try{
             db.findMany(modelSRep, {}, '', '', '', function(objSReps){
@@ -26,7 +33,7 @@ const cuhController = {
                     
                 }
 
-                db.aggregate(modelTimeLog, "sreps", "objSRep", "_id", "name", projection, function(objSRepNames){
+                db.aggregate({}, modelTimeLog, "sreps", "objSRep", "_id", "name", projection, function(objSRepNames){
                     sRepNames = objSRepNames;
 
                     //console.log(sRepNames);
@@ -34,7 +41,7 @@ const cuhController = {
 
                     db.findMany(modelTimeLog, {}, '', '', '', function(objTimeLogs){
                         virtualTimeLogs = objTimeLogs;
-                        console.log(virtualTimeLogs);
+                        //console.log(virtualTimeLogs);
 
 
                         records = [];
@@ -49,7 +56,7 @@ const cuhController = {
                             records.push(record);
                         }
 
-                        console.log(records[0]);
+                        //console.log(records[0]);
 
     
                         res.render("recordsCUH", {
@@ -67,8 +74,82 @@ const cuhController = {
         }
     },
 
-    postRecordsCUH: function (req, res) {
+    /**
+     * When specific SRep selected
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     */
+    postRecordsCUHOne: function (req, res) {
+        try{
+                db.findOne(modelSRep, req.body.nQuery, '', function(objCurrSRep){
+                    name = objCurrSRep;
 
+                    db.findMany(modelTimeLog, req.body.tQuery, '', '', '', function(objTimeLogs){
+                        virtualTimeLogs = objTimeLogs;
+                        console.log(virtualTimeLogs);
+
+                        records = [];
+                        var i = 0
+                        for(i = 0; i < objTimeLogs.length; i++)
+                        {
+                            record = {
+                                name: name,
+                                timelog: virtualTimeLogs[i]
+                            }
+
+                            records.push(record);
+                        }
+
+                        console.log(records[0]);
+                        res.send(records)
+                    });
+                });
+
+        }
+        catch{
+            console.log(e)
+        }
+    },
+
+    /**
+     * When its all
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     */
+    postRecordsCUHAll:function (req, res) {
+        try{
+            db.aggregate({}, modelTimeLog, "sreps", "objSRep", "_id", "name", projection, function(objSRepNames){
+                sRepNames = objSRepNames;
+
+                //console.log(sRepNames);
+                //console.log(sRepNames[0].name);
+
+                db.findMany(modelTimeLog, {}, '', '', '', function(objTimeLogs){
+                    virtualTimeLogs = objTimeLogs;
+                    //console.log(virtualTimeLogs);
+
+
+                    records = [];
+                    var i = 0
+                    for(i = 0; i < objTimeLogs.length; i++)
+                    {
+                        record = {
+                            name: sRepNames[i],
+                            timelog: virtualTimeLogs[i]
+                        }
+
+                        records.push(record);
+                    }
+
+                    res.send(records)
+                });
+            });
+        }
+        catch{
+            console.log(e)
+        }
     }
 }
 

@@ -11,6 +11,8 @@ const authentication = require('../middlewares/cuhAuthentication.js');
 router.get(['/:sUsername', '/dashboard/:sUsername'], authentication.sessionActive, authentication.isValidCUH,controller.getDashboard);
 
 /* records */
-router.get(['/'], controller.getRecordsCUH);
+router.get(['/recordsCUH'], controller.getRecordsCUH);
+router.post(['/postRecordsCUHOne'], controller.postRecordsCUHOne);
+router.post(['/postRecordsCUHAll'], controller.postRecordsCUHAll);
 
 module.exports = router;

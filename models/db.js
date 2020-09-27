@@ -115,9 +115,9 @@ const database = {
 
     //
     
-    aggregate: function(model, otherCol, local, foreign, newField, projection, callback) {
+    aggregate: function(condition, model, otherCol, local, foreign, newField, projection, callback) {
         model.aggregate([
-            {$match: {}},
+            {$match: condition},
             {$lookup:
                 {
                     from: otherCol, 

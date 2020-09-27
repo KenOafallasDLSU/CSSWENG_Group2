@@ -97,8 +97,8 @@ const cuhRoutes = require('./router/cuhRoutes');
 const sRepRoutes = require('./router/sRepRoutes');
 
 /********* Routing *********/
-//index.use('/', indexRoutes); //login, logout,
-index.use('/', cuhRoutes);
+index.use('/', indexRoutes); //login, logout,
+index.use('/cuh', cuhRoutes);
 index.use('/srep', sRepRoutes);
 
 /** Helper Functions **/
