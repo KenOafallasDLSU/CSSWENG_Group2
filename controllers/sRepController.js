@@ -37,6 +37,26 @@ const sRepController = {
         catch{
             console.log(e)
         }
+    },
+
+    /* for profile */
+    getProfile: function (req, res) {
+        try{
+            db.findOne(modelSRep, {_id: res.locals.user}, {sUsername:1}, function (x) {
+                res.render("profile", {
+                    sPage: "profile",
+                    sUserType: "Student Representative",
+                    sFirstName: x.sFirstName,
+                    sEmail: x.sEmail,
+                    sCourse: x.sCourse,
+                    sUserID: x.sUserID,
+                    sBirthdate: x.sBirthdate,
+                })
+            });
+        }
+        catch(e){
+            console.log(e)
+        }
     }
 }
 
