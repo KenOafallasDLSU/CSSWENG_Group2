@@ -5,6 +5,7 @@ const {validationResult} = require('express-validator');
 const db = require('../models/db.js');
 const modelSREP = require('../models/DB_SRep.js');
 const modelCUH = require('../models/DB_CUH.js');
+const ObjectId = require('mongodb').ObjectId;
 
 const saltRounds = 10;
 
@@ -39,7 +40,7 @@ const indexController = {
                             } 
                             if (result) {
                                 req.session.userId = objSRep.sUsername;
-                                res.locals.user = objSRep;
+                                res.locals.user = ObjectId(objSRep._id); 
 
                                 return res.redirect("/srep/"+ objSRep.sUsername);
                             }
@@ -63,7 +64,7 @@ const indexController = {
                                     } 
                                     if (result) {
                                         req.session.userId = objCUH.sUsername;
-                                        res.locals.user = objCUH;
+                                        res.locals.user = ObjectId(objCUH._id);
         
                                         return res.redirect("/cuh/"+ objCUH.sUsername);
                                     }

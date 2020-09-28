@@ -1,5 +1,6 @@
 const db = require('../models/db.js');
 const sRep = require('../models/DB_SRep.js');
+const modelTimeLog = require('../models/DB_TimeLog.js');
 
 const sRepController = {
     getDashboard: function (req, res) {
@@ -35,10 +36,26 @@ const sRepController = {
     getSRep:
 
     getRecord:
-
-    more functions under srep c:
-    
     */
+    getRecordsSRep: function (req, res) {
+        try{
+            var id = res.locals.user;
+
+            db.findMany(modelTimeLog, {objSRep: id}, '', '', '', function(objTimeLogs){
+                records = objTimeLogs;
+
+                //res.send(records)
+                res.render("records", {
+                    sPage: "SReps Records",
+                    sUserType: "SRep",
+                    records: records
+                });
+            });
+        }
+        catch{
+            console.log(e)
+        }
+    }
 }
 
 module.exports = sRepController;

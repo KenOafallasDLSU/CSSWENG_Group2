@@ -111,7 +111,40 @@ const database = {
             console.log('Documents deleted: ' + result.deletedCount);
             console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
         });
+    },
+
+    //
+    
+    aggregate: function(condition, model, otherCol, local, foreign, newField, projection, callback) {
+        model.aggregate([
+            {$match: condition},
+            {$lookup:
+                {
+                    from: otherCol, 
+                    localField: local,
+                    foreignField: foreign,
+                    as: newField
+                }
+            },
+            {$project: projection}],
+            function (error, result){
+                if(error) throw error;
+                console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>aggregate');
+                console.log("Found: " + result.length);
+                console.log('Joined to'); console.log(otherCol);
+                console.log('Joined left'); console.log(local);
+                console.log('Joined right'); console.log(foreign);
+                console.log('created'); console.log(newField);
+                console.log('projection'); console.log(projection);
+                console.log(result);
+                console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+            }
+        ).exec(function(err, result){
+            if(err) throw err;
+            return callback(result);
+        });
     }
+    
 
     
 

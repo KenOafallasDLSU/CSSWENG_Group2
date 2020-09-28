@@ -35,47 +35,69 @@ TimeLogSchema.virtual("sDate").get(function() {
 });
 
 TimeLogSchema.virtual("sTimeIn").get(function() {
-    var sHour = this.objTimeIn.getHours().toString();
-    if(this.objTimeIn.getHours() <= 9){
+    var bIsAM = true;
+    var nHour = this.objTimeIn.getHours();
+    var sHour = nHour.toString();
+    if(nHour <= 9){
         sHour = "0" + sHour;
+    } else if(nHour >= 12 && nHour <= 21){
+        sHour = "0" + (nHour - 12).toString();
+        bIsAM = false;
+    } else if(nHour >= 22){
+        bIsAM = false;
     }
 
-    var sMin = this.objTimeIn.getMinutes().toString();
-    if(this.objTimeIn.getMinutes() <= 9){
+    var nMin = this.objTimeIn.getMinutes();
+    var sMin = nMin.toString();
+    if(nMin <= 9){
         sMin = "0" + sMin;
     }
-    
-    return sHour + ":" + sMin;
+
+    var sTimeOut = sHour + ":" + sMin;
+    if(bIsAM){
+        sTimeOut = sTimeOut + " AM";
+    } else{
+        sTimeOut = sTimeOut + " PM";
+    }
+
+    return sTimeOut;
 });
 
-
 TimeLogSchema.virtual("sTimeOut").get(function() {
-    if(this.objTimeOut){
-
-        var sHour = this.objTimeOut.getHours().toString();
-        if(this.objTimeOut.getHours() <= 9){
-            sHour = "0" + sHour;
-        }
-    
-        var sMin = this.objTimeOut.getMinutes().toString();
-        if(this.objTimeOut.getMinutes() <= 9){
-            sMin = "0" + sMin;
-        }
-    
-        return sHour + ":" + sMin;
+    var bIsAM = true;
+    var nHour = this.objTimeOut.getHours();
+    var sHour = nHour.toString();
+    if(nHour <= 9){
+        sHour = "0" + sHour;
+    } else if(nHour >= 12 && nHour <= 21){
+        sHour = "0" + (nHour - 12).toString();
+        bIsAM = false;
+    } else if(nHour >= 22){
+        bIsAM = false;
     }
-  return false;
+
+    var nMin = this.objTimeOut.getMinutes();
+    var sMin = nMin.toString();
+    if(nMin <= 9){
+        sMin = "0" + sMin;
+    }
+
+    var sTimeOut = sHour + ":" + sMin;
+    if(bIsAM){
+        sTimeOut = sTimeOut + " AM";
+    } else{
+        sTimeOut = sTimeOut + " PM";
+    }
+
+    return sTimeOut;
 });
 
 TimeLogSchema.virtual("fHours").get(function() {
-    if(this.objTimeOut){
-        var fTimeIn = this.objTimeIn.getTime();
-        var fTimeOut = this.objTimeOut.getTime();
-        var fHours = (fTimeOut - fTimeIn)/3600000;
-    
-        return fHours.toFixed(2);
-    }
-   return false;
+    var fTimeIn = this.objTimeIn.getTime();
+    var fTimeOut = this.objTimeOut.getTime();
+    var fHours = (fTimeOut - fTimeIn)/3600000;
+
+    return fHours.toFixed(2);
 });
 
 module.exports = mongoose.model("TimeLog", TimeLogSchema);

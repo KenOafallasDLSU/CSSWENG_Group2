@@ -30,4 +30,8 @@ const SRepSchema = new mongoose.Schema(
     }
 );
 
+SRepSchema.virtual("sFullName").get(function() {
+    return this.sFirstName + " " +  this.sLastName;
+});
+
 module.exports = mongoose.model('SRep', SRepSchema);
