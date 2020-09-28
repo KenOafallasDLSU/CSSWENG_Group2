@@ -106,7 +106,7 @@ index.use('/srep', sRepRoutes);
 hbs.registerHelper("navBuilder", (sPage, sUserType)=>{
     let element = '';
     let navs = ['Dashboard', 'Profile', 'Records', 'SendRequest', 'Pending Requests', 'View Analytics', 'Manage Accounts', 'Send Notification','Holidays', 'Logout'];
-    let url = ['/', '/profile', '/records', '/sendRequest', '/pending-requests', '/view-analytics', '/manage-accounts', '/send-notification','/holidays', '/logout'];
+    let url = ['/', '/profile', '/records', '/send-request', '/pending-requests', '/view-analytics', '/manage-accounts', '/send-notification','/holidays', '/logout'];
     let visible = [];
 
     if (sUserType === 'Student Representative'){

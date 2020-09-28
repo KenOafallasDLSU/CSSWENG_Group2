@@ -168,6 +168,30 @@ const indexController = {
             return res.redirect('/');
         })
     },
+
+    /* redirects to valid url path */
+    redirect: function(req, res){
+        console.log(req.url);
+        try {
+            db.findOne(modelSREP, {sUsername: req.session.userId}, '', function(objSREP){
+                if (objSREP){
+                    return res.redirect('/srep' + req.url + '/' + req.session.userId);
+                }
+                else{
+                    db.findOne(modelCUH, {sUsername: req.session.userId}, '', function(objCUH){
+                        if (objCUH){
+                            return res.redirect('/cuh' + req.url + '/' + req.session.userId);
+                        }
+                        else{
+                            return res.redirect('/logout');
+                        }
+                    });
+                }
+            });
+        } catch (error) {
+            
+        }
+    }
 	
 }
 
