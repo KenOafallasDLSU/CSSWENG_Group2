@@ -15,4 +15,8 @@ router.get(['/recordsCUH'], controller.getRecordsCUH);
 router.post(['/postRecordsCUHOne'], controller.postRecordsCUHOne);
 router.post(['/postRecordsCUHAll'], controller.postRecordsCUHAll);
 
+/* changePassword */
+router.get(['/:sUsername', '/changePassword/:sUsername'], authentication.sessionActive, authentication.isValidCUH,controller.getChangePassword);
+router.post(['/:sUsername', '/changePassword/:sUsername'], authentication.sessionActive, authentication.isValidCUH,controller.postChangePassword);
+
 module.exports = router;

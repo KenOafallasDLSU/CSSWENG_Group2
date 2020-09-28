@@ -31,6 +31,10 @@ router.post(['/:sUsername', '/dashboard2/:sUsername'] , authentication.sessionAc
 router.get(['/:sUsername', '/sendRequest/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, controller.getSendRequest);
 // router.get("/" , timeLogControllers.getSendRequest);
 
-router.post(['/:sUsername', '/sendRequest/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, timeLogControllers.postSendRequest);
+//router.post(['/:sUsername', '/sendRequest/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, timeLogControllers.postSendRequest);
+
+/* changePassword */
+router.get(['/:sUsername', '/changePassword/:sUsername'], authentication.sessionActive, authentication.isValidSRep, controller.getChangePassword);
+router.post(['/:sUsername', '/changePassword/:sUsername'], authentication.sessionActive, authentication.isValidSRep, controller.postChangePassword);
 
 module.exports = router;

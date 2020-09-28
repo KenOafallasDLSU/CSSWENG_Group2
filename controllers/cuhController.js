@@ -4,6 +4,8 @@ const modelSRep = require('../models/DB_SRep.js');
 const modelTimeLog = require('../models/DB_TimeLog.js');
 const modelCUH = require('../models/DB_CUH.js')
 const ObjectId = require('mongodb').ObjectId;
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const cuhController = {
     getDashboard: function (req, res) {
@@ -72,6 +74,12 @@ const cuhController = {
         catch{
             console.log(e)
         }
+    },
+
+    getChangePassword: function (req, res) {
+        res.render("changePassword", {
+            sPage: "changePassword",
+        })
     },
 
     /**
@@ -150,7 +158,61 @@ const cuhController = {
         catch{
             console.log(e)
         }
-    }
+    },
+	
+	 postChangePassword: function (req, res, next){
+        
+		try {
+
+            db.findOne(modelCUH, {sUsername: req.session.userId}, '', function(objCUH){
+                if (objCUH){
+                    bcrypt.compare(req.body.sPassword, objCUH.sPassword, (err, result)=>{
+                        if (err) {
+                            return res.status(401).render("changePassword", {
+                                pageName: "Change Password",
+                                errors: [{msg: "Invalid credentials"}],
+                            })
+                        } 
+                        if (result) {
+                            //var sNewPassword = req.body.sNewPassword;
+                            bcrypt.hash(req.body.sNewPassword, saltRounds, function(err, hash) {
+        
+                            db.updateOne(modelCUH, {sUsername: objCUH.sUsername}, { 	
+                                $set:{
+                                    sPassword : hash,
+                                }					
+                                });
+                            });
+                            console.log('>>>>>>>>>>>>>>>>Password Changed!<<<<<<<<<<<<<<<<<<');
+                            alert("Password has been changed!");
+                            return res.redirect("/");
+                        }
+                        else{
+                            return res.status(401).render("changePassword", {
+                                pageName: "Change Password",
+                                errors: [{msg: "Invalid credentials"}],
+                            })
+                        }
+                    })    
+                }
+                else{
+                    db.findOne(modelSREP, {sUsername: req.body.sUsername}, '', function(objSREP){
+                        if (objSREP){
+                            return res.redirect("/srep/changePassword/" + req.session.userId);
+                        }
+                        else{
+                            return res.status(403).render("login", {
+                                pageName: "Login",
+                                errors: [{msg: "Invalid credentials"}],
+                            }) 
+                        }
+                    });
+                }
+            });
+            }catch (e){
+            console.log(e);
+            }
+        }    
 }
 
 module.exports = cuhController;
