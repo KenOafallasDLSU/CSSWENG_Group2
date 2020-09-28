@@ -17,80 +17,23 @@
         <div class="row p-2">
             {{>navBar}}   
             <div class="col-8 col-sm-8">
-                <form name="login" id="login" method="POST">
-                    <!-- Name -->
-                    <div class="form-row">
-                        <div class="form-group col-sm-6 input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                   <i class="fa fa-user icon"></i>
-                                </span>
-                            </div>
-                            <label for="sFirstName" class="sr-only">First Name</label>
-                            <input type="text" name="sFirstName" id="sFirstName" class="form-control" placeholder="First Name">
-                        </div>
-                        <div class="form-group col-sm-6 input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                     <i class="fa fa-user icon"></i>
-                                </span>
-                            </div>
-                            <label for="sLastName" class="sr-only">Last Name</label>
-                            <input type="text" name="sLastName" id="sLastName" class="form-control" placeholder="Last Name">
-                        </div>
-                    </div>
-    
-                    <div class="form-row">
-                        <div class="form-group col-sm-7 input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    @
-                                </span>
-                            </div>
-                            <label for="sEmail" class="sr-only">Email</label>
-                            <input type="email" name="sEmail" id="sEmail" class="form-control" placeholder="Email Address">
-                        </div>
-                        <div class ="form-group col-sm-5 input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="far fa-address-card"></i> 
-                                </span>
-                            </div>
-                            <label for="sEmail" class="sr-only">Degree Program</label>
-                            <input type="email" name="sEmail" id="sEmail" class="form-control" placeholder="Degree Program">
-                        </div>
-                    </div>
-    
-                    <!-- ID Number & Degree Program -->
-                    <div class="form-row">
-                        <div class="form-group col-sm-5 input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                      <i class="far fa-address-card"></i> 
-                                </span>
-                            </div>
-                            <label for="nIDNumber" class="sr-only">ID Number</label>
-                            <input type="number" name="nIDNumber" id="nIDNumber" class="form-control" placeholder="ID Number">
-                        </div>
-                        
-                        <div class="form-group col-sm-7 input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                     <i class="fas fa-birthday-cake icon"></i>
-                                </span>
-                            </div>
-                            <label for="sBirthdate" class="sr-only">Birthday</label>
-                            <input type="date" name="sBirthdate" id="sBirthdate" class="form-control" placeholder="Birthday">
-                        </div>
-                    </div>
-                    
-                    <!-- Submit button -->
-                    <div class="form-row">
-                        <div class="form-group col-sm-10">
-                            <button type="submit" id="btnUpdateProfile" class="btn btn-md btn-success">Update Profile</button>
-                        </div>
-                    </div>
-                </form>
+                <div class="col-sm-6">
+                    <i class="fa fa-user icon"></i> Full name: {{sFirstName}}
+                </div>
+                <div class="col-sm-6">
+                    <h>@</h> Email address: {{sEmail}}
+                </div>
+                <div class="col-sm-7">
+                    <i class="far fa-address-card"></i> Degree Program: {{sCourse}}
+                </div>
+                <div class="col-sm-5">
+                    <i class="far fa-address-card"></i> ID Number: {{sUserID}}
+                </div>
+                <div class="col-sm-5">
+                    <i class="fas fa-birthday-cake icon"></i> Birthday: {{sBirthdate}}
+                </div>
+
+
 
                 <p><hr></p>
                 <p><h>Check residency hours</h></p>
