@@ -21,7 +21,7 @@ const sRepController = {
     */
     getRecordsSRep: function (req, res) {
         try{
-            var id = req.session.userId; //change to new global _id var later
+            var id = res.locals.user;
 
             db.findMany(modelTimeLog, {objSRep: id}, '', '', '', function(objTimeLogs){
                 records = objTimeLogs;
