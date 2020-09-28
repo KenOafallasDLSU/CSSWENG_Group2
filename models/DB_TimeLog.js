@@ -10,8 +10,8 @@ mongoose.connect(databaseURL, options);
 
 const TimeLogSchema = new mongoose.Schema(
     {
-        // objSRep: {type: mongoose.Schema.Types.ObjectId, ref: "SRep", required: true},
-        sUserName: {type: String, required: true},
+         objSRep: {type: mongoose.Schema.Types.ObjectId, ref: "SRep", required: true},
+        // sUserName: {type: String, required: true},
         objTimeIn: {type: Date, required: true},
         objTimeOut: {type: Date, required: false},
         sTask: {type: String, required: false},
