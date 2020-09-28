@@ -38,6 +38,7 @@ const timeLogController = {
                     objTimeIn : timein,
                     objTimeOut: null,
                     sTask: null,
+                    sReason: null,
                     cStatus: "A"
             }, function(flag){
                 
@@ -53,7 +54,7 @@ const timeLogController = {
     },
     
 
-	 postTimeOut: function (req, res) {
+	postTimeOut: function (req, res) {
         
         var user = req.session.userId;
         var timeout = new Date();
@@ -79,90 +80,49 @@ const timeLogController = {
         }catch(e) {
             console.log(e); 
 
-    }
-    // db.deleteOne(modelTimeLog, conditions);
+        }
+        // db.deleteOne(modelTimeLog, conditions);
+        
+        res.redirect("/srep/dashboard/" + user);
     
-    res.redirect("/srep/dashboard/" + user);
-    
-   },
-		
-
-    //  Time in Time Out
+    },
 
     postSendRequest: function (req,res){
+        console.log("im here");
         var user = req.session.userId;
        
-        var Datein = new Date(req.body.sDatein);
-        var Timein = new Date(req.body.sTimein);
+        var sDate = (req.body.sDate).toString();
+        var sTimeIn = (req.body.sTimein).toString();
+        var sTimeOut = (req.body.sTimeout).toString();
 
-        var monthIn = sDatein.getMonth()+1;
-        var dayIn  = sDatein.getDate();
-        var yearIn = sDatein.getFullYear();
+        var sDateTimeIn = new Date( sDate + ' ' + sTimeIn + ':00'); 
+        var sDateTimeOut = new Date( sDate + ' ' + sTimeOut + ':00'); 
 
-        var hourIn  = sTimein.getHours();
-        if (hourIn  < 10)
-            hourIn  = "0"+ hourIn ;
-
-        var minIn  = sTimein.getMinutes();
-        if (minIn  < 10)
-            minIn  = "0"+minIn ;
-
-        var secIn  = sTimein.getSeconds();
-        if (secIn  < 10)
-            secIn  = "0"+ secIn;
-
-        var sDateTimeIn = yearIn+'-'+monthIn+'-'+dayIn+'T'+hourIn+'.'+minIn+'.'+secIn; 
-
-
-      
-        var sDateOut = new Date(req.body.sDateOut);
-        var sTimeOut = new Date(req.body.sTimeOut);
-
-        var monthOut = sDateOut.getMonth()+1;
-        var dayOut  = sDateOut.getDate();
-        var yearOut = sDateOut.getFullYear();
-
-        var hourOut  = sTimeOut.getHours();
-        if (hourOut  < 10)
-            hourOut  = "0"+ hourOut ;
-
-        var minOut  = sTimeOut.getMinutes();
-        if (minOut  < 10)
-            minOut  = "0"+minOut ;
-
-        var secOut  = sTimeOut.getSeconds();
-        if (secOut  < 10)
-            secOut  = "0"+ secOut;
-
-        var sDateTimeOut = yearOut+'-'+monthOut+'-'+dayOut+'T'+hourOut+'.'+minOut+'.'+secOut;
-        
-
+        var sTask = req.body.sTask;
         var sReason = req.body.sReason;
 
-        
         try {
-
             db.insertOne(modelTimeLog, {
 
-                    sUserName : user,
-                    objTimeIn : sDateTimeIn,
-                    objTimeOut: sDateTimeOut,
-                    sTask: sReason,
-                    cStatus: "P"      
+                objSRep: ObjectId(res.locals.user),
+                objTimeIn: sDateTimeIn,
+                objTimeOut: sDateTimeOut,
+                sTask: sTask,
+                sReason: sReason,
+                cStatus: "P"
+
             }, function(flag){
-                
-            }
-            );
+                console.log(flag);
+            });
            
         } catch(e) {
             console.log(e);
         }
                 
         res.redirect("/srep/dashboard/" + user);
-    }
-
+    },
+		
 }
-	
 
 
 module.exports = timeLogController;
