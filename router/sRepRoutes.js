@@ -28,6 +28,6 @@ router.post(['/:sUsername', '/dashboard2/:sUsername'] , authentication.sessionAc
 
 // send request paths
 router.get(['/send-request', '/send-request/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, controller.getSendRequest);
-router.post(['/send-request', '/sendRequest/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, timeLogControllers.postSendRequest);
+router.post(['/send-request', '/send-request/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, timeLogControllers.postSendRequest);
 
 module.exports = router;
