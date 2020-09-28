@@ -14,6 +14,18 @@
             <div class="col-sm-12 text-center p-2">
                  <h3 style=" color: rgb(88, 182, 116)">Login</h3>
             </div>
+            {{#if errors}}
+                <div class="col-sm-12">
+                    {{#each errors}}
+                        <div class="alert alert-danger my-1 text-center alert-dismissable fade show mb-4 mt-0">
+                            <small>{{msg}}</small>
+                            <button type="button" class="close pl-3" data-dismiss="alert">
+                                <i class="fa fa-close"></i>
+                            </button>
+                        </div>
+                    {{/each}}
+                </div>
+            {{/if}}
             <form name="login" id="login" method="POST">
                 <!-- Username -->
                 <div class="form-row">
@@ -23,8 +35,8 @@
                                  <i class="fa fa-user icon"></i>
                             </span>
                         </div>
-                        <label for="username" class="sr-only">ID Number</label>
-                        <input type="text" name="username" id="sName" class="form-control" placeholder="Username">
+                        <label for="sUsername" class="sr-only">ID Number</label>
+                        <input type="text" name="sUsername" id="sUsername" class="form-control" placeholder="Username">
                     </div>
                 </div>
 
@@ -36,22 +48,22 @@
                                 <i class="fa fa-key icon"></i>
                             </span>
                         </div>
-                        <label for="password" class="sr-only">Password</label>
-                        <input type="password" name="password" id="sPassword" class="form-control" placeholder="Password">
+                        <label for="sPassword" class="sr-only">Password</label>
+                        <input type="password" name="sPassword" id="sPassword" class="form-control" placeholder="Password">
                     </div>
                 </div>
 
-                <!-- Submit button -->
+                <!-- Login button -->
                 <div class="form-row">
                     <div class="form-group col-sm-12">
-                        <button type="submit" id="btnSubmit" class="btn btn-md btn-success btn-block">Log In</button>
+                        <button type="submit" id="btnLogin" class="btn btn-md btn-success btn-block">Log In</button>
                     </div>
                 </div>
             </form>
 
             <div class="text-center">
-                <p class="text-center">New User? <a href="###">Sign up</a></p>
-                <a href="forgotPassword.hbs">Forgot your password?</a>
+                <p class="text-center">New User? <a href="/register">Register</a></p>
+                <a href="/forgotPassword">Forgot your password?</a>
             </div>
         </div>
     </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Request | Office of Counseling and Career Services</title>
+    <title>Send Request | Office of Counseling and Career Services</title>
 </head>
     <style>
       input[type=text], select, textarea {
@@ -37,25 +37,10 @@
       }
     </style>
 <body>
-    <!-- header | navbar -->
-    <nav class="navbar navbar-light" style="background-color: rgb(88, 182, 116);">
-        <!-- Navbar content -->
-        <div class="row align-items-center justify-content-center" style="width: 75px; height: 75px;">
-            OCCS Logo
-        </div>
-    </nav>
+    {{>header}}
     
     <div class="container-fluid">
-        <div class="row p-2 border-bottom">
-            <div class="col-10 col-sm-10">
-                <small>
-                    Logged in as Student Representative
-                </small>
-            </div>
-            <div class="col-2 col-sm-2">
-                <button type="submit" id="btnTimein" class="btn btn-outline-success btn-sm">Time-in</button>
-            </div>
-        </div>
+        {{>subHeader}}
         
         <div class="row p-2row">
             <div class="col-2 col-sm-2">
@@ -87,7 +72,7 @@
                         <div class="form-group col-sm-12 input-group">
                             <label for="sDate">Select date</label>
                             <div class="col-sm-4">
-                                <input type="date" id="sDate" name="sDate">
+                                <input type="date" id="sDateIn" name="sDatein">
                             </div>
                         </div>
                     </div>
@@ -97,7 +82,27 @@
                         <div class="form-group col-sm-12 input-group">
                             <label for="sTime">Select time</label>
                             <div class="col-sm-4">
-                                <input type="time" id="sTime" name="sTime">
+                                <input type="time" id="sTimeIn" name="sTimein">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Date Select -->
+                    <div class="form-row">
+                        <div class="form-group col-sm-12 input-group">
+                            <label for="sDate">Select date</label>
+                            <div class="col-sm-4">
+                                <input type="date" id="sDateOut" name="sDateout">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Time  Select -->
+                    <div class="form-row">
+                        <div class="form-group col-sm-12 input-group">
+                            <label for="sTime">Select time</label>
+                            <div class="col-sm-4">
+                                <input type="time" id="sTimeOut" name="sTimeout">
                             </div>
                         </div>
                     </div>
@@ -109,7 +114,10 @@
                         </div>
                     </div>
                     
+
+                    
                     <!-- Submit button -->
+                    
                     <div class="form-row">
                         <div class="form-group col-sm-12">
                             <button type="submit" id="btnRequest" class="btn btn-md btn-success btn-block">Submit</button>

@@ -10,34 +10,12 @@
     </head>
 <body>
     <!-- header | navbar -->
-    <nav class="navbar navbar-light" style="background-color: rgb(88, 182, 116);">
-        <!-- Navbar content -->
-        <div class="row align-items-center justify-content-center" style="width: 75px; height: 75px;">
-            OCCS Logo
-        </div>
-    </nav>
+    {{>header}}
     <div class="container-fluid">
-        <div class="row p-2 border-bottom">
-            <div class="col-10 col-sm-10">
-                <small>
-                    Logged in as Student Representative
-                </small>
-            </div>
-            <div class="col-2 col-sm-2">
-                <button type="submit" id="###" class="btn btn-outline-success btn-sm">Time-in</button>
-            </div>
-        </div>
+        {{>subHeader}}
        
         <div class="row p-2">
-            <div class="col-2 col-sm-2">
-                <nav class="nav flex-column justify-content-center">
-                    <a class="nav-link active" href="#">Profile</a>
-                    <a class="nav-link" href="#">Records</a>
-                    <a class="nav-link" href="#">Request</a>
-                    <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
-                    <a class="nav-link" href="#">Logout</a>
-                </nav>
-            </div>   
+            {{>navBar}}   
             <div class="col-8 col-sm-8">
                 <form name="login" id="login" method="POST">
                     <!-- Name -->
@@ -48,7 +26,7 @@
                                    <i class="fa fa-user icon"></i>
                                 </span>
                             </div>
-                            <label for="sFirstName" class="sr-only">First Namer</label>
+                            <label for="sFirstName" class="sr-only">First Name</label>
                             <input type="text" name="sFirstName" id="sFirstName" class="form-control" placeholder="First Name">
                         </div>
                         <div class="form-group col-sm-6 input-group">
@@ -109,7 +87,7 @@
                     <!-- Submit button -->
                     <div class="form-row">
                         <div class="form-group col-sm-10">
-                            <button type="submit" id="btnUpdateProfile" class="btn btn-md btn-success btn-block">Update Profile</button>
+                            <button type="submit" id="btnUpdateProfile" class="btn btn-md btn-success">Update Profile</button>
                         </div>
                     </div>
                 </form>

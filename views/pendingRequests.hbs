@@ -7,24 +7,11 @@
 </head>
 <body>
     <!-- header | navbar -->
-    <nav class="navbar navbar-light" style="background-color: rgb(88, 182, 116);">
-        <!-- Navbar content -->
-        <div class="row align-items-center justify-content-center" style="width: 75px; height: 75px;">
-            OCCS Logo
-        </div>
-    </nav>
+    {{> header}}
     <div class="container-fluid">
-        <div class="row p-2 border-bottom">
-            <div class="col-10 col-sm-10">
-                <small>
-                    Logged in as Career Unit Head
-                </small>
-            </div>
-        </div>
+        {{>subHeader}}
         <div class="row">
-            <div class="col-2 col-sm-2">
-               <!-- {{> navBar}} -->
-            </div>   
+            {{> navBar}}   
             <div class="col-9 col-sm-9 justify-content-center">
 
                 <table class="table table-striped">
@@ -37,21 +24,21 @@
                         </tr>
                     </thead>
                     <tbody align ="center">
-						<tr>
-                            <th scope="row">nCount</th>
-                            <div data-toggle="modal" data-target="#createCUHModal">
-                                <td>srequest</td>
-                                <td>sname</td>
-                            </div>
-                            <td>
-                                <button class="btn btn-sm btn-success" onclick="">Accept</button>
-                                <button class="btn btn-sm btn-danger" onclick="">Reject</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"></th>
-                            <td>Details--</td>
-                        </tr>
+                        {{#each RequestEntry}}
+                            <tr>
+                                <th scope="row">{{nCount}}</th>
+                                <td>{{sRequestType}}</td>
+                                <td>{{sName}}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-success" onclick="">Accept</button>
+                                    <button class="btn btn-sm btn-danger" onclick="">Reject</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"></th>
+                                <td>Details--</td>
+                            </tr>
+                        {{/each}}	
                     </tbody>
                 </table>
             </div>
