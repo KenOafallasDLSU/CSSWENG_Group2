@@ -47,6 +47,19 @@
             <div class="col-9 col-sm-9">
                 <div class="row">
                     <form name="frmViewAnalytics" id="frmViewAnalytics" method="POST">
+                        <label for="country">Select Student Representative</label>
+                        <div class="form-row">
+                            <div class="form-group col-sm-12 input-group">
+                                <div class="p-1">
+                                    <select id="statSelect" name="statSelect">
+                                        <option class = "statOption" value="">Total Hours per SRep</option>
+                                        <option class = "statOption" value=""></option>
+                                        <option class = "statOption" value="">Hours per Day of all SReps</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Start Date -->
                         <div class="form-row">
                             <label for="startdate">Start Date</label>
@@ -55,14 +68,14 @@
 
                         <!-- End Date -->
                         <div class="form-row">
-                            <label for="enddate"> End Date</label>
+                            <label for="enddate">End Date</label>
                             <input type="date" name="sEndDate" id="sEndDate" class="form-control" placeholder="sEndDate">           
                         </div>
 
                         <!-- View Analytics button -->
                         <div class="form-row">
                             <div class="form-group col-sm-12">
-                                <button type="submit" id="btnViewAnalytics" class="btn btn-md btn-success btn-sm">View Analytics</button>
+                                <button type="submit" id="btnViewAnalytics" class="btn btn-md btn-success btn-sm">Submit</button>
                             </div>
                         </div>
                     </form>
@@ -82,3 +95,4 @@
 
 </body>
 </html>
+

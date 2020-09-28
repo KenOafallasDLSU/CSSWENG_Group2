@@ -13,7 +13,7 @@ const cuhController = {
         })
     },
 
-    /*  Records*/
+    /*  RECORDS SECTION*/
 
     /**
      * Initial Records, displays all records
@@ -150,7 +150,90 @@ const cuhController = {
         catch{
             console.log(e)
         }
+    },
+
+    /**ANALYTICS SECTION */
+    /**
+     * Initial page request. Displays hours per SRep
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     */
+    getViewAnalytics: function (req, res) {
+        try{
+            db.findMany(modelSRep, {}, '', '', '', function(objSReps){
+                virtualSReps = objSReps;
+
+                db.findMany(modelTimeLog, {}, '', '', '', function(objTimeLogs){
+                    virtualTimeLogs = objTimeLogs;
+                        //console.log(virtualTimeLogs);
+
+                    records = [];
+                    var i = 0
+                    for(i = 0; i < objTimeLogs.length; i++)
+                    {
+                        record = {
+                            name: sRepNames[i],
+                            timelog: virtualTimeLogs[i]
+                        }
+                        records.push(record);
+                    }
+
+                        //console.log(records[0]);
+
+    
+                    res.render("viewAnalytics", {
+                        sPage: "Analytics",
+                        sUserType: "CUH",
+                    });
+                });
+            });
+        }
+        catch{
+            console.log(e)
+        }
+    },
+
+    /**
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     */
+    postViewAnalytics: function (req, res) {
+        try{
+            db.findMany(modelSRep, {}, '', '', '', function(objSReps){
+                virtualSReps = objSReps;
+
+                db.findMany(modelTimeLog, {}, '', '', '', function(objTimeLogs){
+                    virtualTimeLogs = objTimeLogs;
+                        //console.log(virtualTimeLogs);
+
+                    records = [];
+                    var i = 0
+                    for(i = 0; i < objTimeLogs.length; i++)
+                    {
+                        record = {
+                            name: sRepNames[i],
+                            timelog: virtualTimeLogs[i]
+                        }
+                        records.push(record);
+                    }
+
+                        //console.log(records[0]);
+
+    
+                    res.render("viewAnalytics", {
+                        sPage: "Analytics",
+                        sUserType: "CUH",
+                    });
+                });
+            });
+        }
+        catch{
+            console.log(e)
+        }
     }
+
 }
 
 module.exports = cuhController;

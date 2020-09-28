@@ -15,4 +15,8 @@ router.get(['/recordsCUH'], controller.getRecordsCUH);
 router.post(['/postRecordsCUHOne'], controller.postRecordsCUHOne);
 router.post(['/postRecordsCUHAll'], controller.postRecordsCUHAll);
 
+/* analytics */
+router.get([/*'/analytics'*/'/'], controller.getViewAnalytics);
+router.post(['/postViewAnalytics'], controller.postViewAnalytics);
+
 module.exports = router;
