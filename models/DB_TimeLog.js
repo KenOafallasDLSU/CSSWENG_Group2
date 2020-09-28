@@ -15,6 +15,7 @@ const TimeLogSchema = new mongoose.Schema(
         objTimeIn: {type: Date, required: true},
         objTimeOut: {type: Date, required: false},
         sTask: {type: String, required: false},
+        sReason: {type: String, required: false},
         cStatus:{type:String , required:true, enum:["A" , "P", "R"], default: "P"}
      
        
