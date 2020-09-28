@@ -88,13 +88,12 @@ const sRepController = {
 			
 								db.updateOne(modelSREP, {sUsername: objSRep.sUsername}, { 	
 									$set:{
-										sPassword : hash,
+                                        sPassword : hash,
 									}					
 									});
 								});
                                 console.log('>>>>>>>>>>>>>>>>Password Changed!<<<<<<<<<<<<<<<<<<');
-                                alert("Password has been changed!");
-                                return res.redirect("/");
+                                return res.redirect("/srep/"+ objSRep.sUsername);
                             }
                             else{
                                 return res.status(401).render("changePassword", {
