@@ -41,7 +41,7 @@ const sRepController = {
         try{
             var id = res.locals.user;
 
-            db.findMany(modelTimeLog, {objSRep: id, cStatus: "A"}, '', '', '', function(objTimeLogs){
+            db.findMany(modelTimeLog, {objSRep: id, cStatus: "A"}, {objTimeIn: -1}, 20, '', function(objTimeLogs){
                 records = objTimeLogs;
 
                 //res.send(records)
@@ -53,7 +53,7 @@ const sRepController = {
             });
         }
         catch{
-            console.log(e)
+            //console.log(e)
         }
     }
 }
