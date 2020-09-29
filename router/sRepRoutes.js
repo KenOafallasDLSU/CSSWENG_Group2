@@ -10,7 +10,7 @@ const timeLogControllers = require('../controllers/timeLogController');
 /* dashboard */
 router.get(['/:sUsername', '/dashboard/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, controller.getDashboard);
 /* records */
-router.get(['/recordsSRep'], controller.getRecordsSRep);
+router.get(['/recordsSRep'], authentication.sessionActive, authentication.isValidSRep, controller.getRecordsSRep);
 
 
 // time in time out
@@ -26,8 +26,6 @@ router.get(['/:sUsername', '/dashboard2/:sUsername'] , authentication.sessionAct
 
 router.post(['/:sUsername', '/dashboard2/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, timeLogControllers.postTimeOut);
 
-
-
 router.get(['/:sUsername', '/sendRequest/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, controller.getSendRequest);
 // router.get("/" , timeLogControllers.getSendRequest);
 
@@ -36,5 +34,8 @@ router.get(['/:sUsername', '/sendRequest/:sUsername'] , authentication.sessionAc
 /* changePassword */
 router.get(['/:sUsername', '/changePassword/:sUsername'], authentication.sessionActive, authentication.isValidSRep, controller.getChangePassword);
 router.post(['/:sUsername', '/changePassword/:sUsername'], authentication.sessionActive, authentication.isValidSRep, controller.postChangePassword);
+// send request paths
+router.get(['/send-request', '/send-request/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, controller.getSendRequest);
+router.post(['/send-request', '/send-request/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, timeLogControllers.postSendRequest);
 
 module.exports = router;

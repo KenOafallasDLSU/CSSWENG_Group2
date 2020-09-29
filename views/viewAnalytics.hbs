@@ -42,33 +42,66 @@
     {{>header}}
     <div class="container-fluid">
         {{>subHeader}}        
-        <div class="row p-2">
+        <div class="row justify-content">
             {{>navBar}}
 
-            <div class="col-9 col-sm-9 container-form d-flex justify-content-center">
-                <div class="row">
-                    <form name="frmViewAnalytics" id="frmViewAnalytics" method="POST">
+            <div class="col-9 col-sm-9 container-form justify-content-center">
+                <div class="row p-1 d-flex justify-content-center">
+                    <form name="frmViewAnalytics" id="frmViewAnalytics" method="POST" class = "row">
+                        <div class = "col-4">
+                            <label for="country">Select Student Representative</label>
+                            <div class="form-group col-sm-12 input-group">
+                                <div class="p-1">
+                                    <select id="statSelect" name="statSelect">
+                                        <option class = "statOption" value="">Total Hours per SRep</option>
+                                        <option class = "statOption" value="">holder</option>
+                                        <option class = "statOption" value="">holder</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Start Date -->
-                        <div class="form-row">
+                        <div class = "col-4">
                             <label for="startdate">Start Date</label>
                             <input type="date" name="sStartDate" id="sStartDate" class="form-control" placeholder="sStartDate">
                         </div>
 
                         <!-- End Date -->
-                        <div class="form-row">
-                            <label for="enddate"> End Date</label>
+                        <div class = "col-4">
+                            <label for="enddate">End Date</label>
                             <input type="date" name="sEndDate" id="sEndDate" class="form-control" placeholder="sEndDate">           
                         </div>
 
                         <!-- View Analytics button -->
-                        <div class="form-row">
+                        <div>
                             <div class="form-group col-sm-12">
-                                <button type="submit" id="btnViewAnalytics" class="btn btn-md btn-success btn-sm">View Analytics</button>
+                                <button type="submit" id="btnViewAnalytics" class="btn btn-md btn-success btn-sm">Submit</button>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="row">
+                <div id="analyticsDiv" class = "row">
+                    <table class="table table-striped">
+                    <thead class="thread-dark" id="analyticsHeader">
+                        <tr>
+                            <th scope="col-4">Name</th>
+                            <th scope="col-2">Total Hours</th>
+                            <th scope="col-2">Residency Sessions</th>
+                            <th scope="col-2">Ave Hours/Session</th>
+                        </tr>
+                    </thead>
+                    <tbody id="analyticsBody">
+                        {{#each records}}
+                        <tr>
+                            <th scope="row">{{sFullName}}</th>
+                            <td>{{fTotalHours}}</td>
+                            <td>{{nCount}}</td>
+                            <td>{{fAverage}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                    </table>
                     <!-- insert analytics table here -->
                 </div>
             </div>   
@@ -76,10 +109,12 @@
     </div>
         
     <!-- Bs4 -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
+    <script src="js/helpsCheckingTotal.js"></script>
 </body>
 </html>
+

@@ -46,7 +46,7 @@ const sRepController = {
         try{
             var id = res.locals.user;
 
-            db.findMany(modelTimeLog, {objSRep: id}, '', '', '', function(objTimeLogs){
+            db.findMany(modelTimeLog, {objSRep: id, cStatus: "A"}, '', '', '', function(objTimeLogs){
                 records = objTimeLogs;
 
                 //res.send(records)

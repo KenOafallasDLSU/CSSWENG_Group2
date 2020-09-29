@@ -2,7 +2,8 @@
 const db = require('../models/db.js');
 const modelSRep = require('../models/DB_SRep.js');
 const modelTimeLog = require('../models/DB_TimeLog.js');
-const modelCUH = require('../models/DB_CUH.js')
+const modelCUH = require('../models/DB_CUH.js');
+const { setMaxListeners } = require('../router/cuhRoutes.js');
 const ObjectId = require('mongodb').ObjectId;
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -15,7 +16,7 @@ const cuhController = {
         })
     },
 
-    /*  Records*/
+    /*  RECORDS SECTION*/
 
     /**
      * Initial Records, displays all records
@@ -25,28 +26,34 @@ const cuhController = {
      */
     getRecordsCUH: function (req, res) {
         try{
-            db.findMany(modelSRep, {}, '', '', '', function(objSReps){
-                virtualSReps = objSReps;
+            db.findMany(modelSRep, {cAccStatus: 'A'}, '', '', '', function(objSReps){
+                var virtualSReps = objSReps;
 
-                projection = {
+                var projection = {
                     _id: 1,
                     sFirstName: "$name.sFirstName",
                     sLastName: "$name.sLastName"
                     
                 }
 
-                db.aggregate({}, modelTimeLog, "sreps", "objSRep", "_id", "name", projection, function(objSRepNames){
-                    sRepNames = objSRepNames;
+                var date = new Date();
+                var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+                firstDay.setHours(0);
+                var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+                lastDay.setHours(23,59,59);
+
+                db.aggregate({cStatus: 'A', objTimeIn:{$gte: firstDay, $lte: lastDay}}, modelTimeLog, "sreps", "objSRep", "_id", "name", projection, function(objSRepNames){
+                    var sRepNames = objSRepNames;
 
                     //console.log(sRepNames);
                     //console.log(sRepNames[0].name);
 
-                    db.findMany(modelTimeLog, {}, '', '', '', function(objTimeLogs){
+                    db.findMany(modelTimeLog, {cStatus: 'A', objTimeIn:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(objTimeLogs){
                         virtualTimeLogs = objTimeLogs;
                         //console.log(virtualTimeLogs);
 
 
-                        records = [];
+                        var records = [];
                         var i = 0
                         for(i = 0; i < objTimeLogs.length; i++)
                         {
@@ -91,13 +98,13 @@ const cuhController = {
     postRecordsCUHOne: function (req, res) {
         try{
                 db.findOne(modelSRep, req.body.nQuery, '', function(objCurrSRep){
-                    name = objCurrSRep;
+                    var name = objCurrSRep;
 
                     db.findMany(modelTimeLog, req.body.tQuery, '', '', '', function(objTimeLogs){
-                        virtualTimeLogs = objTimeLogs;
+                        var virtualTimeLogs = objTimeLogs;
                         console.log(virtualTimeLogs);
 
-                        records = [];
+                        var records = [];
                         var i = 0
                         for(i = 0; i < objTimeLogs.length; i++)
                         {
@@ -128,18 +135,34 @@ const cuhController = {
      */
     postRecordsCUHAll:function (req, res) {
         try{
-            db.aggregate({}, modelTimeLog, "sreps", "objSRep", "_id", "name", projection, function(objSRepNames){
-                sRepNames = objSRepNames;
+            var firstDay = req.body.tStartDate;
+            var lastDay = req.body.tEndDate;
+
+            var projection = {
+                _id: 1,
+                sFirstName: "$name.sFirstName",
+                sLastName: "$name.sLastName"
+                
+            }
+
+            // console.log(firstDay);
+            // console.log(lastDay);
+
+            var objFirstDay = new Date(firstDay);
+            var objLastDay = new Date(lastDay);
+
+            db.aggregate({cStatus: 'A', objTimeIn: {$gte: objFirstDay, $lte: objLastDay}}, modelTimeLog, "sreps", "objSRep", "_id", "name", projection, function(objSRepNames){
+                var sRepNames = objSRepNames;
 
                 //console.log(sRepNames);
                 //console.log(sRepNames[0].name);
 
-                db.findMany(modelTimeLog, {}, '', '', '', function(objTimeLogs){
-                    virtualTimeLogs = objTimeLogs;
+                db.findMany(modelTimeLog, {cStatus: 'A', objTimeIn: {$gte: firstDay, $lte: lastDay}}, '', '', '', function(objTimeLogs){
+                    var virtualTimeLogs = objTimeLogs;
                     //console.log(virtualTimeLogs);
 
 
-                    records = [];
+                    var records = [];
                     var i = 0
                     for(i = 0; i < objTimeLogs.length; i++)
                     {
@@ -211,7 +234,97 @@ const cuhController = {
             }catch (e){
             console.log(e);
             }
-        }    
+        },    
+
+    /**ANALYTICS SECTION */
+    /**
+     * Initial page request. Displays hours per SRep
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     */
+    getViewAnalytics: function (req, res) {
+        try{
+            db.findMany(modelSRep, {cAccStatus: 'A'}, '', '', '', function(objSReps){
+                var virtualSReps = objSReps;
+
+                var date = new Date();
+                var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+                var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+                db.findMany(modelTimeLog, {cStatus: 'A', objTimeIn:{$gte: firstDay, $lte: lastDay}, objTimeOut:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(objTimeLogs){
+                    var virtualTimeLogs = objTimeLogs;
+                        //console.log(virtualTimeLogs);
+
+                    var records = [];
+                    var i;
+                    var k;
+                    for(i = 0; i < virtualSReps.length; i++)
+                    {
+                        var sum = 0;
+                        var count = 0;
+
+                        for(k = 0; k < virtualTimeLogs.length; k++)
+                        {
+                            //console.log(virtualSReps[i]._id + " " + virtualTimeLogs[k].objSRep)
+                            if(virtualSReps[i]._id.equals(virtualTimeLogs[k].objSRep))
+                            {
+                                sum = sum + virtualTimeLogs[k].fHours;
+                                count = count + 1;
+                            }
+                        }
+
+                        record = {
+                            sFullName: virtualSReps[i].sFullName,
+                            fTotalHours: sum,
+                            nCount: count,
+                            fAverage: sum/count,
+                        }
+
+                        records.push(record);
+                    }
+
+
+                    res.render("viewAnalytics", {
+                        sPage: "Analytics",
+                        sUserType: "CUH",
+                        records: records
+                    });
+                });
+            });
+        }
+        catch{
+            console.log(e)
+        }
+    },
+
+    /**
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     */
+    postViewAnalytics: function (req, res) {
+        try{
+            db.findMany(modelSRep, {cStatus: 'A'}, '', '', '', function(objSReps){
+                virtualSReps = objSReps;
+
+                db.findMany(modelTimeLog, {cStatus: 'A'}, '', '', '', function(objTimeLogs){
+                    virtualTimeLogs = objTimeLogs;
+                        //console.log(virtualTimeLogs);
+
+    
+                    res.render("viewAnalytics", {
+                        sPage: "Analytics",
+                        sUserType: "CUH",
+                    });
+                });
+            });
+        }
+        catch{
+            console.log(e)
+        }
+    }
+
 }
 
 module.exports = cuhController;
