@@ -24,7 +24,7 @@ router.post(['/postHoursPerSRep'], controller.postHoursPerSRep);
 
 /*manage accounts*/
 
-router.get(['/manage-accounts'], authentication.sessionActive, authentication.isValidCUH,MAcontroller.getManageAccount);
+router.get(['/manage-accounts/:sUsername'], authentication.sessionActive, authentication.isValidCUH,MAcontroller.getManageAccount);
 router.post(['/manage-accounts/postCreateCUH'], authentication.sessionActive, authentication.isValidCUH,MAcontroller.postCUHRegister);
 router.post(['/manage-accounts/postGrantHRAccess'], authentication.sessionActive, authentication.isValidCUH,MAcontroller.postAccept);
 router.post(['/manage-accounts/postRevokeHRAccess'], authentication.sessionActive, authentication.isValidCUH,MAcontroller.postRevoke);

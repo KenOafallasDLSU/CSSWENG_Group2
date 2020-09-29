@@ -10,19 +10,24 @@ const manageAccountController = {
   
 getManageAccount: function (req, res) {
 		console.log("hatdog");
-		db.findOne(modelSREP,{bHRstatus:false}, null, function(a) {
-			db.findOne(modelSREP,{bHRstatus:true}, null, function(b) {
-				res.render('manage-accounts', {
-					sPage:"Manage Accounts",
-					AccStudentRepresentative:a.sUsername,
-					RevokeStudentRepresentative:b.sUsername
-				});
-		});
+		try {
+			db.findMany(modelSREP,{bHRstatus:false}, null, function(a) {
+				db.findMany(modelSREP,{bHRstatus:true}, null, function(b) {
+					res.render('manage-accounts', {
+						sPage:"Manage Accounts",
+						AccStudentRepresentative:a,
+						RevokeStudentRepresentative:b
+					});
 			});
+				});
+		} catch (error) {
+			console.log("hatdogfail");
+		}
+	
 		},
 
 postCUHRegister: function (req, res) {
-	console.log("hatdog");
+	console.log("hatdog2");
 		 var sUsername = req.body.sUsername;
 		 var sPassword = req.body.sPassword;
 		 var sFirstName = req.body.sFirstName;
@@ -53,7 +58,7 @@ postCUHRegister: function (req, res) {
     },
 
   postRevoke: function (req, res) {
-	console.log("hatdog");
+	console.log("hatdog3");
 			var user = req.body.sUsername;
 			var conditions = {sUsername:user, bHRstatus:true};
 				try {
@@ -71,7 +76,7 @@ postCUHRegister: function (req, res) {
 			},
 
  postAccept: function (req, res) {
-	console.log("hatdog");
+	console.log("hatdog4");
         var user = req.body.sUsername;
 		var conditions = {sUsername:user, bHRstatus:false};
 				try {
