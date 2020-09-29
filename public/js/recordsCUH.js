@@ -26,14 +26,38 @@ function addRecordRow(item, parentDiv) {
     parentDiv.append(row);
 }
 
-$(document).ready(function() {
+function setInitDates() {
+    var date = new Date();
+    var nYear = date.getFullYear();
+    var nMonth = date.getMonth()+1;
 
-    $('#studentSelect').change(function() {
-        var id = $(this).val();
+    var lastDayOfMonth = new Date(nYear, nMonth, 0);
+    var nLastDay = lastDayOfMonth.getDate();
+
+    var sMonth;
+    if(nMonth < 10)
+        sMonth = "0" + nMonth.toString();
+    else
+        sMonth = nMonth.toString();
+
+    $('#sStartDate').val(nYear.toString() + "-" + sMonth + "-01");
+    $('#sEndDate').val(nYear.toString() + "-" + sMonth + "-" + nLastDay.toString());
+}
+
+$(document).ready(function() {
+    setInitDates();
+
+    $('#btnSubmit').click(function() {
+        var id = $('#studentSelect').val();
+
+        var tStartDate = new Date($('#sStartDate').val());
+        tStartDate.setHours(0);
+        var tEndDate = new Date($('#sEndDate').val());
+        tEndDate.setHours(23, 59, 59);
 
         //alert(id);
         if(id == "all"){
-            $.post('postRecordsCUHAll', {cStatus: 'A'}, function(data, status) {
+            $.post('postRecordsCUHAll', {tStartDate: tStartDate, tEndDate: tEndDate}, function(data, status) {
                 console.log(data);
         
                 var studentRecordTable = $('#studentRecords');
@@ -44,7 +68,7 @@ $(document).ready(function() {
                 });
             });
         } else{
-            $.post('postRecordsCUHOne', {nQuery: {_id: id, cStatus: 'A'}, tQuery: {objSRep: id, cStatus: 'A'}}, function(data, status) {
+            $.post('postRecordsCUHOne', {nQuery: {_id: id, cAccStatus: 'A'}, tQuery: {objSRep: id, cStatus: 'A', objTimeIn:{$gte: tStartDate, $lte: tEndDate}}}, function(data, status) {
                 console.log(data);
         
                 var studentRecordTable = $('#studentRecords');

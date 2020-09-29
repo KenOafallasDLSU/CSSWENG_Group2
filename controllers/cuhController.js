@@ -25,27 +25,33 @@ const cuhController = {
     getRecordsCUH: function (req, res) {
         try{
             db.findMany(modelSRep, {cAccStatus: 'A'}, '', '', '', function(objSReps){
-                virtualSReps = objSReps;
+                var virtualSReps = objSReps;
 
-                projection = {
+                var projection = {
                     _id: 1,
                     sFirstName: "$name.sFirstName",
                     sLastName: "$name.sLastName"
                     
                 }
 
-                db.aggregate({cStatus: 'A'}, modelTimeLog, "sreps", "objSRep", "_id", "name", projection, function(objSRepNames){
-                    sRepNames = objSRepNames;
+                var date = new Date();
+                var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+                firstDay.setHours(0);
+                var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+                lastDay.setHours(23,59,59);
+
+                db.aggregate({cStatus: 'A', objTimeIn:{$gte: firstDay, $lte: lastDay}}, modelTimeLog, "sreps", "objSRep", "_id", "name", projection, function(objSRepNames){
+                    var sRepNames = objSRepNames;
 
                     //console.log(sRepNames);
                     //console.log(sRepNames[0].name);
 
-                    db.findMany(modelTimeLog, {cStatus: 'A'}, '', '', '', function(objTimeLogs){
+                    db.findMany(modelTimeLog, {cStatus: 'A', objTimeIn:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(objTimeLogs){
                         virtualTimeLogs = objTimeLogs;
                         //console.log(virtualTimeLogs);
 
 
-                        records = [];
+                        var records = [];
                         var i = 0
                         for(i = 0; i < objTimeLogs.length; i++)
                         {
@@ -84,13 +90,13 @@ const cuhController = {
     postRecordsCUHOne: function (req, res) {
         try{
                 db.findOne(modelSRep, req.body.nQuery, '', function(objCurrSRep){
-                    name = objCurrSRep;
+                    var name = objCurrSRep;
 
                     db.findMany(modelTimeLog, req.body.tQuery, '', '', '', function(objTimeLogs){
-                        virtualTimeLogs = objTimeLogs;
+                        var virtualTimeLogs = objTimeLogs;
                         console.log(virtualTimeLogs);
 
-                        records = [];
+                        var records = [];
                         var i = 0
                         for(i = 0; i < objTimeLogs.length; i++)
                         {
@@ -121,18 +127,34 @@ const cuhController = {
      */
     postRecordsCUHAll:function (req, res) {
         try{
-            db.aggregate({cAccStatus: 'A'}, modelTimeLog, "sreps", "objSRep", "_id", "name", projection, function(objSRepNames){
-                sRepNames = objSRepNames;
+            var firstDay = req.body.tStartDate;
+            var lastDay = req.body.tEndDate;
+
+            var projection = {
+                _id: 1,
+                sFirstName: "$name.sFirstName",
+                sLastName: "$name.sLastName"
+                
+            }
+
+            // console.log(firstDay);
+            // console.log(lastDay);
+
+            var objFirstDay = new Date(firstDay);
+            var objLastDay = new Date(lastDay);
+
+            db.aggregate({cStatus: 'A', objTimeIn: {$gte: objFirstDay, $lte: objLastDay}}, modelTimeLog, "sreps", "objSRep", "_id", "name", projection, function(objSRepNames){
+                var sRepNames = objSRepNames;
 
                 //console.log(sRepNames);
                 //console.log(sRepNames[0].name);
 
-                db.findMany(modelTimeLog, {cStatus: 'A'}, '', '', '', function(objTimeLogs){
-                    virtualTimeLogs = objTimeLogs;
+                db.findMany(modelTimeLog, {cStatus: 'A', objTimeIn: {$gte: firstDay, $lte: lastDay}}, '', '', '', function(objTimeLogs){
+                    var virtualTimeLogs = objTimeLogs;
                     //console.log(virtualTimeLogs);
 
 
-                    records = [];
+                    var records = [];
                     var i = 0
                     for(i = 0; i < objTimeLogs.length; i++)
                     {
@@ -163,14 +185,14 @@ const cuhController = {
     getViewAnalytics: function (req, res) {
         try{
             db.findMany(modelSRep, {cAccStatus: 'A'}, '', '', '', function(objSReps){
-                virtualSReps = objSReps;
+                var virtualSReps = objSReps;
 
                 var date = new Date();
                 var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
                 var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
                 db.findMany(modelTimeLog, {cStatus: 'A', objTimeIn:{$gte: firstDay, $lte: lastDay}, objTimeOut:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(objTimeLogs){
-                    virtualTimeLogs = objTimeLogs;
+                    var virtualTimeLogs = objTimeLogs;
                         //console.log(virtualTimeLogs);
 
                     var records = [];
