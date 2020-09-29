@@ -16,26 +16,34 @@
 
             <div class="col-10 col-sm-10 container-form d-flex justify-content-center">
                 
-                <div class="row p-2">
-                    <!-- CREATE CUH ACCESS MODAL -->
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createCUHModal">
-                        Create CUH Account
-                    </button>
+                <div class="row p-2 d-flex justify-content-center">
+                    <div class="col-8 col-md-8">
+                        <!-- CREATE CUH ACCESS MODAL -->
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createCUHModal">
+                            Create CUH Account
+                        </button>
+                    </div>                    
                 </div>
-                <div class=" row p-2">
-                    <!-- GRANT HR ACCESS MODAL -->
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#grantHRAccessModal">
-                        Grant HR Access
-                    </button>  
+                <div class=" row p-2 d-flex justify-content-center">
+                    <div class="col-8 col-md-8">
+                        <!-- GRANT HR ACCESS MODAL -->
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#grantHRAccessModal">
+                            Grant HR Access
+                        </button>  
+                    </div>      
+                    
                 </div>
-                <div class="row p-2">
-                    <!-- REVOKE HR ACCESS MODAL -->
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#revokeHRAccessModal">
-                        Revoke HR Access
-                    </button>   
+                <div class="row p-2 d-flex justify-content-center">
+                    <div class="col-8 col-md-8">
+                        <!-- REVOKE HR ACCESS MODAL -->
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#revokeHRAccessModal">
+                            Revoke HR Access
+                        </button>   
+                    </div>      
+                    
                 </div>
                
                 
@@ -177,8 +185,9 @@
                                                 <label for="studentReps">Select Student Representative</label>
                                                 <div class="p-1">
                                                     <select id="type" name="type" class="studentRep form-control">
-                                                        {{#each AccStudentRepresentative}}
-                                                            <option value="sStudentRepresenatative">{{sFirstName}} {{sLastName}}</option>
+                                                        {{#each arrNonHR}}
+                                                            <option value="sSREPtoHR">{{sLastName}}, {{sFirstName}}</option>
+                                                            <div id="sUsername" class="d-none">{{sUsername}}</div>
                                                         {{/each}}
                                                     </select>
                                                 </div>
@@ -225,8 +234,9 @@
                                                 <label for="studentReps">Select Student Representative</label>
                                                 <div class="p-1">
                                                     <select id="type" name="type" class="studentRep2 form-control">
-                                                        {{#each RevStudentRepresentative}}
-                                                            <option value="sStudentRepresenatative">{{sFirstName}} {{sLastName}}</option>
+                                                        {{#each arrHR}}
+                                                            <option value="sHRtoSREP">{{sLastName}}, {{sFirstName}}</option>
+                                                            <div id="sUsername" class="d-none">{{sUsername}}</div>
                                                         {{/each}}
                                                     </select>
                                                 </div>

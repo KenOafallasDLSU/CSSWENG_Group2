@@ -11,15 +11,53 @@ const manageAccountController = {
 getManageAccount: function (req, res) {
 		console.log("hatdog");
 		try {
-			db.findMany(modelSREP,{bHRstatus:false}, null, function(a) {
-				db.findMany(modelSREP,{bHRstatus:true}, null, function(b) {
-					res.render('manage-accounts', {
-						sPage:"Manage Accounts",
-						AccStudentRepresentative:a,
-						RevokeStudentRepresentative:b
+
+			db.findMany(modelSREP,{bHRStatus:false}, '','','', function(nonHR) {
+				if (nonHR){
+					arrNonHR = [];
+					oneNonHR = {};
+					
+					for(i = 0; i < nonHR.length; i++)
+					{
+						oneNonHR = {
+							sUsername: nonHR[i].sUsername,
+							sFirstName: nonHR[i].sFirstName,
+							sLastName: nonHR[i].sLastName,
+						}
+
+						arrNonHR.push(oneNonHR);
+					}
+
+					arrNonHR = quick_Sort_srep(arrNonHR);
+				}
+
+				db.findMany(modelSREP,{bHRStatus:true}, '','','', function(HR) {
+					if (HR){
+						arrHR = [];
+						oneHR = {};
+						
+						for(i = 0; i < HR.length; i++)
+						{
+							oneHR = {
+								sUsername: HR[i].sUsername,
+								sFirstName: HR[i].sFirstName,
+								sLastName: HR[i].sLastName,
+							}
+
+							arrHR.push(oneHR);
+						}
+
+						arrHR = quick_Sort_srep(arrHR);
+					}
+					
+					res.render('manageAccounts', { //name of the HBS file.
+						sPage:'Manage Accounts', // be guided sa index.js line 108
+						arrNonHR:arrNonHR, //pls observe coding standards...
+						arrHR:arrHR
 					});
-			});
 				});
+			});
+
 		} catch (error) {
 			console.log("hatdogfail");
 		}
@@ -94,6 +132,30 @@ postCUHRegister: function (req, res) {
          
     },
 
+}
+
+function quick_Sort_srep(arr) {
+    if (arr.length <= 1) { 
+        return arr;
+    } else {
+
+        var left = [];
+        var right = [];
+        var newArray = [];
+        var pivot = arr.pop();
+        var length = arr.length;
+
+        for (var i = 0; i < length; i++) {
+            let r = arr[i].sLastName.localeCompare(pivot.sLastName);
+            if (r == 0 || r == -1) {
+                left.push(arr[i]);
+            } else {
+                right.push(arr[i]);
+            }
+        }
+
+        return newArray.concat(quick_Sort(left), pivot, quick_Sort(right));
+    }
 }
 
 module.exports = manageAccountController;
