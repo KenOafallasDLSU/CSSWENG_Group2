@@ -33,13 +33,13 @@ const cuhController = {
                     
                 }
 
-                db.aggregate({}, modelTimeLog, "sreps", "objSRep", "_id", "name", projection, function(objSRepNames){
+                db.aggregate({cStatus: 'A'}, modelTimeLog, "sreps", "objSRep", "_id", "name", projection, function(objSRepNames){
                     sRepNames = objSRepNames;
 
                     //console.log(sRepNames);
                     //console.log(sRepNames[0].name);
 
-                    db.findMany(modelTimeLog, {}, '', '', '', function(objTimeLogs){
+                    db.findMany(modelTimeLog, {cStatus: 'A'}, '', '', '', function(objTimeLogs){
                         virtualTimeLogs = objTimeLogs;
                         //console.log(virtualTimeLogs);
 
@@ -120,13 +120,13 @@ const cuhController = {
      */
     postRecordsCUHAll:function (req, res) {
         try{
-            db.aggregate({}, modelTimeLog, "sreps", "objSRep", "_id", "name", projection, function(objSRepNames){
+            db.aggregate({cStatus: 'A'}, modelTimeLog, "sreps", "objSRep", "_id", "name", projection, function(objSRepNames){
                 sRepNames = objSRepNames;
 
                 //console.log(sRepNames);
                 //console.log(sRepNames[0].name);
 
-                db.findMany(modelTimeLog, {}, '', '', '', function(objTimeLogs){
+                db.findMany(modelTimeLog, {cStatus: 'A'}, '', '', '', function(objTimeLogs){
                     virtualTimeLogs = objTimeLogs;
                     //console.log(virtualTimeLogs);
 
@@ -161,27 +161,13 @@ const cuhController = {
      */
     getViewAnalytics: function (req, res) {
         try{
-            db.findMany(modelSRep, {}, '', '', '', function(objSReps){
+            db.findMany(modelSRep, {cStatus: 'A'}, '', '', '', function(objSReps){
                 virtualSReps = objSReps;
 
-                db.findMany(modelTimeLog, {}, '', '', '', function(objTimeLogs){
+                db.findMany(modelTimeLog, {cStatus: 'A'}, '', '', '', function(objTimeLogs){
                     virtualTimeLogs = objTimeLogs;
                         //console.log(virtualTimeLogs);
 
-                    records = [];
-                    var i = 0
-                    for(i = 0; i < objTimeLogs.length; i++)
-                    {
-                        record = {
-                            name: sRepNames[i],
-                            timelog: virtualTimeLogs[i]
-                        }
-                        records.push(record);
-                    }
-
-                        //console.log(records[0]);
-
-    
                     res.render("viewAnalytics", {
                         sPage: "Analytics",
                         sUserType: "CUH",
@@ -201,25 +187,12 @@ const cuhController = {
      */
     postViewAnalytics: function (req, res) {
         try{
-            db.findMany(modelSRep, {}, '', '', '', function(objSReps){
+            db.findMany(modelSRep, {cStatus: 'A'}, '', '', '', function(objSReps){
                 virtualSReps = objSReps;
 
-                db.findMany(modelTimeLog, {}, '', '', '', function(objTimeLogs){
+                db.findMany(modelTimeLog, {cStatus: 'A'}, '', '', '', function(objTimeLogs){
                     virtualTimeLogs = objTimeLogs;
                         //console.log(virtualTimeLogs);
-
-                    records = [];
-                    var i = 0
-                    for(i = 0; i < objTimeLogs.length; i++)
-                    {
-                        record = {
-                            name: sRepNames[i],
-                            timelog: virtualTimeLogs[i]
-                        }
-                        records.push(record);
-                    }
-
-                        //console.log(records[0]);
 
     
                     res.render("viewAnalytics", {

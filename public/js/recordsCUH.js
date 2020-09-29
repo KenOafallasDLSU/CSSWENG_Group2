@@ -33,7 +33,7 @@ $(document).ready(function() {
 
         //alert(id);
         if(id == "all"){
-            $.post('postRecordsCUHAll', {}, function(data, status) {
+            $.post('postRecordsCUHAll', {cStatus: 'A'}, function(data, status) {
                 console.log(data);
         
                 var studentRecordTable = $('#studentRecords');
@@ -44,7 +44,7 @@ $(document).ready(function() {
                 });
             });
         } else{
-            $.post('postRecordsCUHOne', {nQuery: {_id: id}, tQuery: {objSRep: id}}, function(data, status) {
+            $.post('postRecordsCUHOne', {nQuery: {_id: id, cStatus: 'A'}, tQuery: {objSRep: id, cStatus: 'A'}}, function(data, status) {
                 console.log(data);
         
                 var studentRecordTable = $('#studentRecords');
