@@ -20,4 +20,8 @@ router.get(['/analytics'], authentication.sessionActive, authentication.isValidC
 router.post(['/postHoursPerWeekday'], controller.postHoursPerWeekday);
 router.post(['/postHoursPerSRep'], controller.postHoursPerSRep);
 
+/* suspensions */
+router.get(['/suspensions'], authentication.sessionActive, authentication.isValidCUH, controller.getSuspensions);
+router.post(['/postInsertSuspension'], controller.postInsertSuspension);
+
 module.exports = router;
