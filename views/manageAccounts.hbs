@@ -14,7 +14,7 @@
         <div class="row d-flex justify-content-center">
             {{>navBar}}  
 
-             <div class="col-10 col-sm-10 container-form d-flex justify-content-center">
+            <div class="col-10 col-sm-10 container-form d-flex justify-content-center">
                 
                 <div class="row p-2">
                     <!-- CREATE CUH ACCESS MODAL -->
@@ -177,7 +177,7 @@
                                                 <label for="studentReps">Select Student Representative</label>
                                                 <div class="p-1">
                                                     <select id="type" name="type" class="studentRep form-control">
-                                                        {{#each arrStudentRepresentative}}
+                                                        {{#each AccStudentRepresentative}}
                                                             <option value="sStudentRepresenatative">{{sFirstName}} {{sLastName}}</option>
                                                         {{/each}}
                                                     </select>
@@ -225,7 +225,7 @@
                                                 <label for="studentReps">Select Student Representative</label>
                                                 <div class="p-1">
                                                     <select id="type" name="type" class="studentRep2 form-control">
-                                                        {{#each arrStudentRepresentative}}
+                                                        {{#each RevStudentRepresentative}}
                                                             <option value="sStudentRepresenatative">{{sFirstName}} {{sLastName}}</option>
                                                         {{/each}}
                                                     </select>
@@ -246,8 +246,7 @@
                     </div>
                     </div>
                 </div>
-            </div>   
-            
+            </div>
             
         </div>
     </div>
@@ -274,5 +273,6 @@
     <!-- additions -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="js/manageAccounts.js"></script>
 </body>
 </html>

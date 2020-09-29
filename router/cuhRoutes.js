@@ -3,6 +3,8 @@ const router = express();
 
 /* controllers that provide functions depending on post or get */
 const controller = require('../controllers/cuhController');
+const MAcontroller = require('../controllers/manageAccountsController');
+
 const authentication = require('../middlewares/cuhAuthentication.js');
 
 /********* routes *********/
@@ -19,5 +21,12 @@ router.post(['/postRecordsCUHAll'], controller.postRecordsCUHAll);
 router.get(['/analytics'], authentication.sessionActive, authentication.isValidCUH, controller.getViewAnalytics);
 router.post(['/postHoursPerWeekday'], controller.postHoursPerWeekday);
 router.post(['/postHoursPerSRep'], controller.postHoursPerSRep);
+
+/*manage accounts*/
+
+router.get(['/manage-accounts'], authentication.sessionActive, authentication.isValidCUH,MAcontroller.getManageAccount);
+router.post(['/manage-accounts/postCreateCUH'], authentication.sessionActive, authentication.isValidCUH,MAcontroller.postCUHRegister);
+router.post(['/manage-accounts/postGrantHRAccess'], authentication.sessionActive, authentication.isValidCUH,MAcontroller.postAccept);
+router.post(['/manage-accounts/postRevokeHRAccess'], authentication.sessionActive, authentication.isValidCUH,MAcontroller.postRevoke);
 
 module.exports = router;
