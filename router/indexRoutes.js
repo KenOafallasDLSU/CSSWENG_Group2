@@ -23,4 +23,6 @@ router.get('/logout', controller.getLogout);
 /* other routes (to redirect to /srep || /cuh) */
 router.get(['/send-request', '/send-request/', '/srep/send-request', '/srep/send-request/'], authentication.sessionActive, controller.redirect);
 
+router.get(['/manage-accounts', '/manage-accounts/', '/cuh/manage-accounts', '/cuh/manage-accounts/'], authentication.sessionActive, controller.redirect);
+
 module.exports = router;

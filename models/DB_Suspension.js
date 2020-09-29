@@ -19,7 +19,7 @@ const SuspensionSchema = new mongoose.Schema(
     }
 );
 
-TimeLogSchema.virtual("sDate").get(function() {
+SuspensionSchema.virtual("sDate").get(function() {
     var sYear = this.objDate.getFullYear().toString();
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     var sMonth = months[this.objTimeIn.getMonth()];
