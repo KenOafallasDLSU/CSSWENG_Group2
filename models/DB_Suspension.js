@@ -10,7 +10,9 @@ mongoose.connect(databaseURL, options);
 
 const SuspensionSchema = new mongoose.Schema(
     {
-        objDate: {type: Date, required: true},
+        nYear: {type: Number, required: true},
+        nMonth: {type: Number, required: true},
+        nDay: {type: Number, required: true},
         sReason: {type: String, required: true}
     },
     {
