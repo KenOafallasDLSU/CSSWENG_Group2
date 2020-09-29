@@ -64,7 +64,7 @@
                         <!-- Start Date -->
                         <div class = "col-4">
                             <label for="startdate">Start Date</label>
-                            <input type="date" name="sStartDate" id="sStartDate" class="form-control" placeholder="sStartDate" value="1999-09-09">
+                            <input type="date" name="sStartDate" id="sStartDate" class="form-control" placeholder="sStartDate">
                         </div>
 
                         <!-- End Date -->
@@ -83,7 +83,7 @@
                 </div>
                 <div id="analyticsDiv" class = "row">
                     <table class="table table-striped">
-                    <thead class="thread-dark">
+                    <thead class="thread-dark" id="analyticsHeader">
                         <tr>
                             <th scope="col-4">Name</th>
                             <th scope="col-2">Total Hours</th>
@@ -91,7 +91,7 @@
                             <th scope="col-2">Ave Hours/Session</th>
                         </tr>
                     </thead>
-                    <tbody id="baseAnalytics">
+                    <tbody id="analyticsBody">
                         {{#each records}}
                         <tr>
                             <th scope="row">{{sFullName}}</th>
@@ -114,7 +114,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
-    <script src="js/analytics.js"></script>
+    <script src="js/helpsCheckingTotal.js"></script>
 </body>
 </html>
 
