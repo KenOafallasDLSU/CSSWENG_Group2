@@ -24,16 +24,22 @@ function createPerSRepHeader(parentDiv){
     var totalHours = document.createElement('th');
     var sessions = document.createElement('th');
     var average = document.createElement('th');
+    var days = document.createElement('th');
+    var good = document.createElement('th');
 
     $(name).text("Name");
     $(totalHours).text("Total Hours");
     $(sessions).text("Residency Sessions");
     $(average).text("Ave Hours/Session");
+    $(days).text("Expected Hours");
+    $(good).text("Complete");
 
     row.append(name);
     row.append(totalHours);
     row.append(sessions);
     row.append(average);
+    row.append(days);
+    row.append(good);
 
     parentDiv.append(row);
 }
@@ -45,17 +51,23 @@ function addPerSRepRow(item, parentDiv){
     var totalHours = document.createElement('td');
     var sessions = document.createElement('td');
     var average = document.createElement('td');
+    var days = document.createElement('td');
+    var good = document.createElement('td');
 
     $(name).attr("scope", "row");
     $(name).text(item.sFullName);
     $(totalHours).text(item.fTotalHours);
     $(sessions).text(item.nCount);
     $(average).text(item.fAverage);
+    $(days).text(item.nDays);
+    $(good).text(item.bGood);
 
     row.append(name);
     row.append(totalHours);
     row.append(sessions);
     row.append(average);
+    row.append(days);
+    row.append(good);
 
     parentDiv.append(row);
 }

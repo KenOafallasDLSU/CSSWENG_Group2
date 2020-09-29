@@ -3,8 +3,29 @@ const db = require('../models/db.js');
 const modelSRep = require('../models/DB_SRep.js');
 const modelTimeLog = require('../models/DB_TimeLog.js');
 const modelCUH = require('../models/DB_CUH.js');
+const modelSuspension = require('../models/DB_Suspension.js');
 const { setMaxListeners } = require('../router/cuhRoutes.js');
 const ObjectId = require('mongodb').ObjectId;
+
+function getWeekdayCount(a, b){
+    let aTime = a.getTime();
+    let aDay = a.getDay();
+    let bTime = b.getTime();
+    let bDay = b.getDay();
+
+    let count = 0;
+    let inc = aDay;
+    let i;
+    for(i = 0; i <= (bTime-aTime)/(1000*60*60*24); i++)
+    {
+        if(!(inc % 7 == 0 || inc % 7 == 6))
+            count = count+1;
+        
+        inc = inc+1;
+    }
+
+    return count;
+}
 
 const cuhController = {
     getDashboard: function (req, res) {
@@ -192,49 +213,56 @@ const cuhController = {
                 firstDay.setHours(0);
                 var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
                 lastDay.setHours(23, 59, 59);
+                var dayCount = getWeekdayCount(firstDay, lastDay);
 
-                db.findMany(modelTimeLog, {cStatus: 'A', objTimeIn:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(objTimeLogs){
-                    var virtualTimeLogs = objTimeLogs;
-                        //console.log(virtualTimeLogs);
+                db.findMany(modelSuspension, {objDate:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(holidays){
+                    dayCount = dayCount - holidays.length;
 
-                    var records = [];
-                    var i;
-                    var k;
-                    for(i = 0; i < virtualSReps.length; i++)
-                    {
-                        var sum = 0;
-                        var count = 0;
+                    db.findMany(modelTimeLog, {cStatus: 'A', objTimeIn:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(objTimeLogs){
+                        var virtualTimeLogs = objTimeLogs;
+                            //console.log(virtualTimeLogs);
 
-                        for(k = 0; k < virtualTimeLogs.length; k++)
+                        var records = [];
+                        var i;
+                        var k;
+                        for(i = 0; i < virtualSReps.length; i++)
                         {
-                            //console.log(virtualSReps[i]._id + " " + virtualTimeLogs[k].objSRep)
-                            if(virtualSReps[i]._id.equals(virtualTimeLogs[k].objSRep))
+                            var sum = 0;
+                            var count = 0;
+
+                            for(k = 0; k < virtualTimeLogs.length; k++)
                             {
-                                sum = sum + virtualTimeLogs[k].fHours;
-                                count = count + 1;
+                                //console.log(virtualSReps[i]._id + " " + virtualTimeLogs[k].objSRep)
+                                if(virtualSReps[i]._id.equals(virtualTimeLogs[k].objSRep))
+                                {
+                                    sum = sum + virtualTimeLogs[k].fHours;
+                                    count = count + 1;
+                                }
                             }
+
+                            var ave;
+                            if(count == 0)
+                                ave = 0;
+                            else
+                                ave = sum/count;
+
+                            record = {
+                                sFullName: virtualSReps[i].sFullName,
+                                fTotalHours: sum,
+                                nCount: count,
+                                fAverage: parseFloat(ave.toFixed(2)),
+                                nDays: dayCount,
+                                bGood: sum >= dayCount
+                            }
+
+                            records.push(record);
                         }
 
-                        var ave;
-                        if(count == 0)
-                            ave = 0;
-                        else
-                            ave = sum/count;
-
-                        record = {
-                            sFullName: virtualSReps[i].sFullName,
-                            fTotalHours: sum,
-                            nCount: count,
-                            fAverage: parseFloat(ave.toFixed(2))
-                        }
-
-                        records.push(record);
-                    }
-
-                    res.render("viewAnalytics", {
-                        sPage: "Analytics",
-                        sUserType: "CUH",
-                        records: records
+                        res.render("viewAnalytics", {
+                            sPage: "Analytics",
+                            sUserType: "CUH",
+                            records: records
+                        });
                     });
                 });
             });
@@ -257,45 +285,52 @@ const cuhController = {
 
                 var firstDay = req.body.tStartDate;
                 var lastDay = req.body.tEndDate;
+                var dayCount = getWeekdayCount(new Date(firstDay), new Date(lastDay));
 
-                db.findMany(modelTimeLog, {cStatus: 'A', objTimeIn:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(objTimeLogs){
-                    var virtualTimeLogs = objTimeLogs;
-                    
-                    var records = [];
-                    var i;
-                    var k;
-                    for(i = 0; i < virtualSReps.length; i++)
-                    {
-                        var sum = 0;
-                        var count = 0;
+                db.findMany(modelSuspension, {objDate:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(holidays){
+                    dayCount = dayCount - holidays.length;
 
-                        for(k = 0; k < virtualTimeLogs.length; k++)
+                    db.findMany(modelTimeLog, {cStatus: 'A', objTimeIn:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(objTimeLogs){
+                        var virtualTimeLogs = objTimeLogs;
+                        
+                        var records = [];
+                        var i;
+                        var k;
+                        for(i = 0; i < virtualSReps.length; i++)
                         {
-                            //console.log(virtualSReps[i]._id + " " + virtualTimeLogs[k].objSRep)
-                            if(virtualSReps[i]._id.equals(virtualTimeLogs[k].objSRep))
+                            var sum = 0;
+                            var count = 0;
+
+                            for(k = 0; k < virtualTimeLogs.length; k++)
                             {
-                                sum = sum + virtualTimeLogs[k].fHours;
-                                count = count + 1;
+                                //console.log(virtualSReps[i]._id + " " + virtualTimeLogs[k].objSRep)
+                                if(virtualSReps[i]._id.equals(virtualTimeLogs[k].objSRep))
+                                {
+                                    sum = sum + virtualTimeLogs[k].fHours;
+                                    count = count + 1;
+                                }
                             }
+
+                            var ave;
+                            if(count == 0)
+                                ave = 0;
+                            else
+                                ave = sum/count;
+
+                            record = {
+                                sFullName: virtualSReps[i].sFullName,
+                                fTotalHours: sum,
+                                nCount: count,
+                                fAverage: parseFloat(ave.toFixed(2)),
+                                nDays: dayCount,
+                                bGood: sum >= dayCount
+                            }
+
+                            records.push(record);
                         }
-
-                        var ave;
-                        if(count == 0)
-                            ave = 0;
-                        else
-                            ave = sum/count;
-
-                        record = {
-                            sFullName: virtualSReps[i].sFullName,
-                            fTotalHours: sum,
-                            nCount: count,
-                            fAverage: parseFloat(ave.toFixed(2))
-                        }
-
-                        records.push(record);
-                    }
-    
-                    res.send(records);
+        
+                        res.send(records);
+                    });
                 });
             });
         }
