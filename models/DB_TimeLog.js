@@ -15,6 +15,7 @@ const TimeLogSchema = new mongoose.Schema(
         objTimeIn: {type: Date, required: true},
         objTimeOut: {type: Date, required: false},
         sTask: {type: String, required: false},
+        sReason: {type: String, required: false},
         cStatus:{type:String , required:true, enum:["A" , "P", "R"], default: "P"}
      
        
@@ -64,40 +65,52 @@ TimeLogSchema.virtual("sTimeIn").get(function() {
 });
 
 TimeLogSchema.virtual("sTimeOut").get(function() {
-    var bIsAM = true;
-    var nHour = this.objTimeOut.getHours();
-    var sHour = nHour.toString();
-    if(nHour <= 9){
-        sHour = "0" + sHour;
-    } else if(nHour >= 12 && nHour <= 21){
-        sHour = "0" + (nHour - 12).toString();
-        bIsAM = false;
-    } else if(nHour >= 22){
-        bIsAM = false;
+    if(this.objTimeOut == null)
+    {
+        return "Still logged in";
     }
+    else
+    {
+        var bIsAM = true;
+        var nHour = this.objTimeOut.getHours();
+        var sHour = nHour.toString();
+        if(nHour <= 9){
+            sHour = "0" + sHour;
+        } else if(nHour >= 12 && nHour <= 21){
+            sHour = "0" + (nHour - 12).toString();
+            bIsAM = false;
+        } else if(nHour >= 22){
+            bIsAM = false;
+        }
 
-    var nMin = this.objTimeOut.getMinutes();
-    var sMin = nMin.toString();
-    if(nMin <= 9){
-        sMin = "0" + sMin;
+        var nMin = this.objTimeOut.getMinutes();
+        var sMin = nMin.toString();
+        if(nMin <= 9){
+            sMin = "0" + sMin;
+        }
+
+        var sTimeOut = sHour + ":" + sMin;
+        if(bIsAM){
+            sTimeOut = sTimeOut + " AM";
+        } else{
+            sTimeOut = sTimeOut + " PM";
+        }
+
+        return sTimeOut;
     }
-
-    var sTimeOut = sHour + ":" + sMin;
-    if(bIsAM){
-        sTimeOut = sTimeOut + " AM";
-    } else{
-        sTimeOut = sTimeOut + " PM";
-    }
-
-    return sTimeOut;
 });
 
 TimeLogSchema.virtual("fHours").get(function() {
-    var fTimeIn = this.objTimeIn.getTime();
-    var fTimeOut = this.objTimeOut.getTime();
-    var fHours = (fTimeOut - fTimeIn)/3600000;
+    if(this.objtimeOut == null)
+    {
+        return 0;
+    } else {
+        var fTimeIn = this.objTimeIn.getTime();
+        var fTimeOut = this.objTimeOut.getTime();
+        var fHours = (fTimeOut - fTimeIn)/3600000;
 
-    return fHours.toFixed(2);
+        return fHours.toFixed(2);
+    }
 });
 
 module.exports = mongoose.model("TimeLog", TimeLogSchema);
