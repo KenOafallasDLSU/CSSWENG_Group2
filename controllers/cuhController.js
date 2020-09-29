@@ -2,7 +2,8 @@
 const db = require('../models/db.js');
 const modelSRep = require('../models/DB_SRep.js');
 const modelTimeLog = require('../models/DB_TimeLog.js');
-const modelCUH = require('../models/DB_CUH.js')
+const modelCUH = require('../models/DB_CUH.js');
+const { setMaxListeners } = require('../router/cuhRoutes.js');
 const ObjectId = require('mongodb').ObjectId;
 
 const cuhController = {
@@ -23,7 +24,7 @@ const cuhController = {
      */
     getRecordsCUH: function (req, res) {
         try{
-            db.findMany(modelSRep, {}, '', '', '', function(objSReps){
+            db.findMany(modelSRep, {cAccStatus: 'A'}, '', '', '', function(objSReps){
                 virtualSReps = objSReps;
 
                 projection = {
@@ -120,7 +121,7 @@ const cuhController = {
      */
     postRecordsCUHAll:function (req, res) {
         try{
-            db.aggregate({cStatus: 'A'}, modelTimeLog, "sreps", "objSRep", "_id", "name", projection, function(objSRepNames){
+            db.aggregate({cAccStatus: 'A'}, modelTimeLog, "sreps", "objSRep", "_id", "name", projection, function(objSRepNames){
                 sRepNames = objSRepNames;
 
                 //console.log(sRepNames);
@@ -161,16 +162,50 @@ const cuhController = {
      */
     getViewAnalytics: function (req, res) {
         try{
-            db.findMany(modelSRep, {cStatus: 'A'}, '', '', '', function(objSReps){
+            db.findMany(modelSRep, {cAccStatus: 'A'}, '', '', '', function(objSReps){
                 virtualSReps = objSReps;
 
-                db.findMany(modelTimeLog, {cStatus: 'A'}, '', '', '', function(objTimeLogs){
+                var date = new Date();
+                var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+                var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+                db.findMany(modelTimeLog, {cStatus: 'A', objTimeIn:{$gte: firstDay, $lte: lastDay}, objTimeOut:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(objTimeLogs){
                     virtualTimeLogs = objTimeLogs;
                         //console.log(virtualTimeLogs);
+
+                    var records = [];
+                    var i;
+                    var k;
+                    for(i = 0; i < virtualSReps.length; i++)
+                    {
+                        var sum = 0;
+                        var count = 0;
+
+                        for(k = 0; k < virtualTimeLogs.length; k++)
+                        {
+                            //console.log(virtualSReps[i]._id + " " + virtualTimeLogs[k].objSRep)
+                            if(virtualSReps[i]._id.equals(virtualTimeLogs[k].objSRep))
+                            {
+                                sum = sum + virtualTimeLogs[k].fHours;
+                                count = count + 1;
+                            }
+                        }
+
+                        record = {
+                            sFullName: virtualSReps[i].sFullName,
+                            fTotalHours: sum,
+                            nCount: count,
+                            fAverage: sum/count,
+                        }
+
+                        records.push(record);
+                    }
+
 
                     res.render("viewAnalytics", {
                         sPage: "Analytics",
                         sUserType: "CUH",
+                        records: records
                     });
                 });
             });

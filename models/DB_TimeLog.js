@@ -101,7 +101,7 @@ TimeLogSchema.virtual("sTimeOut").get(function() {
 });
 
 TimeLogSchema.virtual("fHours").get(function() {
-    if(this.objtimeOut == null)
+    if(this.objTimeOut == null)
     {
         return 0;
     } else {
@@ -109,7 +109,7 @@ TimeLogSchema.virtual("fHours").get(function() {
         var fTimeOut = this.objTimeOut.getTime();
         var fHours = (fTimeOut - fTimeIn)/3600000;
 
-        return fHours.toFixed(2);
+        return parseFloat(fHours.toFixed(2));
     }
 });
 
