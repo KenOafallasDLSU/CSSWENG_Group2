@@ -189,9 +189,11 @@ const cuhController = {
 
                 var date = new Date();
                 var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+                firstDay.setHours(0);
                 var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+                lastDay.setHours(23, 59, 59);
 
-                db.findMany(modelTimeLog, {cStatus: 'A', objTimeIn:{$gte: firstDay, $lte: lastDay}, objTimeOut:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(objTimeLogs){
+                db.findMany(modelTimeLog, {cStatus: 'A', objTimeIn:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(objTimeLogs){
                     var virtualTimeLogs = objTimeLogs;
                         //console.log(virtualTimeLogs);
 
@@ -213,16 +215,21 @@ const cuhController = {
                             }
                         }
 
+                        var ave;
+                        if(count == 0)
+                            ave = 0;
+                        else
+                            ave = sum/count;
+
                         record = {
                             sFullName: virtualSReps[i].sFullName,
                             fTotalHours: sum,
                             nCount: count,
-                            fAverage: sum/count,
+                            fAverage: parseFloat(ave.toFixed(2))
                         }
 
                         records.push(record);
                     }
-
 
                     res.render("viewAnalytics", {
                         sPage: "Analytics",
@@ -238,24 +245,141 @@ const cuhController = {
     },
 
     /**
+     * Get tital hours per SRep
      * 
      * @param {*} req 
      * @param {*} res 
      */
-    postViewAnalytics: function (req, res) {
+    postHoursPerSRep: function (req, res) {
         try{
-            db.findMany(modelSRep, {cStatus: 'A'}, '', '', '', function(objSReps){
-                virtualSReps = objSReps;
+            db.findMany(modelSRep, {cAccStatus: 'A'}, '', '', '', function(objSReps){
+                var virtualSReps = objSReps;
 
-                db.findMany(modelTimeLog, {cStatus: 'A'}, '', '', '', function(objTimeLogs){
-                    virtualTimeLogs = objTimeLogs;
-                        //console.log(virtualTimeLogs);
+                var firstDay = req.body.tStartDate;
+                var lastDay = req.body.tEndDate;
 
+                db.findMany(modelTimeLog, {cStatus: 'A', objTimeIn:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(objTimeLogs){
+                    var virtualTimeLogs = objTimeLogs;
+                    
+                    var records = [];
+                    var i;
+                    var k;
+                    for(i = 0; i < virtualSReps.length; i++)
+                    {
+                        var sum = 0;
+                        var count = 0;
+
+                        for(k = 0; k < virtualTimeLogs.length; k++)
+                        {
+                            //console.log(virtualSReps[i]._id + " " + virtualTimeLogs[k].objSRep)
+                            if(virtualSReps[i]._id.equals(virtualTimeLogs[k].objSRep))
+                            {
+                                sum = sum + virtualTimeLogs[k].fHours;
+                                count = count + 1;
+                            }
+                        }
+
+                        var ave;
+                        if(count == 0)
+                            ave = 0;
+                        else
+                            ave = sum/count;
+
+                        record = {
+                            sFullName: virtualSReps[i].sFullName,
+                            fTotalHours: sum,
+                            nCount: count,
+                            fAverage: parseFloat(ave.toFixed(2))
+                        }
+
+                        records.push(record);
+                    }
     
-                    res.render("viewAnalytics", {
-                        sPage: "Analytics",
-                        sUserType: "CUH",
-                    });
+                    res.send(records);
+                });
+            });
+        }
+        catch{
+            console.log(e)
+        }
+    },
+
+    /**
+     * Total hours per weekday, and hours per srep per weekday
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     */
+    postHoursPerWeekday: function (req, res) {
+        try{
+            db.findMany(modelSRep, {cAccStatus: 'A'}, '', '', '', function(objSReps){
+                var virtualSReps = objSReps;
+
+                var firstDay = req.body.tStartDate;
+                var lastDay = req.body.tEndDate;
+
+                db.findMany(modelTimeLog, {cStatus: 'A', objTimeIn:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(objTimeLogs){
+                    var virtualTimeLogs = objTimeLogs;
+                    
+                    var tMon = 0, tTue = 0, tWed = 0, tThu = 0, tFri = 0, tSat = 0, tSun = 0;
+                    var records = [];
+                    var i, k;
+                    for(i = 0; i < virtualSReps.length; i++)
+                    {
+                        var mon = 0, tue = 0, wed = 0, thu = 0, fri = 0, sat = 0, sun = 0;
+
+                        for(k = 0; k < virtualTimeLogs.length; k++)
+                        {
+                            if(virtualSReps[i]._id.equals(virtualTimeLogs[k].objSRep)){
+                                switch(virtualTimeLogs[k].objTimeIn.getDay()){
+                                    case 0: 
+                                        tSun = tSun + virtualTimeLogs[k].fHours;
+                                        sun = sun + virtualTimeLogs[k].fHours;
+                                        break; 
+                                    case 1:
+                                        tMon = tMon + virtualTimeLogs[k].fHours;
+                                        mon = mon + virtualTimeLogs[k].fHours;
+                                        break;
+                                    case 2:
+                                        tTue = tTue + virtualTimeLogs[k].fHours;
+                                        tue = tue + virtualTimeLogs[k].fHours;
+                                        break;
+                                    case 3: 
+                                        tWed = tWed + virtualTimeLogs[k].fHours;
+                                        wed = wed + virtualTimeLogs[k].fHours;
+                                        break;
+                                    case 4: 
+                                        tThu = tThu + virtualTimeLogs[k].fHours;
+                                        thu = thu + virtualTimeLogs[k].fHours;
+                                        break;
+                                    case 5: 
+                                        tFri = tFri + virtualTimeLogs[k].fHours;
+                                        fri = fri + virtualTimeLogs[k].fHours;
+                                        break;
+                                    case 6: 
+                                        tSat = tSat + virtualTimeLogs[k].fHours;
+                                        sat = sat + virtualTimeLogs[k].fHours;
+                                        break;
+                                }
+                            }
+                        }
+
+                        var record = {
+                            sFullName: virtualSReps[i].sFullName,
+                            fMon: mon, fTue:tue, fWed: wed, fThu: thu, fFri: fri, fSat: sat, fSun: sun
+                        }
+
+                        records.push(record);
+                    }
+
+                    var record = {
+                        sFullName: "Total",
+                        fMon: tMon, fTue:tTue, fWed: tWed, fThu: tThu, fFri: tFri, fSat: tSat, fSun: tSun
+                    }
+
+                    records.unshift(record);
+    
+                    res.send(records);
                 });
             });
         }
