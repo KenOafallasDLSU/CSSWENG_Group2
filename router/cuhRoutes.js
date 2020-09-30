@@ -17,6 +17,11 @@ router.get(['/records/:sUsername'], authentication.sessionActive, authentication
 router.post(['/postRecordsCUHOne'], controller.postRecordsCUHOne);
 router.post(['/postRecordsCUHAll'], controller.postRecordsCUHAll);
 
+/* changePassword */
+router.get(['/:sUsername', '/changePassword/:sUsername'], authentication.sessionActive, authentication.isValidCUH,controller.getChangePassword);
+router.post(['/:sUsername', '/changePassword/:sUsername'], authentication.sessionActive, authentication.isValidCUH,controller.postChangePassword);
+
+
 /* analytics */
 router.get(['/view-analytics/:sUsername'], authentication.sessionActive, authentication.isValidCUH, controller.getViewAnalytics);
 router.post(['/postHoursPerWeekday'], controller.postHoursPerWeekday);

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const databaseURL = "mongodb://localhost:27017/residencydb";
-//const databaseURL = "mongodb+srv://Admin:a1b2c3d4%21@occs-residency-system.jflhq.gcp.mongodb.net/residencydb?retryWrites=true&w=majority";
+//const databaseURL = "mongodb://localhost:27017/residencydb";
+const databaseURL = "mongodb+srv://Admin:a1b2c3d4%21@occs-residency-system.jflhq.gcp.mongodb.net/residencydb?retryWrites=true&w=majority";
 
 const options = { useNewUrlParser: true,
     useUnifiedTopology: true,

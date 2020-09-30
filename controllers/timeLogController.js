@@ -29,11 +29,11 @@ const timeLogController = {
         console.log(user);
         console.log(timein);
 
-        console.log(res.locals.user)
+        console.log(req.session.primaryKey);
 
         try {
             db.insertOne(modelTimeLog, {
-                    objSRep: ObjectId(res.locals.user),
+                    objSRep: req.session.primaryKey,
                     // sUserName : user,
                     objTimeIn : timein,
                     objTimeOut: null,
@@ -58,7 +58,7 @@ const timeLogController = {
         
         var user = req.session.userId;
         var timeout = new Date();
-		var conditions = {sUserName:user,objTimeout:null, sTask:null};
+		var conditions = {objSRep:req.session.primaryKey, objTimeout:null, sTask:null};
         console.log(user);
         console.log(timeout);
 		var sTask = req.body.sTask;
