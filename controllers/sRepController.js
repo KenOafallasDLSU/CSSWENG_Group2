@@ -94,6 +94,7 @@ const sRepController = {
                         sPage: "profile",
                         sUserType: "Student Representative",
                         sFirstName: x.sFirstName,
+                        sLastName: x.sLastName,
                         sEmail: x.sEmail,
                         sCourse: x.sCourse,
                         sUserID: x.sUsername,
