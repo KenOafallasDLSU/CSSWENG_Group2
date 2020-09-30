@@ -9,7 +9,7 @@ const cuhAuthentication = {
     
     /***** Check if Session is Active *****/
     sessionActive: (req, res, next)=>{
-        if (req.session.userid){
+        if (req.session.userId){
             next();
         }
         else

@@ -33,5 +33,4 @@ router.post(['/send-request', '/send-request/:sUsername'] , authentication.sessi
 /* profile */
 router.get("/profile/:sUsername", authentication.sessionActive, authentication.isValidSRep, controller.getProfile);
 
-
 module.exports = router;
