@@ -101,39 +101,35 @@ getManageAccount: function (req, res) {
 			var user = req.body.sUsername;
 			var conditions = {sUsername:user, bHRstatus:true};
 				try {
-				 db.updateOne(modelSREP, conditions, {bHRStatus:false} , function(status) {
-					console.log(status);
-				}
-				});
-				
-				}catch(e) {
-				console.log(e);}
+				 	db.updateOne(modelSREP, conditions, {bHRStatus:false} , function(status) {
 
-	
-				// res.redirect("/cuh/dashboard/" + user);
-				 
-			},
-
- postAccept: function (req, res) {
-	console.log("hatdog4");
-        var user = req.body.sUsername;
-		var conditions = {sUsername:user, bHRStatus:false};
-				try {
-					 db.updateOne(modelSREP,conditions, {bHRStatus:true} , function(status){ 
-					 
 						console.log(status);
-					 
 					});
 
 				}catch(e) {
 				console.log(e);}
 
-               
-        // res.redirect("/cuh/dashboard/" + user);
-         
-    },
-  
+	
+				// res.redirect("/cuh/dashboard/" + user);				 
+		},
 
+	postAccept: function (req, res) {
+		console.log("hatdog3");
+				var user = req.body.sUsername;
+				var conditions = {sUsername:user, bHRstatus:false};
+					try {
+							db.updateOne(modelSREP, conditions, {bHRStatus:true} , function(status) {
+	
+							console.log(status);
+						});
+	
+					}catch(e) {
+					console.log(e);}
+	
+		
+					// res.redirect("/cuh/dashboard/" + user);				 
+			}
+  
 }
 
 
