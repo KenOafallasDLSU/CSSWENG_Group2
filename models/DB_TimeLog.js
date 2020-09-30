@@ -109,6 +109,9 @@ TimeLogSchema.virtual("fHours").get(function() {
         var fTimeOut = this.objTimeOut.getTime();
         var fHours = (fTimeOut - fTimeIn)/3600000;
 
+        if (fHours.toFixed(2) < 0)
+			return parseFloat(0);
+
         return parseFloat(fHours.toFixed(2));
     }
 });
