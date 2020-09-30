@@ -523,8 +523,61 @@ const cuhController = {
                 } else res.send("2");
             });
         } else res.send("3");
-    }
+    },
 
+    /** TIMELOG REQUESTS */
+    getPendingTimelogs: function (req, res) {
+        try{
+            let projection = {
+                _id: 1,
+                sFirstName: "$name.sFirstName",
+                sLastName: "$name.sLastName"
+            }
+
+            db.aggregate({cStatus: 'P'}, modelTimeLog, "sreps", "objSRep", "_id", "name", projection, function(arrSRepNames){
+
+                db.findMany(modelTimeLog, {cStatus: 'P'}, '', '', '', function(arrTimeLogs){
+                    let virtualTimeLogs = arrTimeLogs;
+
+                    let records = [];
+                    let i = 0
+                    for(i = 0; i < virtualTimeLogs.length; i++)
+                    {
+                        record = {
+                            name: arrSRepNames[i].sFirstName + " " + arrSRepNames[i].sLastName,
+                            timelog: virtualTimeLogs[i],
+                            rowId: i.toString(),
+                            acceptId: i.toString() + "-A",
+                            rejectId: i.toString() + "-R",
+                            parentId: i.toString() + "-P"
+                        }
+
+                        records.push(record);
+                    }
+
+                    res.render("pendingRequests", {
+                        sPage: "Residency Session Requests",
+                        sUserType: "CUH",
+                        records: records
+                    });
+                });
+            });
+        }
+        catch{
+            console.log(e)
+        }
+    },
+
+    postUpdateRequest: function (req, res){
+        try{
+            db.updateOne(modelTimeLog, {_id: req.body.objId}, {cStatus: req.body.cStatus}, function(status){
+                console.log(status);
+            });
+
+        } catch{
+            console.log(e);
+        }
+    }
 }
 
 module.exports = cuhController;
