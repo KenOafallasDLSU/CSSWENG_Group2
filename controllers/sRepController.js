@@ -84,14 +84,14 @@ const sRepController = {
     console.log(user);
        try{
             db.findOne(modelSREP, conditions, '', function (x) {
-               db.findMany(modelTimeLog, {objSRep: id, objTimeIn:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(objTimeLogs){
+               db.findMany(modelTimeLog, {objSRep: id, cStatus: 'A', objTimeIn:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(objTimeLogs){
                     var virtualTimeLogs = objTimeLogs;
                     for(i = 0; i < virtualTimeLogs.length; i++){
                         remainingHours = remainingHours - virtualTimeLogs[i].fHours;
                     }
 
                     res.render("profile", {
-                        sPage: "profile",
+                        sPage: "Profile",
                         sUserType: "Student Representative",
                         sFirstName: x.sFirstName,
                         sLastName: x.sLastName,
