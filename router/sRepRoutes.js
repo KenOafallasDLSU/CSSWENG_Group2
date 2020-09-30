@@ -5,6 +5,8 @@ const router = express();
 const controller = require('../controllers/sRepController');
 const authentication = require('../middlewares/sRepAuthentication.js');
 const timeLogControllers = require('../controllers/timeLogController');
+const authenticationHR = require('../middlewares/hrAuthentication.js');
+const controllerCUH = require('../controllers/cuhController');
 /********* routes *********/
 
 /* dashboard */
@@ -32,5 +34,13 @@ router.post(['/send-request', '/send-request/:sUsername'] , authentication.sessi
 
 /* profile */
 router.get("/profile/:sUsername", authentication.sessionActive, authentication.isValidSRep, controller.getProfile);
+
+router.get(['/view-analytics/:sUsername'], authentication.sessionActive, authenticationHR.isValidHR, controllerCUH.getViewAnalytics);
+router.post(['/view-analytics/postHoursPerWeekday'], controllerCUH.postHoursPerWeekday);
+router.post(['/view-analytics/postHoursPerSRep'], controllerCUH.postHoursPerSRep);
+
+//router.get(['/records/:sUsername'], authentication.sessionActive, authenticationHR.isValidHR, controllerCUH.getRecordsCUH);
+router.post(['/postRecordsCUHOne'], controllerCUH.postRecordsCUHOne);
+router.post(['/postRecordsCUHAll'], controllerCUH.postRecordsCUHAll);
 
 module.exports = router;
