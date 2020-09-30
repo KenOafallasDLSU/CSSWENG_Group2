@@ -6,6 +6,7 @@ const modelCUH = require('../models/DB_CUH.js');
 const saltRounds = 10;
 
 
+
 const manageAccountController = {
   
 getManageAccount: function (req, res) {
@@ -64,7 +65,7 @@ getManageAccount: function (req, res) {
 	
 		},
 
-postCUHRegister: function (req, res) {
+ postCUHRegister: function (req, res) {
 	console.log("hatdog2");
 		 var sUsername = req.body.sUsername;
 		 var sPassword = req.body.sPassword;
@@ -131,8 +132,10 @@ postCUHRegister: function (req, res) {
         res.redirect("/cuh/dashboard/" + user);
          
     },
+  
 
 }
+
 
 function quick_Sort_srep(arr) {
     if (arr.length <= 1) { 
@@ -154,7 +157,7 @@ function quick_Sort_srep(arr) {
             }
         }
 
-        return newArray.concat(quick_Sort(left), pivot, quick_Sort(right));
+        return newArray.concat( quick_Sort_srep(left), pivot,  quick_Sort_srep(right));
     }
 }
 

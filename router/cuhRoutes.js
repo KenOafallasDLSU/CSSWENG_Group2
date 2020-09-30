@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express();
 
+router.use(express.static('public'));
 /* controllers that provide functions depending on post or get */
 const controller = require('../controllers/cuhController');
 const MAcontroller = require('../controllers/manageAccountsController');
@@ -9,6 +10,7 @@ const MAcontroller = require('../controllers/manageAccountsController');
 const authentication = require('../middlewares/cuhAuthentication.js');
 
 /********* routes *********/
+
 
 /* dashboard */
 router.get(['/:sUsername', '/dashboard/:sUsername'], authentication.sessionActive, authentication.isValidCUH,controller.getDashboard);
