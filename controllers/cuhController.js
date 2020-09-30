@@ -228,8 +228,7 @@ const cuhController = {
                                 });
                             });
                             console.log('>>>>>>>>>>>>>>>>Password Changed!<<<<<<<<<<<<<<<<<<');
-                            alert("Password has been changed!");
-                            return res.redirect("/");
+                            return res.redirect("/cuh/"+ objCUH.sUsername);
                         }
                         else{
                             return res.status(401).render("changePassword", {

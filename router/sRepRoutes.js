@@ -26,8 +26,6 @@ router.get(['/:sUsername', '/dashboard2/:sUsername'] , authentication.sessionAct
 
 router.post(['/:sUsername', '/dashboard2/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, timeLogControllers.postTimeOut);
 
-
-
 router.get(['/:sUsername', '/sendRequest/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, controller.getSendRequest);
 // router.get("/" , timeLogControllers.getSendRequest);
 
