@@ -130,6 +130,7 @@ const database = {
             function (error, result){
                 if(error) throw error;
                 console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>aggregate');
+                console.log("Condition: "); console.log(condition);
                 console.log("Found: " + result.length);
                 console.log('Joined to'); console.log(otherCol);
                 console.log('Joined left'); console.log(local);
@@ -144,6 +145,8 @@ const database = {
             return callback(result);
         });
     }
+    
+
     
 
 }

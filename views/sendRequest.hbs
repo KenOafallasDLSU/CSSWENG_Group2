@@ -44,63 +44,82 @@
         
         <div class="row p-2row">
             <div class="col-2 col-sm-2">
-               {{>navbar}}
+               {{>navBar}}
             </div>
-            <div class="col-5 col-sm-5 container-form d-flex justify-content-center" padding-left: "300px">      
+            <div class="col-9 col-sm-9 d-flex justify-content-center">      
                 <!-- Request Form -->
-                <form name="register" id="register" method="POST">
-                    
-                    <!-- Request Type -->
-                    <div class="form-row">
-                        <div class="form-group col-sm-12 input-group">
-                            <label for="country">Type of Request</label>
-                            <select id="type" name="type">
-                                <option value="retroactive">Retroactive Time-in Request</option>
-                                <option value="retroactive">Retroactive Time-out Request</option>
-                            </select>
-                        </div>
-                    </div>
-                            
-                    <div class="form-row">
-                        <div class="form-group col-sm-12 input-group">
-                            <label for="Request">Request:</label>
-                        </div>
-                    </div>
-
-                    <!-- Date Select -->
-                    <div class="form-row">
-                        <div class="form-group col-sm-12 input-group">
-                            <label for="sDate">Select date</label>
-                            <div class="col-sm-4">
-                                <input type="date" id="sDate" name="sDate">
+                <div class="row container-form d-flex justify-content-center">
+                    <form name="register" id="register" method="POST">    
+                        <!-- Request Type -->
+                        <div class="form-row">
+                            <div class="form-group col-sm-12 input-group">
+                                <label for="country">Type of Request</label>
+                                <select id="type" name="type">
+                                    <option value="retroactive">Retroactive Time-in and Time-out Request</option>
+                                    {{!-- <option value="retroactive">Retroactive Time-out Request</option> --}}
+                                </select>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Time  Select -->
-                    <div class="form-row">
-                        <div class="form-group col-sm-12 input-group">
-                            <label for="sTime">Select time</label>
-                            <div class="col-sm-4">
-                                <input type="time" id="sTime" name="sTime">
+                                
+                        <div class="form-row">
+                            <div class="form-group col-sm-12 input-group">
+                                <label for="Request">Request:</label>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="form-row">
-                        <div class="form-group col-sm-12 input-group">
-                            <label for="sReason">Reason:</label>
-                            <input type="text" id="sReason" name="sReason" placeholder="...">
+                        <!-- Date Select -->
+                        <div class="form-row">
+                            <div class="form-group col-sm-12 input-group">
+                                <label for="sDate">Select date</label>
+                                <div class="col-sm-4">
+                                    <input type="date" id="sDate" name="sDate">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <!-- Submit button -->
-                    <div class="form-row">
-                        <div class="form-group col-sm-12">
-                            <button type="submit" id="btnRequest" class="btn btn-md btn-success btn-block">Submit</button>
+
+                        <!-- Time  Select -->
+                        <div class="form-row">
+                            <div class="form-group col-sm-12 input-group">
+                                <label for="sTimein">Select Time-In</label>
+                                <div class="col-sm-4">
+                                    <input type="time" id="sTimein" name="sTimein">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </form>
+
+                        <!-- Time  Select -->
+                        <div class="form-row">
+                            <div class="form-group col-sm-12 input-group">
+                                <label for="sTimeout">Select Time-Out</label>
+                                <div class="col-sm-4">
+                                    <input type="time" id="sTimeout" name="sTimeout">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-sm-12 input-group">
+                                <label for="sTask">Tasks Done:</label>
+                                <input type="text" id="sTask" name="sTask" placeholder="...">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group col-sm-12 input-group">
+                                <label for="sReason">Reason for Request:</label>
+                                <input type="text" id="sReason" name="sReason" placeholder="...">
+                            </div>
+                        </div>
+                       
+                        <!-- Submit button -->
+                        
+                        <div class="form-row">
+                            <div class="form-group col-sm-12">
+                                <button type="submit" id="btnRequest" class="btn btn-md btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>   
         </div>
     </div>

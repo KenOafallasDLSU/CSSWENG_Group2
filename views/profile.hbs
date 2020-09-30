@@ -17,63 +17,28 @@
         <div class="row p-2">
             {{>navBar}}   
             <div class="col-8 col-sm-8">
+                <!--<h2>PROFILE</h2></p><hr>-->
                 <div class="col-sm-6">
-                    <i class="fa fa-user icon"></i> Full name: {{sFirstName}}
+                    <i class="fa fa-user icon"></i> <b>Full name:</b>   {{sFirstName}}
                 </div>
                 <div class="col-sm-6">
-                    <h>@</h> Email address: {{sEmail}}
+                    <h>@</h> <b>Email address:</b> {{sEmail}}
                 </div>
                 <div class="col-sm-7">
-                    <i class="far fa-address-card"></i> Degree Program: {{sCourse}}
+                    <i class="far fa-address-card"></i> <b>Degree Program:</b>  {{sCourse}}
                 </div>
                 <div class="col-sm-5">
-                    <i class="far fa-address-card"></i> ID Number: {{sUserID}}
+                    <i class="far fa-address-card"></i> <b>ID Number:</b>   {{sUserID}}
                 </div>
                 <div class="col-sm-5">
-                    <i class="fas fa-birthday-cake icon"></i> Birthday: {{sBirthdate}}
+                    <i class="fas fa-address-card"></i><b> HR status:</b>   {{bHRStatus}}
                 </div>
 
 
 
                 <p><hr></p>
-                <p><h>Check residency hours</h></p>
-                <div class="col-9 col-sm-9 container-form">
-                    <!-- Start Date -->
-                    <div class="form-row">
-                        <label for="startdate">Start Date</label>
-                        <input type="date" name="sStartdate" id="sStartdate" class="form-control" placeholder="sStartdate">
-                    </div></p>
-
-                    <!-- End Date -->
-                    <div class="form-row">
-                        <label for="enddate"> End Date</label>
-                        <input type="date" name="sEnddate" id="sEnddate" class="form-control" placeholder="sEnddate">           
-                    </div></p>
-                            
-                    <!-- Submit button -->
-                    <div class="form-row">
-                        <div class="form-group col-sm-12">
-                            <button type="submit" id="###" class="btn btn-md btn-success btn-sm">Confirm</button>
-                        </div>
-                    </div></p>
-                </div>
-
-                <table class="table table-striped">
-                    <thead class="thread-dark">
-                        <tr>
-                            <th scope="col">Starting date</th>
-                            <th scope="col">End Date</th>
-                            <th scope="col">Total Hours</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">{{sStartdate}}</th>
-                            <td>{{sEnddate}}</td>
-                            <td>Total hours</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <b>Remaining residency hours for the month: </b>{{remainingHours}}</p>
+                
             </div>
         </div>
     </div>

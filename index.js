@@ -9,6 +9,7 @@ const session = require('express-session');
 /** import module `mongoose` & `connect=mongo`*/
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
+const db = require('./models/db.js');
 
 /**Engine creation */
 const index = express();
@@ -28,7 +29,7 @@ const modelTimeLog = require('./models/DB_TimeLog');
 const modelTimeRequest = require('./models/DB_TimeRequest');
 
 /**Database Functions */
-const db = require('./models/db.js');
+const dbs = require('./models/db.js');
 
 /**Create DB Collections if they do not exist */
 const options = { useUnifiedTopology: true };
@@ -104,7 +105,7 @@ index.use('/srep', sRepRoutes);
 /** Helper Functions **/
 hbs.registerHelper("navBuilder", (sPage, sUserType)=>{
     let element = '';
-    let navs = ['Dashboard', 'Profile', 'Records', 'Send Request', 'Pending Requests', 'View Analytics', 'Manage Accounts', 'Send Notification','Holidays', 'Logout'];
+    let navs = ['Dashboard', 'Profile', 'Records', 'SendRequest', 'Pending Requests', 'View Analytics', 'Manage Accounts', 'Send Notification','Holidays', 'Logout'];
     let url = ['/', '/profile', '/records', '/send-request', '/pending-requests', '/view-analytics', '/manage-accounts', '/send-notification','/holidays', '/logout'];
     let visible = [];
 

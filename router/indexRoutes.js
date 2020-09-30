@@ -5,6 +5,7 @@ const router = express();
 const controller = require('../controllers/indexController');
 const validation = require('../middlewares/validation');
 const authentication = require('../middlewares/indexAuthentication.js');
+const timeLogControllers = require('../controllers/timeLogController');
 
 /********* routes *********/
 /* login */
@@ -18,5 +19,8 @@ router.get('/checkID', controller.checkID);
 
 /* logout */
 router.get('/logout', controller.getLogout);
+
+/* other routes (to redirect to /srep || /cuh) */
+router.get(['/send-request', '/send-request/', '/srep/send-request', '/srep/send-request/', '/profile', '/srep/profile'], authentication.sessionActive, controller.redirect);
 
 module.exports = router;
