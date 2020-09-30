@@ -176,9 +176,16 @@
                                             <div class="form-group col-sm-12 input-group">
                                                 <label for="studentReps">Select Student Representative</label>
                                                 <div class="p-1">
+<<<<<<< Updated upstream
                                                     <select id="type" name="type" class="studentRep form-control">
                                                         {{#each arrStudentRepresentative}}
                                                             <option value="sStudentRepresenatative">{{sFirstName}} {{sLastName}}</option>
+=======
+                                                    <select id="GrantStudentSelect" name="GrantStudentSelect" class="studentRep form-control">
+                                                        {{#each arrNonHR}}
+                                                            <option value={{sUsername}}>{{sLastName}}, {{sFirstName}}</option>
+                                                            {{!-- <div id="sUsername" class="d-none">{{sUsername}}</div> --}}
+>>>>>>> Stashed changes
                                                         {{/each}}
                                                     </select>
                                                 </div>
@@ -224,9 +231,17 @@
                                             <div class="form-group col-sm-12 input-group">
                                                 <label for="studentReps">Select Student Representative</label>
                                                 <div class="p-1">
+<<<<<<< Updated upstream
                                                     <select id="type" name="type" class="studentRep2 form-control">
                                                         {{#each arrStudentRepresentative}}
                                                             <option value="sStudentRepresenatative">{{sFirstName}} {{sLastName}}</option>
+=======
+                                                    <select id="revokeStudentSelect" name="revokeStudentSelect" class="studentRep2 form-control">
+                                                        {{#each arrHR}}
+                                                            <option value= {{sUsername}}>{{sLastName}}, {{sFirstName}}</option>
+
+                                                            {{!-- <div value class="d-none">{{sUsername}}</div> --}}
+>>>>>>> Stashed changes
                                                         {{/each}}
                                                     </select>
                                                 </div>
