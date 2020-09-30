@@ -17,8 +17,8 @@ const port = 3000;
 
 /**Database constants */
 const mongoClient = mongodb.MongoClient;
-const databaseURL = "mongodb://localhost:27017/residencydb"; //local URL
-//const databaseURL = "mongodb+srv://Admin:a1b2c3d4%21@occs-residency-system.jflhq.gcp.mongodb.net/residencydb?retryWrites=true&w=majority"; //Atlas URL
+//const databaseURL = "mongodb://localhost:27017/residencydb"; //local URL
+const databaseURL = "mongodb+srv://Admin:a1b2c3d4%21@occs-residency-system.jflhq.gcp.mongodb.net/residencydb?retryWrites=true&w=majority"; //Atlas URL
 const dbname = "residencydb";
 
 /**Database models */
@@ -113,7 +113,7 @@ hbs.registerHelper("navBuilder", (sPage, sUserType)=>{
         visible = [true, true, true, true, false, false, false, false, false, true];
     }
     else if (sUserType === 'Human Resource Representative'){
-        visible = [true, true, true, true, true, true, false, true, false, true];
+        visible = [false, false, true, true, true, true, false, false, false, true];
     }
     else{
         visible = [true, true, true, false, true, true, true, true, true, true];

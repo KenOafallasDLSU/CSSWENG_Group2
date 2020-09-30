@@ -15,18 +15,19 @@
         <div class="row justify-content">
             {{>navBar}}  
             <div class="container col-9 col-sm-9 d-flex justify-content-center">
-                <div class="row">
-                    Total for the Week
+                <div class="justify-content-center">
+                    <div class="justify-content-center">
+                    <p><h2>How was your day?</h2></p>
                 </div>
-                <div class="row p-5" >
+                <hr>
                     {{!-- Time Out 
                     Flow: On click pop text box > insert text> get date --}}
                     <form method="POST">
-                        <div class="form-group col-sm-12 input-group">
-                            <textarea id="sTask" name="sTask" rows="4" cols="50"></textarea>
+                        <div class="form-group col-sm-12 input-group justify-content-center">
+                            <textarea id="sTask" name="sTask" rows="5" cols="60"></textarea>
                         </div>
-                        <div class="form-group col-sm-12 input-group justify-content-cecnter">
-                            <button class="btn btn-outline-success" formmethod="POST" type="submit"  value="TIME-OUT" id="btnSubmit"> TIME-OUT </button>
+                        <div class="form-group col-sm-12 input-group justify-content-center">
+                            <button class="btn btn-outline-success btn-lg" formmethod="POST" type="submit"  value="TIME-OUT" id="btnSubmit"> TIME-OUT </button>
                         </div>                        
                     </form>
                 </div>
