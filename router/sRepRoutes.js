@@ -10,7 +10,7 @@ const timeLogControllers = require('../controllers/timeLogController');
 /* dashboard */
 router.get(['/:sUsername', '/dashboard/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, controller.getDashboard);
 /* records */
-router.get(['/records-srep'], authentication.sessionActive, authentication.isValidSRep, controller.getRecordsSRep);
+router.get(['/records/:sUsername'], authentication.sessionActive, authentication.isValidSRep, controller.getRecordsSRep);
 
 
 // time in time out
