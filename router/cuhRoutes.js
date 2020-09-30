@@ -18,10 +18,8 @@ router.post(['/postRecordsCUHAll'], controller.postRecordsCUHAll);
 /* changePassword */
 router.get(['/:sUsername', '/changePassword/:sUsername'], authentication.sessionActive, authentication.isValidCUH,controller.getChangePassword);
 router.post(['/:sUsername', '/changePassword/:sUsername'], authentication.sessionActive, authentication.isValidCUH,controller.postChangePassword);
-<<<<<<< HEAD
-=======
 
->>>>>>> GerycoDionisio
+
 /* analytics */
 router.get(['/view-analytics'], authentication.sessionActive, authentication.isValidCUH, controller.getViewAnalytics);
 router.post(['/postHoursPerWeekday'], controller.postHoursPerWeekday);
