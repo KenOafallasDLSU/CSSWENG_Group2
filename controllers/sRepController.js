@@ -39,7 +39,7 @@ const sRepController = {
     */
     getRecordsSRep: function (req, res) {
         try{
-            var id = res.locals.user;
+            var id = req.session.primaryKey;
 
             db.findMany(modelTimeLog, {objSRep: id, cStatus: "A"}, {objTimeIn: -1}, '', 20, function(objTimeLogs){
                 records = objTimeLogs;
