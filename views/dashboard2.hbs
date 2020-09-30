@@ -19,16 +19,17 @@
                     Total for the Week
                 </div>
                 <div class="row p-5" >
-                   
-                   {{!-- Time Out 
-                   Flow: On click pop text box > insert text> get date --}}
-
-                        <form method="POST">
+                    {{!-- Time Out 
+                    Flow: On click pop text box > insert text> get date --}}
+                    <form method="POST">
+                        <div class="form-group col-sm-12 input-group">
                             <textarea id="sTask" name="sTask" rows="4" cols="50"></textarea>
-                            
-                         <button class="btn btn-outline-success" formmethod="POST" type="submit"  value="TIME-OUT" id="btnSubmit"> TIME-OUT </button>
-
-                        </form>
+                        </div>
+                        <div class="form-group col-sm-12 input-group justify-content-cecnter">
+                            <button class="btn btn-outline-success" formmethod="POST" type="submit"  value="TIME-OUT" id="btnSubmit"> TIME-OUT </button>
+                        </div>                        
+                    </form>
+                </div>
             </div>
         </div>
     </div>    

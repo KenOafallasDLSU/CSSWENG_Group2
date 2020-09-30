@@ -10,10 +10,13 @@ const sRepAuthentication = {
     /***** Check if Session is Active *****/
     sessionActive: (req, res, next)=>{
         if (req.session.userId){
+            console.log("active session, next lang");
             next();
         }
-        else
+        else{
+            console.log("no active session, redirect");
             return res.redirect('/login');
+        }
     },
     
     isValidSRep: (req, res, next)=>{        
@@ -49,6 +52,15 @@ const sRepAuthentication = {
                     });
                 }
             });
+        }
+    },
+
+    redirect: (req, res, next) =>{
+        if(req.params.sUsername === req.session.userId){
+            next();
+        }
+        else{
+            return res.redirect(req.url + '/' + req.session.userId);
         }
     },
 	

@@ -17,8 +17,10 @@ router.get('/register', controller.getRegister);
 router.post('/register', validation.registerValidation(), controller.postRegister);
 router.get('/checkID', controller.checkID);
 
-
 /* logout */
 router.get('/logout', controller.getLogout);
+
+/* other routes (to redirect to /srep || /cuh) */
+router.get(['/send-request', '/send-request/', '/srep/send-request', '/srep/send-request/', '/profile', '/srep/profile'], authentication.sessionActive, controller.redirect);
 
 module.exports = router;

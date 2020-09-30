@@ -5,6 +5,7 @@ const {validationResult} = require('express-validator');
 const db = require('../models/db.js');
 const modelSREP = require('../models/DB_SRep.js');
 const modelCUH = require('../models/DB_CUH.js');
+const ObjectId = require('mongodb').ObjectId;
 
 const saltRounds = 10;
 
@@ -39,7 +40,7 @@ const indexController = {
                             } 
                             if (result) {
                                 req.session.userId = objSRep.sUsername;
-                                res.locals.user = objSRep;
+                                res.locals.user = ObjectId(objSRep._id); 
 
                                 return res.redirect("/srep/"+ objSRep.sUsername);
                             }
@@ -63,7 +64,7 @@ const indexController = {
                                     } 
                                     if (result) {
                                         req.session.userId = objCUH.sUsername;
-                                        res.locals.user = objCUH;
+                                        res.locals.user = ObjectId(objCUH._id);
         
                                         return res.redirect("/cuh/"+ objCUH.sUsername);
                                     }
@@ -167,6 +168,35 @@ const indexController = {
             return res.redirect('/');
         })
     },
+
+    /* redirects to valid url path */
+    redirect: function(req, res){
+        let url = (req.url).trim(' ');
+        url = url.split('/');
+        url = url.filter(e => e !== '');
+        url = url.filter(e => e !== 'srep');
+        url = url.filter(e => e !== 'cuh');
+
+        try {
+            db.findOne(modelSREP, {sUsername: req.session.userId}, '', function(objSREP){
+                if (objSREP){
+                    return res.redirect('/srep/' + url[url.length -1] + '/' + req.session.userId);
+                }
+                else{
+                    db.findOne(modelCUH, {sUsername: req.session.userId}, '', function(objCUH){
+                        if (objCUH){
+                            return res.redirect('/cuh/' + url[url.length -1] + '/' + req.session.userId);
+                        }
+                        else{
+                            return res.redirect('/logout');
+                        }
+                    });
+                }
+            });
+        } catch (error) {
+            
+        }
+    }
 	
 }
 

@@ -6,6 +6,9 @@ const db = require('../models/db.js');
 const { replaceOne } = require('../models/DB_TimeLog.js');
 const modelTimeLog = require('../models/DB_TimeLog.js');
 
+const ObjectId = require('mongodb').ObjectId;
+
+
 const timeLogController = {
 
    
@@ -16,9 +19,7 @@ const timeLogController = {
         //  objTimeOut: {type: Date, required: false},
         //  sTask: {type: String, required: false}
     
-        // var date = sTimeIn;
-        // var date = new Date();
-        // var timestamp = date.getTime();
+        
         
         var user = req.session.userId;
         var timein = new Date();
@@ -28,15 +29,17 @@ const timeLogController = {
         console.log(user);
         console.log(timein);
 
-
+        console.log(res.locals.user)
 
         try {
             db.insertOne(modelTimeLog, {
-               
-                    sUserName : user,
+                    objSRep: ObjectId(res.locals.user),
+                    // sUserName : user,
                     objTimeIn : timein,
                     objTimeOut: null,
-                    sTask: null
+                    sTask: null,
+                    sReason: null,
+                    cStatus: "A"
             }, function(flag){
                 
             }
@@ -51,7 +54,7 @@ const timeLogController = {
     },
     
 
-	 postTimeOut: function (req, res) {
+	postTimeOut: function (req, res) {
         
         var user = req.session.userId;
         var timeout = new Date();
@@ -72,21 +75,54 @@ const timeLogController = {
         }
         });
                
-           
+        // db.deleteOne(modelTimeLog, conditions);
+
         }catch(e) {
-            console.log(e);         
-    }
+            console.log(e); 
+
+        }
+        // db.deleteOne(modelTimeLog, conditions);
+        
+        res.redirect("/srep/dashboard/" + user);
     
-    res.redirect("/srep/dashboard/" + user);
-    
-   },
+    },
+
+    postSendRequest: function (req,res){
+        console.log("im here");
+        var user = req.session.userId;
+       
+        var sDate = (req.body.sDate).toString();
+        var sTimeIn = (req.body.sTimein).toString();
+        var sTimeOut = (req.body.sTimeout).toString();
+
+        var sDateTimeIn = new Date( sDate + ' ' + sTimeIn + ':00'); 
+        var sDateTimeOut = new Date( sDate + ' ' + sTimeOut + ':00'); 
+
+        var sTask = req.body.sTask;
+        var sReason = req.body.sReason;
+
+        try {
+            db.insertOne(modelTimeLog, {
+
+                objSRep: ObjectId(res.locals.user),
+                objTimeIn: sDateTimeIn,
+                objTimeOut: sDateTimeOut,
+                sTask: sTask,
+                sReason: sReason,
+                cStatus: "P"
+
+            }, function(flag){
+                console.log(flag);
+            });
+           
+        } catch(e) {
+            console.log(e);
+        }
+                
+        res.redirect("/srep/dashboard/" + user);
+    },
 		
-    
-    //  Time in Time Out
-
-
 }
-	
 
 
 module.exports = timeLogController;
