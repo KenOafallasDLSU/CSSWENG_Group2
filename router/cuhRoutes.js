@@ -18,8 +18,8 @@ router.post(['/postRecordsCUHOne'], controller.postRecordsCUHOne);
 router.post(['/postRecordsCUHAll'], controller.postRecordsCUHAll);
 
 /* changePassword */
-router.get(['/:sUsername', '/changePassword/:sUsername'], authentication.sessionActive, authentication.isValidCUH,controller.getChangePassword);
-router.post(['/:sUsername', '/changePassword/:sUsername'], authentication.sessionActive, authentication.isValidCUH,controller.postChangePassword);
+router.get(['/changePassword/:sUsername'], authentication.sessionActive, authentication.isValidCUH,controller.getChangePassword);
+router.post(['/changePassword/:sUsername'], authentication.sessionActive, authentication.isValidCUH,controller.postChangePassword);
 
 
 /* analytics */
@@ -30,5 +30,9 @@ router.post(['/postHoursPerSRep'], controller.postHoursPerSRep);
 /* suspensions */
 router.get(['/holidays/:sUsername'], authentication.sessionActive, authentication.isValidCUH, controller.getSuspensions);
 router.post(['/postInsertSuspension'], controller.postInsertSuspension);
+
+/* requests */
+router.get(['/pending-requests/:sUsername'], authentication.sessionActive, authentication.isValidCUH, controller.getPendingTimelogs);
+router.post(['/postUpdateRequest'], controller.postUpdateRequest);
 
 module.exports = router;
