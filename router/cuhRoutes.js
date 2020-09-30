@@ -6,6 +6,7 @@ router.use(express.static('public'));
 
 /* controllers that provide functions depending on post or get */
 const controller = require('../controllers/cuhController');
+const MAcontroller = require('../controllers/manageAccountsController');
 const authentication = require('../middlewares/cuhAuthentication.js');
 
 /********* routes *********/
@@ -35,5 +36,9 @@ router.post(['/holidays/postInsertSuspension'], controller.postInsertSuspension)
 /* requests */
 router.get(['/pending-requests/:sUsername'], authentication.sessionActive, authentication.isValidCUH, controller.getPendingTimelogs);
 router.post(['/pending-requests/postUpdateRequest'], controller.postUpdateRequest);
+
+router.get(['/manage-accounts/:sUsername'], authentication.sessionActive, authentication.isValidCUH, MAcontroller.getManageAccount);
+router.post(['/manage-accounts/:sUsername'], authentication.sessionActive, authentication.isValidCUH, MAcontroller.postRevoke);
+router.post(['/manage-accounts/:sUsername'], authentication.sessionActive, authentication.isValidCUH, MAcontroller.postAccept);
 
 module.exports = router;
