@@ -7,7 +7,9 @@ const { findOne } = require('../models/DB_SRep.js');
 const { redirect } = require('./indexController.js');
 const saltRounds = 10;
 
+
 const sRepController = {
+
     getDashboard: function (req, res) {
 
         // insert db.findOne kung existing sa db ung nakalogin na user 
@@ -44,7 +46,7 @@ const sRepController = {
     */
     getRecordsSRep: function (req, res) {
         try{
-            var id = res.locals.user;
+            var id = req.session.primaryKey;
 
             db.findMany(modelTimeLog, {objSRep: req.session.primaryKey, cStatus: "A"}, {objTimeIn: -1}, '', 20, function(objTimeLogs){
                 records = objTimeLogs;
@@ -61,6 +63,51 @@ const sRepController = {
             //console.log(e)
         }
     },
+
+   /* for profile */
+   getProfile: function (req, res) {
+    //sUsername = res.session.sUserID;
+
+    var user = req.session.userId;
+    var id = req.session.primaryKey;
+
+    var remainingHours = 20.00;
+    var date = new Date();
+    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    firstDay.setHours(0);
+    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    lastDay.setHours(23, 59, 59);
+
+    var conditions = {sUsername:user};
+    
+    
+    console.log(user);
+       try{
+            db.findOne(modelSREP, conditions, '', function (x) {
+               db.findMany(modelTimeLog, {objSRep: id, objTimeIn:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(objTimeLogs){
+                    var virtualTimeLogs = objTimeLogs;
+                    for(i = 0; i < virtualTimeLogs.length; i++){
+                        remainingHours = remainingHours - virtualTimeLogs[i].fHours;
+                    }
+
+                    res.render("profile", {
+                        sPage: "profile",
+                        sUserType: "Student Representative",
+                        sFirstName: x.sFirstName,
+                        sLastName: x.sLastName,
+                        sEmail: x.sEmail,
+                        sCourse: x.sCourse,
+                        sUserID: x.sUsername,
+                        bHRStatus: x.bHRStatus,
+                        remainingHours: remainingHours,
+                    })
+                });
+            });
+       }
+       catch(e){
+           console.log(e)
+       }
+   },
 
     getChangePassword: function (req, res) {
         res.render("changePassword", {
