@@ -39,7 +39,7 @@ router.get(['/view-analytics/:sUsername'], authentication.sessionActive, authent
 router.post(['/view-analytics/postHoursPerWeekday'], controllerCUH.postHoursPerWeekday);
 router.post(['/view-analytics/postHoursPerSRep'], controllerCUH.postHoursPerSRep);
 
-router.get(['/records/:sUsername'], authentication.sessionActive, authenticationHR.isValidHR, controllerCUH.getRecordsCUH);
+//router.get(['/records/:sUsername'], authentication.sessionActive, authenticationHR.isValidHR, controllerCUH.getRecordsCUH);
 router.post(['/postRecordsCUHOne'], controllerCUH.postRecordsCUHOne);
 router.post(['/postRecordsCUHAll'], controllerCUH.postRecordsCUHAll);
 
