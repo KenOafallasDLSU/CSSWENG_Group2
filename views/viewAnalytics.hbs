@@ -53,9 +53,8 @@
                             <div class="form-group col-sm-12 input-group">
                                 <div class="p-1">
                                     <select id="statSelect" name="statSelect">
-                                        <option class = "statOption" value="">Total Hours per SRep</option>
-                                        <option class = "statOption" value="">holder</option>
-                                        <option class = "statOption" value="">holder</option>
+                                        <option class = "statOption" value="perSRep">Hours per SRep</option>
+                                        <option class = "statOption" value="perWeekday">Hours per Weekday</option>
                                     </select>
                                 </div>
                             </div>
@@ -76,7 +75,7 @@
                         <!-- View Analytics button -->
                         <div>
                             <div class="form-group col-sm-12">
-                                <button type="submit" id="btnViewAnalytics" class="btn btn-md btn-success btn-sm">Submit</button>
+                                <button type="button" id="btnViewAnalytics" class="btn btn-md btn-success btn-sm">Submit</button>
                             </div>
                         </div>
                     </form>
@@ -85,10 +84,12 @@
                     <table class="table table-striped">
                     <thead class="thread-dark" id="analyticsHeader">
                         <tr>
-                            <th scope="col-4">Name</th>
-                            <th scope="col-2">Total Hours</th>
-                            <th scope="col-2">Residency Sessions</th>
-                            <th scope="col-2">Ave Hours/Session</th>
+                            <th>Name</th>
+                            <th>Total Hours</th>
+                            <th>Residency Sessions</th>
+                            <th>Ave Hours/Session</th>
+                            <th>Expected Hours</th>
+                            <th>Complete</th>
                         </tr>
                     </thead>
                     <tbody id="analyticsBody">
@@ -98,6 +99,8 @@
                             <td>{{fTotalHours}}</td>
                             <td>{{nCount}}</td>
                             <td>{{fAverage}}</td>
+                            <td>{{nDays}}</td>
+                            <td>{{bGood}}</td>
                         </tr>
                         {{/each}}
                     </tbody>

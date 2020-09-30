@@ -3,10 +3,31 @@ const db = require('../models/db.js');
 const modelSRep = require('../models/DB_SRep.js');
 const modelTimeLog = require('../models/DB_TimeLog.js');
 const modelCUH = require('../models/DB_CUH.js');
+const modelSuspension = require('../models/DB_Suspension.js');
 const { setMaxListeners } = require('../router/cuhRoutes.js');
 const ObjectId = require('mongodb').ObjectId;
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+
+function getWeekdayCount(a, b){
+    let aTime = a.getTime();
+    let aDay = a.getDay();
+    let bTime = b.getTime();
+    let bDay = b.getDay();
+
+    let count = 0;
+    let inc = aDay;
+    let i;
+    for(i = 0; i <= (bTime-aTime)/(1000*60*60*24); i++)
+    {
+        if(!(inc % 7 == 0 || inc % 7 == 6))
+            count = count+1;
+        
+        inc = inc+1;
+    }
+
+    return count;
+}
 
 const cuhController = {
     getDashboard: function (req, res) {
@@ -250,45 +271,59 @@ const cuhController = {
 
                 var date = new Date();
                 var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+                firstDay.setHours(0);
                 var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+                lastDay.setHours(23, 59, 59);
+                var dayCount = getWeekdayCount(firstDay, lastDay);
 
-                db.findMany(modelTimeLog, {cStatus: 'A', objTimeIn:{$gte: firstDay, $lte: lastDay}, objTimeOut:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(objTimeLogs){
-                    var virtualTimeLogs = objTimeLogs;
-                        //console.log(virtualTimeLogs);
+                db.findMany(modelSuspension, {objDate:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(holidays){
+                    dayCount = dayCount - holidays.length;
 
-                    var records = [];
-                    var i;
-                    var k;
-                    for(i = 0; i < virtualSReps.length; i++)
-                    {
-                        var sum = 0;
-                        var count = 0;
+                    db.findMany(modelTimeLog, {cStatus: 'A', objTimeIn:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(objTimeLogs){
+                        var virtualTimeLogs = objTimeLogs;
+                            //console.log(virtualTimeLogs);
 
-                        for(k = 0; k < virtualTimeLogs.length; k++)
+                        var records = [];
+                        var i;
+                        var k;
+                        for(i = 0; i < virtualSReps.length; i++)
                         {
-                            //console.log(virtualSReps[i]._id + " " + virtualTimeLogs[k].objSRep)
-                            if(virtualSReps[i]._id.equals(virtualTimeLogs[k].objSRep))
+                            var sum = 0;
+                            var count = 0;
+
+                            for(k = 0; k < virtualTimeLogs.length; k++)
                             {
-                                sum = sum + virtualTimeLogs[k].fHours;
-                                count = count + 1;
+                                //console.log(virtualSReps[i]._id + " " + virtualTimeLogs[k].objSRep)
+                                if(virtualSReps[i]._id.equals(virtualTimeLogs[k].objSRep))
+                                {
+                                    sum = sum + virtualTimeLogs[k].fHours;
+                                    count = count + 1;
+                                }
                             }
+
+                            var ave;
+                            if(count == 0)
+                                ave = 0;
+                            else
+                                ave = sum/count;
+
+                            record = {
+                                sFullName: virtualSReps[i].sFullName,
+                                fTotalHours: sum,
+                                nCount: count,
+                                fAverage: parseFloat(ave.toFixed(2)),
+                                nDays: dayCount,
+                                bGood: sum >= dayCount
+                            }
+
+                            records.push(record);
                         }
 
-                        record = {
-                            sFullName: virtualSReps[i].sFullName,
-                            fTotalHours: sum,
-                            nCount: count,
-                            fAverage: sum/count,
-                        }
-
-                        records.push(record);
-                    }
-
-
-                    res.render("viewAnalytics", {
-                        sPage: "Analytics",
-                        sUserType: "CUH",
-                        records: records
+                        res.render("viewAnalytics", {
+                            sPage: "Analytics",
+                            sUserType: "CUH",
+                            records: records
+                        });
                     });
                 });
             });
@@ -299,23 +334,63 @@ const cuhController = {
     },
 
     /**
+     * Get tital hours per SRep
      * 
      * @param {*} req 
      * @param {*} res 
      */
-    postViewAnalytics: function (req, res) {
+    postHoursPerSRep: function (req, res) {
         try{
-            db.findMany(modelSRep, {cStatus: 'A'}, '', '', '', function(objSReps){
-                virtualSReps = objSReps;
+            db.findMany(modelSRep, {cAccStatus: 'A'}, '', '', '', function(objSReps){
+                var virtualSReps = objSReps;
 
-                db.findMany(modelTimeLog, {cStatus: 'A'}, '', '', '', function(objTimeLogs){
-                    virtualTimeLogs = objTimeLogs;
-                        //console.log(virtualTimeLogs);
+                var firstDay = req.body.tStartDate;
+                var lastDay = req.body.tEndDate;
+                var dayCount = getWeekdayCount(new Date(firstDay), new Date(lastDay));
 
-    
-                    res.render("viewAnalytics", {
-                        sPage: "Analytics",
-                        sUserType: "CUH",
+                db.findMany(modelSuspension, {objDate:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(holidays){
+                    dayCount = dayCount - holidays.length;
+
+                    db.findMany(modelTimeLog, {cStatus: 'A', objTimeIn:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(objTimeLogs){
+                        var virtualTimeLogs = objTimeLogs;
+                        
+                        var records = [];
+                        var i;
+                        var k;
+                        for(i = 0; i < virtualSReps.length; i++)
+                        {
+                            var sum = 0;
+                            var count = 0;
+
+                            for(k = 0; k < virtualTimeLogs.length; k++)
+                            {
+                                //console.log(virtualSReps[i]._id + " " + virtualTimeLogs[k].objSRep)
+                                if(virtualSReps[i]._id.equals(virtualTimeLogs[k].objSRep))
+                                {
+                                    sum = sum + virtualTimeLogs[k].fHours;
+                                    count = count + 1;
+                                }
+                            }
+
+                            var ave;
+                            if(count == 0)
+                                ave = 0;
+                            else
+                                ave = sum/count;
+
+                            record = {
+                                sFullName: virtualSReps[i].sFullName,
+                                fTotalHours: sum,
+                                nCount: count,
+                                fAverage: parseFloat(ave.toFixed(2)),
+                                nDays: dayCount,
+                                bGood: sum >= dayCount
+                            }
+
+                            records.push(record);
+                        }
+        
+                        res.send(records);
                     });
                 });
             });
@@ -323,6 +398,131 @@ const cuhController = {
         catch{
             console.log(e)
         }
+    },
+
+    /**
+     * Total hours per weekday, and hours per srep per weekday
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     */
+    postHoursPerWeekday: function (req, res) {
+        try{
+            db.findMany(modelSRep, {cAccStatus: 'A'}, '', '', '', function(objSReps){
+                var virtualSReps = objSReps;
+
+                var firstDay = req.body.tStartDate;
+                var lastDay = req.body.tEndDate;
+
+                db.findMany(modelTimeLog, {cStatus: 'A', objTimeIn:{$gte: firstDay, $lte: lastDay}}, '', '', '', function(objTimeLogs){
+                    var virtualTimeLogs = objTimeLogs;
+                    
+                    var tMon = 0, tTue = 0, tWed = 0, tThu = 0, tFri = 0, tSat = 0, tSun = 0;
+                    var records = [];
+                    var i, k;
+                    for(i = 0; i < virtualSReps.length; i++)
+                    {
+                        var mon = 0, tue = 0, wed = 0, thu = 0, fri = 0, sat = 0, sun = 0;
+
+                        for(k = 0; k < virtualTimeLogs.length; k++)
+                        {
+                            if(virtualSReps[i]._id.equals(virtualTimeLogs[k].objSRep)){
+                                switch(virtualTimeLogs[k].objTimeIn.getDay()){
+                                    case 0: 
+                                        tSun = tSun + virtualTimeLogs[k].fHours;
+                                        sun = sun + virtualTimeLogs[k].fHours;
+                                        break; 
+                                    case 1:
+                                        tMon = tMon + virtualTimeLogs[k].fHours;
+                                        mon = mon + virtualTimeLogs[k].fHours;
+                                        break;
+                                    case 2:
+                                        tTue = tTue + virtualTimeLogs[k].fHours;
+                                        tue = tue + virtualTimeLogs[k].fHours;
+                                        break;
+                                    case 3: 
+                                        tWed = tWed + virtualTimeLogs[k].fHours;
+                                        wed = wed + virtualTimeLogs[k].fHours;
+                                        break;
+                                    case 4: 
+                                        tThu = tThu + virtualTimeLogs[k].fHours;
+                                        thu = thu + virtualTimeLogs[k].fHours;
+                                        break;
+                                    case 5: 
+                                        tFri = tFri + virtualTimeLogs[k].fHours;
+                                        fri = fri + virtualTimeLogs[k].fHours;
+                                        break;
+                                    case 6: 
+                                        tSat = tSat + virtualTimeLogs[k].fHours;
+                                        sat = sat + virtualTimeLogs[k].fHours;
+                                        break;
+                                }
+                            }
+                        }
+
+                        var record = {
+                            sFullName: virtualSReps[i].sFullName,
+                            fMon: mon, fTue:tue, fWed: wed, fThu: thu, fFri: fri, fSat: sat, fSun: sun
+                        }
+
+                        records.push(record);
+                    }
+
+                    var record = {
+                        sFullName: "Total",
+                        fMon: tMon, fTue:tTue, fWed: tWed, fThu: tThu, fFri: tFri, fSat: tSat, fSun: tSun
+                    }
+
+                    records.unshift(record);
+    
+                    res.send(records);
+                });
+            });
+        }
+        catch{
+            console.log(e)
+        }
+    },
+
+    /** SUSPENSIONS */
+
+    getSuspensions: function(req, res){
+        try{
+            db.findMany(modelSuspension, {}, {objDate: -1}, '', 15, function(objSuspensions){
+                let suspensions = objSuspensions;
+
+                res.render("holidays", {
+                    sPage: "Suspensions",
+                    sUserType: "CUH",
+                    suspensions: suspensions
+                });
+            });
+        } catch{
+            console.log(e);
+        }
+        
+    },
+
+    postInsertSuspension: function(req, res){
+        console.log(req.body);
+
+        let susDate = new Date(req.body.sDate);
+        susDate.setHours(12, 0, 0, 0);
+
+        let suspension = {
+            objDate: susDate,
+            sReason: req.body.sReason
+        }
+
+        if(susDate.getDay() != 0 && susDate.getDay() != 6){ //not a weekend
+            db.findMany(modelSuspension, {objDate: susDate}, '', '', '', function(arrDates){
+                if(arrDates.length == 0){
+                    db.insertOne(modelSuspension, suspension, function(result){
+                        res.send(result);
+                    }); 
+                } else res.send("2");
+            });
+        } else res.send("3");
     }
 
 }
