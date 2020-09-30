@@ -16,7 +16,7 @@ router.post(['/postRecordsCUHOne'], controller.postRecordsCUHOne);
 router.post(['/postRecordsCUHAll'], controller.postRecordsCUHAll);
 
 /* analytics */
-router.get(['/analytics'], authentication.sessionActive, authentication.isValidCUH, controller.getViewAnalytics);
+router.get(['/view-analytics'], authentication.sessionActive, authentication.isValidCUH, controller.getViewAnalytics);
 router.post(['/postHoursPerWeekday'], controller.postHoursPerWeekday);
 router.post(['/postHoursPerSRep'], controller.postHoursPerSRep);
 
