@@ -29,5 +29,8 @@ router.get(['/manage-accounts/:sUsername'], authentication.sessionActive, authen
 router.post(['/manage-accounts/postCreateCUH'], authentication.sessionActive, authentication.isValidCUH,MAcontroller.postCUHRegister);
 router.post(['/manage-accounts/postGrantHRAccess'], authentication.sessionActive, authentication.isValidCUH,MAcontroller.postAccept);
 router.post(['/manage-accounts/postRevokeHRAccess'], authentication.sessionActive, authentication.isValidCUH,MAcontroller.postRevoke);
+/* suspensions */
+router.get(['/suspensions'], authentication.sessionActive, authentication.isValidCUH, controller.getSuspensions);
+router.post(['/postInsertSuspension'], controller.postInsertSuspension);
 
 module.exports = router;

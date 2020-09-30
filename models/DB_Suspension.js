@@ -22,8 +22,8 @@ const SuspensionSchema = new mongoose.Schema(
 SuspensionSchema.virtual("sDate").get(function() {
     var sYear = this.objDate.getFullYear().toString();
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    var sMonth = months[this.objTimeIn.getMonth()];
-    var sDay = this.objTimeIn.getDate().toString();
+    var sMonth = months[this.objDate.getMonth()];
+    var sDay = this.objDate.getDate().toString();
 
     return sMonth + " " + sDay + ", " + sYear; 
 });

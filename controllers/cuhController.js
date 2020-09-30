@@ -421,6 +421,47 @@ const cuhController = {
         catch{
             console.log(e)
         }
+    },
+
+    /** SUSPENSIONS */
+
+    getSuspensions: function(req, res){
+        try{
+            db.findMany(modelSuspension, {}, {objDate: -1}, '', 15, function(objSuspensions){
+                let suspensions = objSuspensions;
+
+                res.render("holidays", {
+                    sPage: "Suspensions",
+                    sUserType: "CUH",
+                    suspensions: suspensions
+                });
+            });
+        } catch{
+            console.log(e);
+        }
+        
+    },
+
+    postInsertSuspension: function(req, res){
+        console.log(req.body);
+
+        let susDate = new Date(req.body.sDate);
+        susDate.setHours(12, 0, 0, 0);
+
+        let suspension = {
+            objDate: susDate,
+            sReason: req.body.sReason
+        }
+
+        if(susDate.getDay() != 0 && susDate.getDay() != 6){ //not a weekend
+            db.findMany(modelSuspension, {objDate: susDate}, '', '', '', function(arrDates){
+                if(arrDates.length == 0){
+                    db.insertOne(modelSuspension, suspension, function(result){
+                        res.send(result);
+                    }); 
+                } else res.send("2");
+            });
+        } else res.send("3");
     }
 
 }
