@@ -117,7 +117,7 @@ hbs.registerHelper("navBuilder", (sPage, sUserType)=>{
         visible = [false, false, false, true, true, true, false,  false, true];
     }
     else{
-        visible = [true, true, true, false, true, true, true, true,  true];
+        visible = [true, false, false, false, true, true, true, true,  true];
     }
 
     let i=0;
