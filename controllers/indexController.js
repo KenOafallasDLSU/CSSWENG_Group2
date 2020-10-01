@@ -40,7 +40,10 @@ const indexController = {
                             } 
                             if (result) {
                                 req.session.userId = objSRep.sUsername;
-                                res.locals.user = ObjectId(objSRep._id); 
+                                req.session.primaryKey = objSRep._id;
+                                //res.locals.user = ObjectId(objSRep._id); 
+
+                                console.log(req.session.primaryKey);
 
                                 return res.redirect("/srep/"+ objSRep.sUsername);
                             }
@@ -64,7 +67,10 @@ const indexController = {
                                     } 
                                     if (result) {
                                         req.session.userId = objCUH.sUsername;
-                                        res.locals.user = ObjectId(objCUH._id);
+                                        req.session.primaryKey = objCUH._id;
+                                        //res.locals.user = ObjectId(objSRep._id); 
+
+                                        console.log(req.session.primaryKey);
         
                                         return res.redirect("/cuh/"+ objCUH.sUsername);
                                     }
