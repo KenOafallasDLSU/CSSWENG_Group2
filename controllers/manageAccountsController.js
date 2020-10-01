@@ -1,10 +1,10 @@
+
 const bcrypt = require('bcrypt');
 const {validationResult} = require('express-validator');
 const db = require('../models/db.js');
 const modelSREP = require('../models/DB_SRep.js');
 const modelCUH = require('../models/DB_CUH.js');
 const saltRounds = 10;
-
 
 
 const manageAccountController = {
@@ -98,9 +98,11 @@ getManageAccount: function (req, res) {
 
   postRevoke: function (req, res) {
 	console.log("hatdog3");
-			var user = req.body.sUsername;
-			var conditions = {sUsername:user, bHRstatus:true};
+			var user = req.body.sUserName;
+			console.log(user);
+			var conditions = {sUsername:user, bHRStatus:true};
 				try {
+<<<<<<< Updated upstream
 				 db.updateOne(modelSREP, conditions, { 
 				 $set:{
 				 bHRstatus : false
@@ -111,11 +113,24 @@ getManageAccount: function (req, res) {
 
 					   
 				res.redirect("/cuh/dashboard/" + user);
+=======
+				 db.updateOne(modelSREP, conditions, {bHRStatus:false} , function(status) {
+					console.log(status);
+				});
+				
+				
+				}catch(e) {
+				console.log(e);}
+
+	
+				// res.redirect("/cuh/manage-accounts/" + user);
+>>>>>>> Stashed changes
 				 
 			},
 
  postAccept: function (req, res) {
 	console.log("hatdog4");
+<<<<<<< Updated upstream
         var user = req.body.sUsername;
 		var conditions = {sUsername:user, bHRstatus:false};
 				try {
@@ -123,13 +138,26 @@ getManageAccount: function (req, res) {
 					 $set:{
 					 bHRstatus : true
 					}
+=======
+        var user = req.body.sUserName;
+		var conditions = {sUsername:user, bHRStatus:false};
+				try {
+					 db.updateOne(modelSREP,conditions, {bHRStatus:true} , function(status){ 
+					 
+						console.log(status);
+					 
+>>>>>>> Stashed changes
 					});
 
 				}catch(e) {
 				console.log(e);}
 
                
+<<<<<<< Updated upstream
         res.redirect("/cuh/dashboard/" + user);
+=======
+        // res.redirect("/cuh/manage-accounts/" + user);
+>>>>>>> Stashed changes
          
     },
   
@@ -160,5 +188,6 @@ function quick_Sort_srep(arr) {
         return newArray.concat( quick_Sort_srep(left), pivot,  quick_Sort_srep(right));
     }
 }
+
 
 module.exports = manageAccountController;

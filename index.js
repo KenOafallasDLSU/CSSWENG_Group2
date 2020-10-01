@@ -106,18 +106,22 @@ index.use('/srep', sRepRoutes);
 /** Helper Functions **/
 hbs.registerHelper("navBuilder", (sPage, sUserType)=>{
     let element = '';
-    let navs = ['Dashboard', 'Profile', 'Records', 'SendRequest', 'Pending Requests', 'View Analytics', 'Manage Accounts', 'Send Notification','Holidays', 'Logout'];
-    let url = ['/', '/profile', '/records', '/send-request', '/pending-requests', '/view-analytics', '/manage-accounts', '/send-notification','/holidays', '/logout'];
+    let navs = ['Dashboard', 'Profile', 'Records', 'SendRequest', 'Pending Requests', 'View Analytics', 'Manage Accounts', 'Holidays', 'Logout'];
+    let url = ['/', '/profile', '/records', '/send-request', '/pending-requests', '/view-analytics', '/manage-accounts', '/holidays', '/logout'];
     let visible = [];
 
     if (sUserType === 'Student Representative'){
-        visible = [true, true, true, true, false, false, false, false, false, true];
+        visible = [true, true, true, true, false, false, false,  false, true];
     }
     else if (sUserType === 'Human Resource Representative'){
+<<<<<<< Updated upstream
         visible = [true, true, true, true, true, true, false, true, false, true];
+=======
+        visible = [false, false, false, true, true, true, false,  false, true];
+>>>>>>> Stashed changes
     }
     else{
-        visible = [true, true, true, false, true, true, true, true, true, true];
+        visible = [true, true, true, false, true, true, true, true,  true];
     }
 
     let i=0;
