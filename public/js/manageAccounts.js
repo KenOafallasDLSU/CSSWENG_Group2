@@ -2,16 +2,31 @@
 $(document).ready(function() {
   
     $('#btnSubmitCreateCUH').click(function() {
-        var sFirstName = $('#sFirstName').val();
+         var sFirstName = $('#sFirstName').val();
         var sLastName = $('#sLastName').val();
-        var sEmail = $('#sEmail').val();
-        var sUserName = $('#nIDNumber').val();
-        var sPassword = $('#sPassword').val();
+         var sEmail = $('#sEmail').val();
+        
+         var sUsername = $('#nIDNumber').val();
 
-        $.post('postCreateCUH', { sFirstName:sFirstName , sLastName:sLastName , sEmail:sEmail , sUserName:sUserName , sPassword:sPassword  }, function(){
+         var sPassword = $('#sPassword').val();
+
+
+        // console.log(sFirstName);
+        // console.log(sLastName);
+        // console.log(sEmail);
+        // console.log(sUsername);
+        // console.log(sPassword);
+
+        // console.log('chicken');
+
+
+
+        $.post('postCreateCUH', { sFirstName:sFirstName , sLastName:sLastName , sEmail:sEmail , sUserName:sUsername , sPassword:sPassword  }, 
+        function(){
             
+        // console.log('chicken ran');
         });
-
+//   console.log('chicken run');
     });
 
 

@@ -10,7 +10,7 @@ mongoose.connect(databaseURL, options);
 
 const TimeLogSchema = new mongoose.Schema(
     {
-         objSRep: {type: mongoose.Schema.Types.ObjectId, ref: "SRep", required: true},
+        objSRep: {type: mongoose.Schema.Types.ObjectId, ref: "SRep", required: true},
         // sUserName: {type: String, required: true},
         objTimeIn: {type: Date, required: true},
         objTimeOut: {type: Date, required: false},
@@ -108,6 +108,9 @@ TimeLogSchema.virtual("fHours").get(function() {
         var fTimeIn = this.objTimeIn.getTime();
         var fTimeOut = this.objTimeOut.getTime();
         var fHours = (fTimeOut - fTimeIn)/3600000;
+
+        if (fHours.toFixed(2) < 0)
+			return parseFloat(0);
 
         return parseFloat(fHours.toFixed(2));
     }

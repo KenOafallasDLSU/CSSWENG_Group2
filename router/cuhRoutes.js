@@ -3,20 +3,21 @@ const express = require('express');
 const router = express();
 
 router.use(express.static('public'));
+//router.use(express.static('pending-requests'));
+
 /* controllers that provide functions depending on post or get */
 const controller = require('../controllers/cuhController');
 const MAcontroller = require('../controllers/manageAccountsController');
-
 const authentication = require('../middlewares/cuhAuthentication.js');
 
 /********* routes *********/
 
 
 /* dashboard */
-router.get(['/:sUsername', '/dashboard/:sUsername'], authentication.sessionActive, authentication.isValidCUH,controller.getDashboard);
+//router.get(['/:sUsername', '/dashboard/:sUsername'], authentication.sessionActive, authentication.isValidCUH,controller.getDashboard);
 
 /* records */
-router.get(['/records/:sUsername'], authentication.sessionActive, authentication.isValidCUH, controller.getRecordsCUH);
+router.get(['/:sUsername'], authentication.sessionActive, authentication.isValidCUH, controller.getRecordsCUH);
 router.post(['/postRecordsCUHOne'], controller.postRecordsCUHOne);
 router.post(['/postRecordsCUHAll'], controller.postRecordsCUHAll);
 
@@ -27,8 +28,8 @@ router.post(['/changePassword/:sUsername'], authentication.sessionActive, authen
 
 /* analytics */
 router.get(['/view-analytics/:sUsername'], authentication.sessionActive, authentication.isValidCUH, controller.getViewAnalytics);
-router.post(['/postHoursPerWeekday'], controller.postHoursPerWeekday);
-router.post(['/postHoursPerSRep'], controller.postHoursPerSRep);
+router.post(['/view-analytics/postHoursPerWeekday'], controller.postHoursPerWeekday);
+router.post(['/view-analytics/postHoursPerSRep'], controller.postHoursPerSRep);
 
 /*manage accounts*/
 
@@ -38,7 +39,7 @@ router.post(['/manage-accounts/postGrantHRAccess'] ,MAcontroller.postAccept);
 router.post(['/manage-accounts/postRevokeHRAccess'],MAcontroller.postRevoke);
 /* suspensions */
 router.get(['/holidays/:sUsername'], authentication.sessionActive, authentication.isValidCUH, controller.getSuspensions);
-router.post(['/postInsertSuspension'], controller.postInsertSuspension);
+router.post(['/holidays/postInsertSuspension'], controller.postInsertSuspension);
 
 /* requests */
 router.get(['/pending-requests/:sUsername'], authentication.sessionActive, authentication.isValidCUH, controller.getPendingTimelogs);

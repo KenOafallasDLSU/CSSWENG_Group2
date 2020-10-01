@@ -29,5 +29,6 @@
     "mongodb": "^3.6.2",
     "mongoose": "^5.10.5",
     "stack": "^0.1.0"
-  }
+  },
+  "keywords": []
 }

@@ -146,7 +146,7 @@ const indexController = {
 					sCourse : sCourse,
 					bActiveStatus: true,
 					bHRStatus: false,
-					cAccStatus:'P'
+					cAccStatus:'A'
 					
 				}, function(flag){});
 			

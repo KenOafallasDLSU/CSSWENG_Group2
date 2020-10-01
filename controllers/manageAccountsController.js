@@ -1,4 +1,3 @@
-
 const bcrypt = require('bcrypt');
 const {validationResult} = require('express-validator');
 const db = require('../models/db.js');
@@ -161,6 +160,5 @@ function quick_Sort_srep(arr) {
         return newArray.concat( quick_Sort_srep(left), pivot,  quick_Sort_srep(right));
     }
 }
-
 
 module.exports = manageAccountController;

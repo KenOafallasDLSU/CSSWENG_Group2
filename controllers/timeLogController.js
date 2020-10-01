@@ -104,7 +104,7 @@ const timeLogController = {
         try {
             db.insertOne(modelTimeLog, {
 
-                objSRep: ObjectId(res.locals.user),
+                objSRep: req.session.primaryKey,
                 objTimeIn: sDateTimeIn,
                 objTimeOut: sDateTimeOut,
                 sTask: sTask,

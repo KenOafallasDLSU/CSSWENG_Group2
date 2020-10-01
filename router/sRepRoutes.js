@@ -5,12 +5,14 @@ const router = express();
 const controller = require('../controllers/sRepController');
 const authentication = require('../middlewares/sRepAuthentication.js');
 const timeLogControllers = require('../controllers/timeLogController');
+const authenticationHR = require('../middlewares/hrAuthentication.js');
+const controllerCUH = require('../controllers/cuhController');
 /********* routes *********/
 
 /* dashboard */
 router.get(['/:sUsername', '/dashboard/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, controller.getDashboard);
 /* records */
-router.get(['/records-srep'], authentication.sessionActive, authentication.isValidSRep, controller.getRecordsSRep);
+router.get(['/records/:sUsername'], authentication.sessionActive, authentication.isValidSRep, controller.getRecordsSRep);
 
 
 // time in time out
@@ -26,16 +28,19 @@ router.get(['/:sUsername', '/dashboard2/:sUsername'] , authentication.sessionAct
 
 router.post(['/:sUsername', '/dashboard2/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, timeLogControllers.postTimeOut);
 
-router.get(['/:sUsername', '/sendRequest/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, controller.getSendRequest);
-// router.get("/" , timeLogControllers.getSendRequest);
-
-//router.post(['/:sUsername', '/sendRequest/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, timeLogControllers.postSendRequest);
-
-/* changePassword */
-router.get(['/:sUsername', '/changePassword/:sUsername'], authentication.sessionActive, authentication.isValidSRep, controller.getChangePassword);
-router.post(['/:sUsername', '/changePassword/:sUsername'], authentication.sessionActive, authentication.isValidSRep, controller.postChangePassword);
 // send request paths
 router.get(['/send-request', '/send-request/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, controller.getSendRequest);
 router.post(['/send-request', '/send-request/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, timeLogControllers.postSendRequest);
+
+/* profile */
+router.get("/profile/:sUsername", authentication.sessionActive, authentication.isValidSRep, controller.getProfile);
+
+router.get(['/view-analytics/:sUsername'], authentication.sessionActive, authenticationHR.isValidHR, controllerCUH.getViewAnalytics);
+router.post(['/view-analytics/postHoursPerWeekday'], controllerCUH.postHoursPerWeekday);
+router.post(['/view-analytics/postHoursPerSRep'], controllerCUH.postHoursPerSRep);
+
+//router.get(['/records/:sUsername'], authentication.sessionActive, authenticationHR.isValidHR, controllerCUH.getRecordsCUH);
+router.post(['/postRecordsCUHOne'], controllerCUH.postRecordsCUHOne);
+router.post(['/postRecordsCUHAll'], controllerCUH.postRecordsCUHAll);
 
 module.exports = router;
