@@ -114,11 +114,7 @@ hbs.registerHelper("navBuilder", (sPage, sUserType)=>{
         visible = [true, true, true, true, false, false, false,  false, true];
     }
     else if (sUserType === 'Human Resource Representative'){
-<<<<<<< Updated upstream
-        visible = [true, true, true, true, true, true, false, true, false, true];
-=======
         visible = [false, false, false, true, true, true, false,  false, true];
->>>>>>> Stashed changes
     }
     else{
         visible = [true, true, true, false, true, true, true, true,  true];

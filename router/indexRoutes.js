@@ -21,12 +21,6 @@ router.get('/checkID', controller.checkID);
 router.get('/logout', controller.getLogout);
 
 /* other routes (to redirect to /srep || /cuh) */
-<<<<<<< Updated upstream
-router.get(['/send-request', '/send-request/', '/srep/send-request', '/srep/send-request/'], authentication.sessionActive, controller.redirect);
-
-router.get(['/manage-accounts', '/manage-accounts/', '/cuh/manage-accounts', '/cuh/manage-accounts/'], authentication.sessionActive, controller.redirect);
-=======
 router.get(['/manage-accounts' , '/view-analytics', '/cuh/view-analytics', '/pending-requests', '/cuh/pending-requests', '/holidays', '/cuh/holidays', '/send-request', '/send-request/', '/srep/send-request', '/srep/send-request/', '/profile', '/srep/profile', '/records', '/srep/records', '/cuh/records'], authentication.sessionActive, controller.redirect);
->>>>>>> Stashed changes
 
 module.exports = router;

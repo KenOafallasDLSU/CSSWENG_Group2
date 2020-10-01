@@ -67,7 +67,7 @@ getManageAccount: function (req, res) {
 
  postCUHRegister: function (req, res) {
 	console.log("hatdog2");
-		 var sUsername = req.body.sUsername;
+		 var sUsername = req.body.sUserName;
 		 var sPassword = req.body.sPassword;
 		 var sFirstName = req.body.sFirstName;
 		 var sLastName = req.body.sLastName;
@@ -77,7 +77,7 @@ getManageAccount: function (req, res) {
 
 		 bcrypt.hash(sPassword, saltRounds, function(err, hash) {
 
-			 db.insertOne(modelSREP, {
+			 db.insertOne(modelCUH, {
 			 sUsername: sUsername,
 			 sPassword: hash,
 			 sFirstName: sFirstName,
@@ -92,7 +92,7 @@ getManageAccount: function (req, res) {
 
 		console.log('Created account of ' + sLastName + "," + sFirstName );
             
-        return res.redirect("/cuh/dashboard/"+ objCUH.sUsername);
+        // return res.redirect("/cuh/dashboard/"+ objCUH.sUsername);
      
     },
 
@@ -102,18 +102,6 @@ getManageAccount: function (req, res) {
 			console.log(user);
 			var conditions = {sUsername:user, bHRStatus:true};
 				try {
-<<<<<<< Updated upstream
-				 db.updateOne(modelSREP, conditions, { 
-				 $set:{
-				 bHRstatus : false
-				}
-				});
-				}catch(e) {
-				console.log(e);}
-
-					   
-				res.redirect("/cuh/dashboard/" + user);
-=======
 				 db.updateOne(modelSREP, conditions, {bHRStatus:false} , function(status) {
 					console.log(status);
 				});
@@ -124,21 +112,11 @@ getManageAccount: function (req, res) {
 
 	
 				// res.redirect("/cuh/manage-accounts/" + user);
->>>>>>> Stashed changes
 				 
 			},
 
  postAccept: function (req, res) {
 	console.log("hatdog4");
-<<<<<<< Updated upstream
-        var user = req.body.sUsername;
-		var conditions = {sUsername:user, bHRstatus:false};
-				try {
-					 db.updateOne(modelSREP, conditions, { 
-					 $set:{
-					 bHRstatus : true
-					}
-=======
         var user = req.body.sUserName;
 		var conditions = {sUsername:user, bHRStatus:false};
 				try {
@@ -146,18 +124,13 @@ getManageAccount: function (req, res) {
 					 
 						console.log(status);
 					 
->>>>>>> Stashed changes
 					});
 
 				}catch(e) {
 				console.log(e);}
 
                
-<<<<<<< Updated upstream
-        res.redirect("/cuh/dashboard/" + user);
-=======
         // res.redirect("/cuh/manage-accounts/" + user);
->>>>>>> Stashed changes
          
     },
   

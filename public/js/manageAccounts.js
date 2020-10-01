@@ -5,10 +5,10 @@ $(document).ready(function() {
         var sFirstName = $('#sFirstName').val();
         var sLastName = $('#sLastName').val();
         var sEmail = $('#sEmail').val();
-        var sUserName = $('#sUsername').val();
+        var sUserName = $('#nIDNumber').val();
         var sPassword = $('#sPassword').val();
 
-        $.post('postCUHRegister', { sFirstName:sFirstName , sLastName:sLastName , sEmail:sEmail , sUserName:sUserName , sPassword:sPassword  }, function(){
+        $.post('postCreateCUH', { sFirstName:sFirstName , sLastName:sLastName , sEmail:sEmail , sUserName:sUserName , sPassword:sPassword  }, function(){
             
         });
 
@@ -18,25 +18,15 @@ $(document).ready(function() {
 
     $('#btnSubmitGrant').click(function() {
         
-<<<<<<< Updated upstream
-        var sUserName = $('#sUsername').val();
-        $.post('postAccept', {sUserName:sUserName}, function(){
-=======
       console.log('chicken');
         var sUsername = $('#GrantStudentSelect').val();
         console.log(sUsername);
         $.post('postGrantHRAccess', {sUserName:sUsername}, function(){
->>>>>>> Stashed changes
            
         });
  
     });
 
-<<<<<<< Updated upstream
-    $('#btnSubmiRevoke').click(function() {
-        var sUserName = $('#sUsername').val();
-        $.post('postRevoke', {sUserName:sUserName}, function(){
-=======
     $('#btnSubmitRevoke').click(function() {
         console.log('chicken');
         console.log('chicken');
@@ -44,7 +34,6 @@ $(document).ready(function() {
         console.log(sUsername);
         // console.log('chicken');
         $.post('postRevokeHRAccess', {sUserName:sUsername}, function(){
->>>>>>> Stashed changes
            
         });
   
