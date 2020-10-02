@@ -1,3 +1,4 @@
+
 const express = require('express');
 const router = express();
 
@@ -10,6 +11,7 @@ const MAcontroller = require('../controllers/manageAccountsController');
 const authentication = require('../middlewares/cuhAuthentication.js');
 
 /********* routes *********/
+
 
 /* dashboard */
 //router.get(['/:sUsername', '/dashboard/:sUsername'], authentication.sessionActive, authentication.isValidCUH,controller.getDashboard);
@@ -29,6 +31,12 @@ router.get(['/view-analytics/:sUsername'], authentication.sessionActive, authent
 router.post(['/view-analytics/postHoursPerWeekday'], controller.postHoursPerWeekday);
 router.post(['/view-analytics/postHoursPerSRep'], controller.postHoursPerSRep);
 
+/*manage accounts*/
+
+router.get(['/manage-accounts/:sUsername'], authentication.sessionActive, authentication.isValidCUH,MAcontroller.getManageAccount);
+router.post(['/manage-accounts/postCreateCUH'], MAcontroller.postCUHRegister);
+router.post(['/manage-accounts/postGrantHRAccess'] ,MAcontroller.postAccept);
+router.post(['/manage-accounts/postRevokeHRAccess'],MAcontroller.postRevoke);
 /* suspensions */
 router.get(['/holidays/:sUsername'], authentication.sessionActive, authentication.isValidCUH, controller.getSuspensions);
 router.post(['/holidays/postInsertSuspension'], controller.postInsertSuspension);
@@ -38,7 +46,7 @@ router.get(['/pending-requests/:sUsername'], authentication.sessionActive, authe
 router.post(['/pending-requests/postUpdateRequest'], controller.postUpdateRequest);
 
 router.get(['/manage-accounts/:sUsername'], authentication.sessionActive, authentication.isValidCUH, MAcontroller.getManageAccount);
-router.post(['/manage-accounts/:sUsername'], authentication.sessionActive, authentication.isValidCUH, MAcontroller.postRevoke);
-router.post(['/manage-accounts/:sUsername'], authentication.sessionActive, authentication.isValidCUH, MAcontroller.postAccept);
-
+router.post(['/manage-accounts/:sUsername'],  MAcontroller.postRevoke);
+router.post(['/manage-accounts/:sUsername'], MAcontroller.postAccept);
+router.post(['/manage-accounts/:sUsername'], MAcontroller.postCUHRegister);
 module.exports = router;

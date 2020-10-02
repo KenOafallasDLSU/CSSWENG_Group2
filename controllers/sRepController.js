@@ -54,7 +54,7 @@ const sRepController = {
                 //res.send(records)
                 res.render("records", {
                     sPage: "SReps Records",
-                    sUserType: "SRep",
+                    sUserType: "Student Representative",
                     records: records
                 });
             });

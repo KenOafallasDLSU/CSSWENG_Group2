@@ -77,7 +77,7 @@ getManageAccount: function (req, res) {
 
 		 bcrypt.hash(sPassword, saltRounds, function(err, hash) {
 
-			 db.insertOne(modelSREP, {
+			 db.insertOne(modelCUH, {
 			 sUsername: sUsername,
 			 sPassword: hash,
 			 sFirstName: sFirstName,
@@ -92,7 +92,7 @@ getManageAccount: function (req, res) {
 
 		console.log('Created account of ' + sLastName + "," + sFirstName );
             
-        return res.redirect("/cuh/dashboard/"+ objCUH.sUsername);
+        //return res.redirect("/cuh/dashboard/"+ objCUH.sUsername);
      
     },
 

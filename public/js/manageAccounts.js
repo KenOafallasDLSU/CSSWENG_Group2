@@ -21,7 +21,7 @@ $(document).ready(function() {
 
 
 
-        $.post('postCreateCUH', { sFirstName:sFirstName , sLastName:sLastName , sEmail:sEmail , sUserName:sUsername , sPassword:sPassword  }, 
+        $.post('postCreateCUH', { sFirstName:sFirstName , sLastName:sLastName , sEmail:sEmail , sUsername:sUsername , sPassword:sPassword  }, 
         function(){
             
         // console.log('chicken ran');

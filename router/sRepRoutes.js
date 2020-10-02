@@ -12,7 +12,7 @@ const controllerCUH = require('../controllers/cuhController');
 /* dashboard */
 router.get(['/:sUsername', '/dashboard/:sUsername'] , authentication.sessionActive, authentication.isValidSRep, controller.getDashboard);
 /* records */
-router.get(['/records/:sUsername'], authentication.sessionActive, authentication.isValidSRep, controller.getRecordsSRep);
+router.get(['/records', '/records/:sUsername'], authentication.sessionActive, authentication.isValidSRep, controller.getRecordsSRep);
 
 
 // time in time out
@@ -40,6 +40,7 @@ router.post(['/view-analytics/postHoursPerWeekday'], controllerCUH.postHoursPerW
 router.post(['/view-analytics/postHoursPerSRep'], controllerCUH.postHoursPerSRep);
 
 //router.get(['/records/:sUsername'], authentication.sessionActive, authenticationHR.isValidHR, controllerCUH.getRecordsCUH);
+//router.get(['/records/:sUsername'], authentication.sessionActive, authentication.isValidSRep, controller.getRecordsSRep);
 router.post(['/postRecordsCUHOne'], controllerCUH.postRecordsCUHOne);
 router.post(['/postRecordsCUHAll'], controllerCUH.postRecordsCUHAll);
 
