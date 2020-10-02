@@ -2,13 +2,13 @@
 $(document).ready(function() {
   
     $('#btnSubmitCreateCUH').click(function() {
-        // var sFirstName = $('#sFirstName').val();
-        // var sLastName = $('#sLastName').val();
-        // var sEmail = $('#sEmail').val();
+         var sFirstName = $('#sFirstName').val();
+        var sLastName = $('#sLastName').val();
+         var sEmail = $('#sEmail').val();
         
-         var sUsername = $('#GrantStudentSelect').val();
+         var sUsername = $('#nIDNumber').val();
 
-        // var sPassword = $('#sPassword').val();
+         var sPassword = $('#sPassword').val();
 
 
         // console.log(sFirstName);
@@ -33,27 +33,24 @@ $(document).ready(function() {
 
     $('#btnSubmitGrant').click(function() {
         
-      
+      console.log('chicken');
         var sUsername = $('#GrantStudentSelect').val();
         console.log(sUsername);
         $.post('postGrantHRAccess', {sUserName:sUsername}, function(){
            
-
         });
-        console.log(sUsername);
- console.log('chicken 2');
+ 
     });
 
     $('#btnSubmitRevoke').click(function() {
-        var sUsername = $('#RevokeStudentSelect').val();
+        console.log('chicken');
+        console.log('chicken');
+        var sUsername = $('#revokeStudentSelect').val();
         console.log(sUsername);
         // console.log('chicken');
-        $.post('postRevokeHRAccess', {sUserName:sUserName}, function(){
+        $.post('postRevokeHRAccess', {sUserName:sUsername}, function(){
            
-         
         });
-        console.log(sUsername);
-        // console.log('chicken2');
+  
     });
 });
-
